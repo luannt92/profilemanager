@@ -1,0 +1,207 @@
+ul.menu-account li.active a, ul.menu-account li a:hover {
+    background: none;
+}
+
+.content-account {
+    margin-bottom: 20px;
+}
+
+.menu-info-account {
+    background: #FFF;
+}
+
+.img-account {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.img-account img {
+    border-radius: 50%;
+    width: 105px;
+    height: 105px;
+}
+
+ul.menu-account li a {
+    padding: 10px 10px 10px 16px;
+    font-weight: bold;
+}
+
+.text-header {
+    font-weight: bold;
+    padding-left: 16px;
+    padding-top: 10px;
+}
+
+.text-header-content {
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.text-header span {
+    color: #f5395b;
+}
+
+.account-info {
+    background: #FFF;
+    padding-left: 10px;
+}
+
+.account-info hr {
+    width: 50px;
+    border-bottom: 2px solid red;
+}
+
+.table {
+    background-color: #FFF;
+}
+
+.processing {
+    color: #ed3f4a;
+}
+
+.account-info-text-header {
+    font-weight: bold;
+    height: 25px;
+}
+
+.account-info-text-header:before {
+    content: "";
+    position: absolute;
+    width: 60px;
+    border-bottom: 3px solid #ea212e;
+    padding-left: 16px;
+    bottom: 0;
+}
+
+.account-info-text-content {
+    padding-top: 10px;
+}
+
+.edit-account-content {
+    background: #FFF;
+    padding: 24px 0;
+}
+
+.edit-account-content label {
+    font-weight: normal;
+    color: #888888;
+}
+
+.btn-account {
+    margin-left: 20%;
+}
+
+.btn-account button {
+    padding: 5px 30px;
+    margin-right: 30px;
+}
+
+.btn-pay {
+    float: right;
+}
+
+.btn-pay button {
+    margin-right: 10px;
+}
+
+.edit-account-content ul li {
+    display: inline;
+}
+
+.edit-account-content .input-group-addon {
+    background-color: #FFF;
+}
+
+input.mandatory {
+    background: url(../img/mandatory.png) 98% 50% no-repeat;
+}
+
+/**
+  *
+  * edit modal
+*/
+
+.modal-dialog {
+    padding-top: 50px;
+}
+
+.modal-header {
+    background-color: #e7272d;
+    text-align: center;
+}
+
+h4.modal-title {
+    text-transform: uppercase;
+    color: #FFF;
+}
+
+.modal-body {
+    background-color: #FFF;
+    text-align: center;
+}
+
+.noti-close p {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.noti-close h3 {
+    font-size: 40px;
+}
+
+.speak img {
+    margin-top: 20px;
+}
+
+.modal-footer {
+    text-align: center;
+    border-top: none;
+    background-color: #FFF;
+}
+
+.success {
+    background-color: #e7272d;
+    color: #FFF;
+    padding: 8px 30px;
+}
+
+.success:hover {
+    background-color: #e7272d;
+    color: #FFF;
+}
+
+.send-success {
+    font-size: 16px;
+}
+
+.send-success span {
+    color: #e7272d;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.code-order {
+    margin-top: 25px;
+}
+
+@media only screen and (max-width: 768px) {
+    .account-info {
+        margin-top: 10px;
+    }
+
+    .btn-account {
+        margin-left: 10%;
+    }
+
+    .edit-account-content .form-group {
+        padding: 0 10px;
+    }
+
+    .btn-pay {
+        padding-right: 15px;
+    }
+
+    .modal-body p {
+        font-size: 16px;
+    }
+}

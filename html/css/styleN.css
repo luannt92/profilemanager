@@ -1,0 +1,252 @@
+.blockmenu-content-1 h2 {
+    margin: 10px auto;
+}
+
+.p-d-t {
+    padding-top: 30px;
+    min-height: 400px;
+    position: relative;
+}
+
+.block-map iframe{
+    width: 100%;
+}
+
+.bg-contact {
+    background-color: #fff;
+    padding: 30px 25px;
+}
+
+.block-info-contact h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #252525;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.block-info-contact h3:after {
+    content: '';
+    border-bottom: 2px solid #e7272d;
+    width: 50px;
+    display: block;
+    padding-top: 15px;
+}
+
+.block-info-contact {
+    color: #888;
+}
+
+.block-info-contact p span{
+    display: inline-flex;
+}
+
+.bg-contact .block-info-contact p i {
+    color: #d80027;
+    padding-right: 5px;
+    font-size: 18px;
+}
+
+.block-info-contact a{
+    color: #888;
+}
+
+.block-info-contact a:hover{
+    opacity: 0.9;
+}
+
+.p-clear {
+    margin-bottom: 20px;
+}
+
+.block-info-contact textarea {
+    min-height: 120px;
+}
+
+.block-col-check {
+    display: inline-flex;
+}
+
+.btn-contact {
+    background-color: #e7272d;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+.has-required {
+    position: relative;
+}
+
+.has-required .span-required {
+    position: absolute;
+    top: 7px;
+    right: 20px;
+    color: #ccc;
+}
+
+.has-feedback .form-control {
+    padding-right: 12px;
+}
+
+#contactForm img {
+    width: 100%
+}
+.social-app {
+    position: relative;
+    margin-left: 19px;
+    margin-bottom: 30px;
+}
+
+.social {
+    background: url("../img/social.png");
+    width: 80px;
+    height: 35px;
+}
+
+.social.viber {
+    background-position: 0 90px;
+    width: 61px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+
+}
+
+.social.zalo {
+    background-position: -45px 90px;
+    width: 77px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+    left: 50px;
+}
+
+.social.webapp {
+    background-position: -90px 90px;
+    width: 77px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+    left: 95px;
+}
+.block-404 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.block-404 h1 {
+    font-size: 100px;
+    font-weight: bold;
+    color: #da251d;
+}
+
+.block-404 p {
+    color: #555454;
+    font-size: 30px;
+    padding-top: 20px;
+}
+
+.content-clause {
+    background: #fff;
+    min-height: 560px;
+    padding: 15px 20px;
+    font-size: 16px;
+}
+
+.content-clause img {
+    margin: 10px auto 20px auto;
+}
+
+.change-password {
+    background: #00aeef;
+}
+
+.check-forgot {
+    background: #f5395b;
+}
+
+.message-forgot {
+    color: #888;
+    text-align: center;
+    padding: 20px 50px 30px 50px;
+}
+.more-partners {
+    position: absolute;
+    background: #0e0001;
+    bottom: -10px;
+    border: 1px solid #eee;
+    min-height: 390px;
+    max-height: 390px;
+    overflow: scroll;
+    overflow-x: hidden;
+    right: 15px;
+    padding-left: 20px;
+    display: none;
+}
+
+.more-partners::-webkit-scrollbar{
+    width: 5px;
+    background-color: #0e0001;
+}
+
+.more-partners::-webkit-scrollbar-thumb {
+    background-color: #555;
+}
+
+.more-partners div {
+   padding: 0;
+}
+
+.more-partners h3{
+    margin-top: 15px;
+}
+
+.blocks-footer {
+    position: relative;
+}
+
+.more-partners .close-more {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.more-partners .close-more:after {
+    font-family: FontAwesome;
+    content: "\f0da";
+    color: #d80027;
+    font-size: 22px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 991px){
+    #contactForm .col-img-check {
+        width: 35%;
+    }
+
+    #contactForm .col-img-result {
+        width: 35%;
+    }
+
+    .col-img-contact {
+        display: inline-flex;
+    }
+
+    .col-name-contact{
+        margin-bottom: 15px;
+    }
+
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px){
+    .more-partners {
+        right: 0;
+    }
+
+    .more-partners .close-more {
+        right: 20px;
+    }
+}
