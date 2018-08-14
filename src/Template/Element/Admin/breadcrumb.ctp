@@ -4,7 +4,8 @@
         <ol class="breadcrumb">
             <li>
                 <?php echo $this->Html->link(
-                    'Dashboard', ['controller' => 'Users', 'dashboard'],
+                    'Dashboard',
+                    ['controller' => 'Dashboards', 'action' => 'summary'],
                     ['fullBase' => true]
                 ); ?>
             </li>
@@ -18,5 +19,12 @@
         </ol>
     </div>
     <div class="col-lg-2">
+        <?php if (isset($print)) {
+            $link = $this->Html->link('<i class="fa fa-print"></i>'
+                . __('Print'),
+                $print,
+                ['escape' => false, 'class' => 'btn btn-primary',]);
+            echo "<div class=\"title-action\">{$link}</div>";
+        } ?>
     </div>
 </div>

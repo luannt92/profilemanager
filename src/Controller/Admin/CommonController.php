@@ -3,9 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Http\Client;
 use Cake\Utility\Inflector;
 use Cake\Utility\Text;
 use Cake\I18n\FrozenTime;
+use Cake\I18n\I18n;
+use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class CommonController extends AppController
 {
@@ -16,12 +24,25 @@ class CommonController extends AppController
      */
     protected $_allowAction = [];
 
+    /**
+     * Using for access with action
+     *
+     * @var array
+     */
+    protected static $_excludePermission
+        = [
+            'login',
+            'summary',
+            'logout',
+        ];
+
     public function initialize()
     {
         parent::initialize();
-//        FrozenTime::setDefaultLocale('en_US');
+        FrozenTime::setDefaultLocale('en_US');
 
         $this->loadComponent('Paginator');
+        $this->loadComponent('Message');
         $this->loadComponent(
             'Auth', [
                 'authenticate'         => [
@@ -45,21 +66,38 @@ class CommonController extends AppController
                     'action'     => 'login',
                 ],
                 'loginRedirect'        => [
-                    'controller' => 'Users',
-                    'action'     => 'index',
+                    'controller' => 'Dashboards',
+                    'action'     => 'summary',
                 ],
                 'unauthorizedRedirect' => $this->referer(),
             ]
         );
 
+        $settingInfo = $this->_getConfigs();
+        $languages = Configure::read('system_languages');
+        $this->set(compact('languages', 'settingInfo'));
+
+        $this->viewBuilder()->setLayout('Admin/default');
+    }
+
+    /**
+     * @param Event $event
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
         $actions = $this->request->getParam('action');
         if ( ! empty($this->_allowAction)
             && ! in_array($actions, $this->_allowAction)
+            || ! $this->_checkPermission()
         ) {
-            die;
-        }
+            $this->Flash->error(__(USER_MSG_0064));
 
-        $this->viewBuilder()->setLayout('Admin/default');
+            return $this->redirect($this->referer());
+        }
     }
 
     /**
@@ -69,6 +107,8 @@ class CommonController extends AppController
      */
     public function index($conditions = [])
     {
+        $this->setReturnUrl();
+
         $modelAlias = $this->_getModelAlias();
         $search     = $this->request->getQueryParams();
 
@@ -87,11 +127,10 @@ class CommonController extends AppController
             'contain'    => [],
             'conditions' => $conditions,
             'order'      => [
-                $modelAlias . '.id DESC',
+                $modelAlias . '.id' => 'DESC',
             ],
         ];
         $items          = $this->paginate($this->$modelAlias);
-
         $this->set(compact('items', 'search'));
         $this->_setVarToView();
     }
@@ -108,7 +147,7 @@ class CommonController extends AppController
     {
         $modelAlias = $this->_getModelAlias();
         $item       = $this->$modelAlias->get($id, [
-            'finder' => 'translations',
+            'finder'  => 'translations',
             'contain' => [],
         ]);
 
@@ -123,26 +162,29 @@ class CommonController extends AppController
      */
     public function add()
     {
-        $language   = LANGUAGE;
         $modelAlias = $this->_getModelAlias();
         $item       = $this->$modelAlias->newEntity();
 
         if ($this->request->is('post')) {
             $data           = $this->request->getData();
-            $data['status'] = ENABLED;
+            $data['status'] = ! empty($data['status']) ? $data['status']
+                : ENABLED;
 
             $dataSave = $this->$modelAlias->patchEntity($item, $data);
-            foreach ($data as $datKey => $item){
-                if (array_key_exists($datKey, $language)) {
-                    $dataSave->translation($datKey)->set($data[$datKey], ['guard' => false]);
-                }
-            }
             if ($this->$modelAlias->save($dataSave)) {
                 $this->Flash->success(__(COMMON_MSG_0001));
 
-                return $this->redirect(['action' => 'index']);
+                $session    = $this->request->getSession();
+                $controller = $this->request->getParam('controller');
+                $userId     = $this->Auth->user('id');
+                $session->write($userId . $controller,
+                    $_SERVER['QUERY_STRING']);
+
+                return $this->redirect($this->getBackLink());
+            } else {
+                $error = $this->_displayErrors($dataSave->getErrors());
+                $this->Flash->error($error);
             }
-            $this->Flash->error(__(COMMON_MSG_0002));
         }
 
         $this->set(compact('item'));
@@ -159,10 +201,9 @@ class CommonController extends AppController
      */
     public function edit($id = null)
     {
-        $language   = LANGUAGE;
         $modelAlias = $this->_getModelAlias();
         $item       = $this->$modelAlias->get($id, [
-            'finder' => 'translations',
+            'finder'  => 'translations',
             'contain' => [],
         ]);
 
@@ -170,18 +211,14 @@ class CommonController extends AppController
             $data = $this->request->getData();
 
             $dataSave = $this->$modelAlias->patchEntity($item, $data);
-            foreach ($data as $datKey => $item){
-                if (array_key_exists($datKey, $language)) {
-                    $dataSave->translation($datKey)->set($data[$datKey], ['guard' => false]);
-                }
-            }
             if ($this->$modelAlias->save($dataSave)) {
-//                $this->_afterUpdateSuccess($id, $data);
                 $this->Flash->success(__(COMMON_MSG_0001));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->getBackLink());
+            } else {
+                $error = $this->_displayErrors($dataSave->getErrors());
+                $this->Flash->error($error);
             }
-            $this->Flash->error(__(COMMON_MSG_0002));
         }
 
         $this->set(compact('item'));
@@ -219,7 +256,7 @@ class CommonController extends AppController
             }
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->getBackLink());
     }
 
     /**
@@ -297,7 +334,8 @@ class CommonController extends AppController
     {
         $modelAlias = $this->_getModelAlias();
         if ($this->request->is('post')) {
-            $status    = $this->request->getData('statusExc');
+            $status = $this->request->getData('statusExc');
+
             $listId    = $this->request->getData('selectedAll');
             $arrStatus = [ENABLED, DISABLED, TRASH, REMOVE_RECORD];
 
@@ -399,4 +437,238 @@ class CommonController extends AppController
         die;
     }
 
+    /**
+     * @param $arrErrors
+     *
+     * @return string
+     */
+    protected function _displayErrors($arrErrors)
+    {
+        $errorMsg = [];
+        if ( ! empty($arrErrors)) {
+            foreach ($arrErrors as $errors) {
+                if (is_array($errors)) {
+                    foreach ($errors as $error) {
+                        $errorMsg[] = __($error);
+                    }
+                } else {
+                    $errorMsg[] = __($errors);
+                }
+            }
+        }
+
+        return ! empty($errorMsg) ? implode("\n \r", $errorMsg) : null;
+    }
+
+    /**
+     * Check permission by groups
+     *
+     * @return bool
+     */
+    private function _checkPermission()
+    {
+        $controller = $this->request->getParam('controller');
+        $action     = $this->request->getParam('action');
+
+        $userGroupType = $this->Auth->user('usg.type');
+        if ( ! empty($userGroupType)
+            && in_array($userGroupType, [SUPER_ADMIN, ADMIN])
+        ) {
+            $isAdmin                = true;
+            $currentUserPermissions = [];
+            $this->set(compact('currentUserPermissions', 'isAdmin'));
+
+            return true;
+        }
+
+        $isAdmin                = false;
+        $permissions            = Configure::read('permissions');
+        $currentUserPermissions = $this->_getCurrentUserPermission();
+
+        $this->set(compact('currentUserPermissions', 'isAdmin'));
+
+        if (in_array($action, self::$_excludePermission)
+            || ( ! empty($permissions[$controller][$action])
+                && ! empty($currentUserPermissions[$permissions[$controller][$action]]))
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get current user permission by group
+     *
+     * @return mixed
+     */
+    private function _getCurrentUserPermission()
+    {
+        $key = 'permission_users_' . $this->Auth->user('usg.id');
+
+        if (($userInfo = Cache::read($key)) === false) {
+            $groupsPermissionTbl = TableRegistry::get('UserGroupPermissions');
+            $userGroupId         = $this->Auth->user('user_group_id');
+
+            /* @var \App\Model\Table\UserGroupPermissionsTable $groupsPermissionTbl */
+            $userInfo
+                = $groupsPermissionTbl->getListPermission($userGroupId);
+            Cache::write($key, $userInfo);
+        }
+
+        return $userInfo;
+    }
+
+    /**
+     * export file excel
+     *
+     * @param       $nameFile
+     * @param array $data
+     * @param array $merges
+     * @param       $coordinateTitle
+     * @param array $styleTitle
+     * @param array $rangeAutoSize
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    public function exportExcel(
+        $nameFile,
+        $data = [],
+        $merges = [],
+        $coordinateTitle,
+        $styleTitle = [],
+        $rangeAutoSize = []
+    ) {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getProperties()->setCreator(CREATOR_EXPORT_EXCEL);
+        $spreadsheet->getActiveSheet()->setTitle(__('Report'));
+        $spreadsheet->getActiveSheet()->fromArray($data, null);
+
+        //merges coordinate
+        if ( ! empty($merges)) {
+            $spreadsheet->getActiveSheet()->setMergeCells($merges);
+        }
+
+        // set style for head
+        if ( ! empty($coordinateTitle)) {
+            $spreadsheet->getActiveSheet()->getStyle($coordinateTitle)
+                ->applyFromArray($styleTitle);
+        }
+
+        //set width auto
+        if ( ! empty($rangeAutoSize)) {
+            foreach ($rangeAutoSize as $col) {
+                $spreadsheet->getActiveSheet()->getColumnDimension($col)
+                    ->setAutoSize(true);
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-type: application/vnd.ms-excel;charset=utf-8');
+        header('Content-Disposition: attachment; filename="' . $nameFile
+            . '.xlsx"');
+
+        return $writer->save("php://output");
+    }
+
+    protected function getEmailAdmin()
+    {
+        $userTbl = TableRegistry::get('Users');
+        $users   = $userTbl->find('all', [
+            'fields'     => ['email', 'full_name'],
+            'conditions' => ['UserGroups.type' => 1],
+            'contain'    => ['UserGroups'],
+        ]);
+        $count   = $users->count();
+        $to      = '';
+        $cc      = [];
+        if ($count > 0) {
+            $stt = 1;
+            foreach ($users as $user) {
+                if ($stt === 1) {
+                    $to = $user->email;
+                } else {
+                    $cc[] = $user->email;
+                }
+            }
+
+        }
+
+        return [
+            'to' => $to,
+            'cc' => $cc,
+        ];
+    }
+
+    /**
+     * Return when press back link
+     */
+    public function setReturnUrl()
+    {
+        $session    = $this->request->getSession();
+        $controller = $this->request->getParam('controller');
+        $userId     = $this->Auth->user('id');
+        $query      = ! empty($this->request->getQueryParams())
+            ? $this->request->getQueryParams() : '';
+        $session->write('Link.' . $userId . $controller, $query);
+    }
+
+    /**
+     * @return array|null|string
+     */
+    public function getReturnUrl()
+    {
+        $session    = $this->request->getSession();
+        $controller = $this->request->getParam('controller');
+        $userId     = $this->Auth->user('id');
+
+        return $session->read('Link.' . $userId . $controller);
+    }
+
+    /**
+     * Get back link
+     *
+     * @return array
+     */
+    public function getBackLink()
+    {
+        $backLink = ['action' => 'index'];
+        $query    = $this->getReturnUrl();
+        if ( ! empty($query)) {
+            $backLink['?'] = $query;
+        }
+
+        return $backLink;
+    }
+
+    /**
+     * Get config from setting
+     */
+    private function _getConfigs()
+    {
+        $key = KEY_COMMON_ADMIN_CACHE;
+
+        if (($settingInfo = Cache::read($key)) === false) {
+            $settingTbl = TableRegistry::get('Settings');
+            $conditions = [
+                'OR' => [
+                    [
+                        'name IN' => [
+                            'time_open',
+                            'time_close',
+                        ],
+                    ],
+                ],
+                ['status' => ENABLED],
+            ];
+
+            /* @var \App\Model\Table\SettingsTable $settingTbl */
+            $settingInfo = $settingTbl->getListSetting([], $conditions);
+            Cache::write($key, $settingInfo);
+        }
+
+        return $settingInfo;
+    }
 }

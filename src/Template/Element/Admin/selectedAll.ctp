@@ -57,6 +57,28 @@ if (!isset($doNotDisplayButtonAdd)) {
     );
 }
 
+if (isset($updateAll)) {
+    echo $this->Html->link(
+        '<i class="fa fa-magic"></i> ' . __(UPDATE_ALL),
+        ['action' => 'updateAll'],
+        [
+            'class' => 'btn btn-success btn-sm m-r-sm',
+            'escapeTitle' => false,
+        ]
+    );
+}
+
+if (isset($addMultiple)) {
+    echo $this->Html->link(
+        '<i class="fa fa-magic"></i> ' . __(ADD_MULTIPLE),
+        ['action' => 'addMultiple'],
+        [
+            'class' => 'btn btn-success btn-sm m-r-sm',
+            'escapeTitle' => false,
+        ]
+    );
+}
+
 echo $this->Form->end();
 ?>
 <?php echo $this->Html->scriptStart(['block' => true]); ?>

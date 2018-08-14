@@ -1,0 +1,1690 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2018-04-12 15:21+0700\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Common/message.php:3
+msgid "Invalid email or password, try again"
+msgstr ""
+
+#: Common/message.php:4
+msgid "{0} must be greater than or equal to {1} characters!"
+msgstr ""
+
+#: Common/message.php:5
+msgid "Username has special characters!"
+msgstr ""
+
+#: Common/message.php:6
+msgid "Please, enter username"
+msgstr ""
+
+#: Common/message.php:7
+msgid "Please, enter password"
+msgstr ""
+
+#: Common/message.php:8
+msgid "Logout success!"
+msgstr ""
+
+#: Common/message.php:9
+msgid "Welcome {0} to Admin"
+msgstr ""
+
+#: Common/message.php:10
+msgid "Please, select group"
+msgstr ""
+
+#: Common/message.php:11
+msgid "If you want to change the password please input here"
+msgstr ""
+
+#: Common/message.php:12
+msgid "This field cannot be left empty"
+msgstr ""
+
+#: Common/message.php:13
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: Common/message.php:14
+msgid "Email has special characters!"
+msgstr ""
+
+#: Common/message.php:15
+msgid "Please, enter {0}"
+msgstr ""
+
+#: Common/message.php:16
+msgid "Incorrect {0}"
+msgstr ""
+
+#: Common/message.php:17
+msgid "Access email to confirm your account!"
+msgstr ""
+
+#: Common/message.php:18
+msgid "Email already exists."
+msgstr ""
+
+#: Common/message.php:19
+msgid "Confirmation link has expired."
+msgstr ""
+
+#: Common/message.php:20
+msgid "{0} or {1} is incorrect."
+msgstr ""
+
+#: Common/message.php:21
+msgid "Welcome {0} to admin."
+msgstr ""
+
+#: Common/message.php:24
+msgid "There is an error in the process of creating an account, please try again later."
+msgstr ""
+
+#: Common/message.php:25
+msgid "Error in sending mail."
+msgstr ""
+
+#: Common/message.php:26
+msgid "Confirm the password incorrectly. Please try again."
+msgstr ""
+
+#: Common/message.php:27
+msgid "Please enter your password."
+msgstr ""
+
+#: Common/message.php:28
+msgid "The account has been successfully activated."
+msgstr ""
+
+#: Common/message.php:29
+msgid "The account activation error."
+msgstr ""
+
+#: Common/message.php:30
+msgid "New password has been sent to your email."
+msgstr ""
+
+#: Common/message.php:31
+msgid "Account does not exist or is locked."
+msgstr ""
+
+#: Common/message.php:32
+msgid "Email invalidate."
+msgstr ""
+
+#: Common/message.php:33
+msgid "Email and password are wrong."
+msgstr ""
+
+#: Common/message.php:35
+msgid "Account registration successful. Please check email to complete the registration process."
+msgstr ""
+
+#: Common/message.php:36
+msgid "Your account has been activated before."
+msgstr ""
+
+#: Common/message.php:37
+msgid "Please activate your account before login."
+msgstr ""
+
+#: Common/message.php:39
+msgid "Please check your email to complete the password forgotten process."
+msgstr ""
+
+#: Common/message.php:40
+msgid "Link has expired, you can not use this link."
+msgstr ""
+
+#: Common/message.php:41
+msgid "An error occurred, login failed."
+msgstr ""
+
+#: Common/message.php:42
+msgid "An error occurred, please try again later."
+msgstr ""
+
+#: Common/message.php:44
+msgid "Your request failed. You may not connect to {0} Please re-authenticate."
+msgstr ""
+
+#: Common/message.php:45
+msgid "You can not connect to {0}"
+msgstr ""
+
+#: Common/message.php:46
+msgid "You must activate your account before signing in."
+msgstr ""
+
+#: Common/message.php:47
+msgid "Sorry. Your account has been locked."
+msgstr ""
+
+#: Common/message.php:48
+msgid "Sorry. Your account has been deleted."
+msgstr ""
+
+#: Common/message.php:49
+msgid "Account is invalid, please check again."
+msgstr ""
+
+#: Common/message.php:50
+msgid "Submit contact information successfully."
+msgstr ""
+
+#: Common/message.php:51
+msgid "Failed to send contact information."
+msgstr ""
+
+#: Common/message.php:53
+msgid "Please check information in your email."
+msgstr ""
+
+#: Common/message.php:54
+msgid "Whoops, these don't match."
+msgstr ""
+
+#: Common/message.php:55
+msgid "The password has been successfully changed."
+msgstr ""
+
+#: Common/message.php:56
+msgid "Invalid old password, try again."
+msgstr ""
+
+#: Common/message.php:58
+msgid "Age"
+msgstr ""
+
+#: Common/message.php:61
+msgid "Hostname"
+msgstr ""
+
+#: Common/message.php:62
+msgid "Username"
+msgstr ""
+
+#: Common/message.php:63;96
+msgid "Password"
+msgstr ""
+
+#: Common/message.php:64
+msgid "Port"
+msgstr ""
+
+#: Common/message.php:65
+msgid "Timeout"
+msgstr ""
+
+#: Common/message.php:66
+msgid "Number"
+msgstr ""
+
+#: Common/message.php:67
+msgid "Timespan"
+msgstr ""
+
+#: Common/message.php:70
+msgid "The data has been saved."
+msgstr ""
+
+#: Common/message.php:71
+msgid "The data could not be saved. Please, try again."
+msgstr ""
+
+#: Common/message.php:72
+msgid "The data with id: {0} has been deleted."
+msgstr ""
+
+#: Common/message.php:73
+msgid "The data could not be deleted. Please, try again."
+msgstr ""
+
+#: Common/message.php:74
+msgid "The data has been updated."
+msgstr ""
+
+#: Common/message.php:75
+msgid "The data could not updated."
+msgstr ""
+
+#: Common/message.php:76
+msgid "The data do not exist."
+msgstr ""
+
+#: Common/message.php:79
+msgid "Are you sure delete item selected ?"
+msgstr ""
+
+#: Common/message.php:81
+msgid "Users Management"
+msgstr ""
+
+#: Common/message.php:82
+msgid "Search keyword"
+msgstr ""
+
+#: Common/message.php:83
+msgid "Add New"
+msgstr ""
+
+#: Common/message.php:84
+#: Template/Services/view.ctp:132
+#: Template/Stores/view.ctp:81
+msgid "Search"
+msgstr ""
+
+#: Common/message.php:85
+msgid "Reset"
+msgstr ""
+
+#: Common/message.php:86
+msgid "Move to trash"
+msgstr ""
+
+#: Common/message.php:87
+#: Template/Services/view.ctp:128
+#: Template/Stores/view.ctp:77
+msgid "View"
+msgstr ""
+
+#: Common/message.php:88
+msgid "View Tree"
+msgstr ""
+
+#: Common/message.php:89
+msgid "Edit"
+msgstr ""
+
+#: Common/message.php:90
+msgid "Delete"
+msgstr ""
+
+#: Common/message.php:91
+#: Template/Admin/MailTemplates/add.ctp:4
+msgid "Add"
+msgstr ""
+
+#: Common/message.php:92
+msgid "Edit / {0}"
+msgstr ""
+
+#: Common/message.php:93
+msgid "View / {0}"
+msgstr ""
+
+#: Common/message.php:94
+msgid "View info"
+msgstr ""
+
+#: Common/message.php:95
+msgid "User name"
+msgstr ""
+
+#: Common/message.php:97
+msgid "Save change"
+msgstr ""
+
+#: Common/message.php:98
+msgid "Edit data"
+msgstr ""
+
+#: Common/message.php:99
+msgid "Edit info"
+msgstr ""
+
+#: Common/message.php:100
+msgid "New info"
+msgstr ""
+
+#: Common/message.php:101
+msgid "Go to edit"
+msgstr ""
+
+#: Common/message.php:102
+msgid "Back"
+msgstr ""
+
+#: Common/message.php:103
+msgid "Image"
+msgstr ""
+
+#: Common/message.php:104
+msgid "Icon"
+msgstr ""
+
+#: Common/message.php:105
+msgid "Enable"
+msgstr ""
+
+#: Common/message.php:106
+msgid "Disable"
+msgstr ""
+
+#: Common/message.php:107
+msgid "Restore"
+msgstr ""
+
+#: Common/message.php:108
+msgid "Avatar"
+msgstr ""
+
+#: Common/message.php:109
+msgid "Category"
+msgstr ""
+
+#: Common/message.php:110
+msgid "Tag: "
+msgstr ""
+
+#: Common/message.php:111
+msgid "Status: "
+msgstr ""
+
+#: Common/message.php:112
+msgid "Title"
+msgstr ""
+
+#: Common/message.php:113
+msgid "Description"
+msgstr ""
+
+#: Common/message.php:114;147
+msgid "Content"
+msgstr ""
+
+#: Common/message.php:115
+msgid "Publish date"
+msgstr ""
+
+#: Common/message.php:116
+msgid "Start date"
+msgstr ""
+
+#: Common/message.php:117
+msgid "Image url"
+msgstr ""
+
+#: Common/message.php:118
+msgid "Meta title"
+msgstr ""
+
+#: Common/message.php:119
+msgid "Meta description"
+msgstr ""
+
+#: Common/message.php:120
+msgid "Meta keyword"
+msgstr ""
+
+#: Common/message.php:121
+msgid "Note"
+msgstr ""
+
+#: Common/message.php:123
+msgid "Groups Management"
+msgstr ""
+
+#: Common/message.php:124
+msgid "Categories Management"
+msgstr ""
+
+#: Common/message.php:125
+msgid "Countries Management"
+msgstr ""
+
+#: Common/message.php:126
+msgid "Product Categories Management"
+msgstr ""
+
+#: Common/message.php:127
+msgid "Product Management"
+msgstr ""
+
+#: Common/message.php:128
+msgid "Order Management"
+msgstr ""
+
+#: Common/message.php:129
+msgid "Services Management"
+msgstr ""
+
+#: Common/message.php:130
+msgid "Our Service Management"
+msgstr ""
+
+#: Common/message.php:131
+msgid "Store Management"
+msgstr ""
+
+#: Common/message.php:132
+msgid "Shipping Zones Management"
+msgstr ""
+
+#: Common/message.php:133
+msgid "Tags Management"
+msgstr ""
+
+#: Common/message.php:134
+msgid "News Management"
+msgstr ""
+
+#: Common/message.php:135
+msgid "Menus Management"
+msgstr ""
+
+#: Common/message.php:136
+msgid "Name"
+msgstr ""
+
+#: Common/message.php:137
+msgid "Your note"
+msgstr ""
+
+#: Common/message.php:139
+msgid "Mail Template Management"
+msgstr ""
+
+#: Common/message.php:141
+msgid "Skype"
+msgstr ""
+
+#: Common/message.php:142
+#: Template/Stores/view.ctp:177
+msgid "Phone"
+msgstr ""
+
+#: Common/message.php:143
+msgid "Path"
+msgstr ""
+
+#: Common/message.php:144
+msgid "Company"
+msgstr ""
+
+#: Common/message.php:145
+#: Template/Stores/view.ctp:173
+msgid "Address"
+msgstr ""
+
+#: Common/message.php:146
+msgid "Subject"
+msgstr ""
+
+#: Common/message.php:148
+msgid "Send from"
+msgstr ""
+
+#: Common/message.php:149
+msgid "Number customer"
+msgstr ""
+
+#: Common/message.php:151
+msgid "Slug"
+msgstr ""
+
+#: Common/message.php:152
+msgid "Created At"
+msgstr ""
+
+#: Common/message.php:153
+msgid "Updated At"
+msgstr ""
+
+#: Common/message.php:155
+msgid "The email has been sent."
+msgstr ""
+
+#: Common/message.php:156
+msgid "The email could not be sent. Please, try again."
+msgstr ""
+
+#: Common/message.php:158
+msgid "Page management"
+msgstr ""
+
+#: Common/message.php:159
+msgid "Slider management"
+msgstr ""
+
+#: Common/message.php:160
+msgid "Contact Management"
+msgstr ""
+
+#: Common/message.php:161
+msgid "Support Management"
+msgstr ""
+
+#: Common/message.php:164
+msgid "Open hour"
+msgstr ""
+
+#: Common/message.php:165
+msgid "Close hour"
+msgstr ""
+
+#: Common/message.php:166
+msgid "All"
+msgstr ""
+
+#: Common/message.php:168
+msgid " VNĐ"
+msgstr ""
+
+#: Common/message.php:171
+#: Template/Users/edit.ctp:43;44
+msgid "Số điện thoại"
+msgstr ""
+
+#: Common/message.php:172
+msgid "Viber"
+msgstr ""
+
+#: Common/message.php:173
+msgid "Zalo"
+msgstr ""
+
+#: Common/message.php:174
+msgid "Whatsapp"
+msgstr ""
+
+#: Common/message.php:175
+msgid "Nhà riêng"
+msgstr ""
+
+#: Common/message.php:176
+msgid "Khách sạn"
+msgstr ""
+
+#: Common/message.php:178
+msgid "Càng sớm càng tốt"
+msgstr ""
+
+#: Common/message.php:181
+msgid "Login"
+msgstr ""
+
+#: Common/message.php:182
+msgid "Email"
+msgstr ""
+
+#: Common/message.php:183
+msgid "Please enter your email address"
+msgstr ""
+
+#: Common/message.php:184
+msgid "Please enter your password"
+msgstr ""
+
+#: Common/message.php:185
+msgid "Remember me"
+msgstr ""
+
+#: Common/message.php:186
+msgid "Forgot the password"
+msgstr ""
+
+#: Common/message.php:187
+msgid "Or"
+msgstr ""
+
+#: Common/message.php:188
+msgid "Login by facebook"
+msgstr ""
+
+#: Common/message.php:189
+msgid "Register the account"
+msgstr ""
+
+#: Common/message.php:190
+msgid "Message"
+msgstr ""
+
+#: Common/message.php:193
+msgid "Confirm password"
+msgstr ""
+
+#: Common/message.php:194
+msgid "Please enter your password again"
+msgstr ""
+
+#: Common/message.php:195
+msgid "Register"
+msgstr ""
+
+#: Common/message.php:196
+msgid "Register by facebook"
+msgstr ""
+
+#: Common/message.php:197
+msgid "Full name"
+msgstr ""
+
+#: Common/message.php:198
+msgid "Please enter full name"
+msgstr ""
+
+#: Common/message.php:199
+msgid "Hello !"
+msgstr ""
+
+#: Common/message.php:200
+msgid "Logout"
+msgstr ""
+
+#: Common/message.php:201
+msgid "My account"
+msgstr ""
+
+#: Common/message.php:202
+msgid "Phone number"
+msgstr ""
+
+#: Common/message.php:203
+msgid "Please enter phone number"
+msgstr ""
+
+#: Common/message.php:204
+msgid "OK"
+msgstr ""
+
+#: Common/message.php:205
+msgid "Send"
+msgstr ""
+
+#: Common/message.php:206
+msgid "New password"
+msgstr ""
+
+#: Common/message.php:207
+msgid "Confirm new password"
+msgstr ""
+
+#: Common/message.php:208
+msgid "Old password"
+msgstr ""
+
+#: Common/message.php:209
+msgid "Change password"
+msgstr ""
+
+#: Common/message.php:212
+msgid "Information"
+msgstr ""
+
+#: Common/message.php:213
+msgid "Your name and surname"
+msgstr ""
+
+#: Common/message.php:214
+msgid "Your email address"
+msgstr ""
+
+#: Common/message.php:215
+msgid "Your message"
+msgstr ""
+
+#: Common/message.php:216
+msgid "Your phone number"
+msgstr ""
+
+#: Common/message.php:217
+msgid "Contact"
+msgstr ""
+
+#: Common/message.php:218
+msgid "This question is for testing whether or not you are a human visitor and to prevent automated spam submissions."
+msgstr ""
+
+#: Common/message.php:219
+msgid "Invoice"
+msgstr ""
+
+#: Common/message.php:221
+msgid "Shippers Management"
+msgstr ""
+
+#: Common/message.php:222
+msgid "Download app"
+msgstr ""
+
+#: Common/message.php:223
+msgid " Download"
+msgstr ""
+
+#: Common/message.php:224
+msgid " Link"
+msgstr ""
+
+#: Common/message.php:225
+msgid " How to use our service?"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:161
+msgid "The Express Checkout transaction has expired and the transaction needs to be restarted"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:162
+msgid "You may have made a second call for the same payment or you may have used the same invoice ID for seperate transactions."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:163
+msgid "Please use a different funcing source."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:164
+msgid "An error occured, please retry the transaction."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:165
+msgid "This transaction couldn't be completed. Redirecting to payment gateway"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:166
+msgid "You have not agreed to the billing agreement."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:167
+msgid "The billing agreement is disabled or inactive."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:168
+msgid "The credit card used is expired."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:169
+msgid "The transaction was refused because the AVS response returned the value of N, and the merchant account is not able to accept such transactions."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:170
+msgid "The payment gateway account is restricted."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:171
+msgid "You must submit an IP address of the buyer with each API call."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:172
+msgid "The merchant selected a value for the PaymentAction field that is not supported."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:173
+msgid "The credit card field was blank."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:174
+msgid "The total amount and item amounts do not match."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:175;180
+msgid "The credit card entered is currently restricted by the payment gateway."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:176
+msgid "The merchant entered an invoice ID that is already associated with a transaction by the same merchant. Attempt with a new invoice ID"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:177
+msgid "The transaction was declined by the country filter managed by the merchant."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:178
+msgid "The transaction was declined by the maximum amount filter managed by the merchant."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:179;181;196
+msgid "The transaction was declined by the payment gateway."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:182
+msgid "The transaction was declined by payment gateway because of possible fraudulent activity."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:183
+msgid "The transaction was declined by payment gateway because of possible fraudulent activity on the IP address."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:184
+msgid "The merchant account attempting the transaction is not a business account."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:185
+msgid "The merchant account attempting the transaction is not able to process Direct Payment transactions. "
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:186
+msgid "Access to Direct Payment was disabled for your account."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:187
+msgid "The merchant account attempting the transaction does not have a confirmed email address with the payment gateway."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:188
+msgid "The merchant attempted a transaction where the amount exceeded the upper limit for that merchant."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:189
+msgid "The transaction was declined because of a merchant risk filter for AVS. Specifically, the merchant has set to decline transaction when the AVS returned a no match (AVS = N)."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:190
+msgid "The transaction was declined because of a merchant risk filter for AVS. Specifically, the merchant has set the filter to decline transactions when the AVS returns a partial match."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:191
+msgid "The transaction was declined because of a merchant risk filter for AVS. Specifically, the merchant has set the filter to decline transactions when the AVS is unsupported."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:192
+msgid "The merchant entered an IP address that was in an invalid format. The IP address must be in a format such as 123.456.123.456."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:193
+msgid "The merchant's configuration requires a CVV to be entered, but no CVV was provided with this transaction."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:194
+msgid "The merchant provided an address either in the United States or Canada, but the state provided is not a valid state in either country."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:195;207;208
+msgid "The transaction was declined by the issuing bank, not the payment gateway. The merchant should attempt another card."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:197
+msgid "The merchant's country of residence is not currently supported to allow Direct Payment transactions."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:198
+msgid "The transaction was declined because the payment gateway is currently processing a transaction by the same buyer for the same amount. Can occur when a buyer submits multiple, identical transactions in quick succession."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:199
+msgid "The CVV provided is invalid. The CVV is between 3-4 digits long."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:200
+msgid "Please try again later. Ensure you have passed the correct CVV and address info for the buyer. If creating a recurring profile, please try again by passing a init amount of 0."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:201;202
+msgid "Transaction is not compliant due to missing or invalid 3-D Secure authentication values. Check ECI, ECI3DS, CAVV, XID fields."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:203
+msgid "The transaction was rejected by the payment gateway because of excessive failures over a short period of time for this credit card."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:204
+msgid "The transaction was declined by payment gateway."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:205
+msgid "The transaction was declined because the merchant does not have a valid commercial entity agreement on file with the payment gateway."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:206
+msgid "The transaction was declined because the CVV entered does not match the credit card."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:209
+msgid "The transaction was declined by the issuing bank because of an expired credit card. The merchant should attempt another card."
+msgstr ""
+
+#: Template/Addresses/add.ctp:2
+#: Template/Addresses/edit.ctp:2
+msgid "thanh toán"
+msgstr ""
+
+#: Template/Addresses/add.ctp:3
+#: Template/Addresses/edit.ctp:3
+msgid "nhận hàng"
+msgstr ""
+
+#: Template/Addresses/add.ctp:4
+#: Template/Addresses/edit.ctp:4
+msgid "Số điện thoại Hoặc Whatsapp, Viber, Zalo:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:9
+#: Template/Addresses/edit.ctp:9
+#: Template/Users/change_password.ctp:2
+#: Template/Users/edit.ctp:2
+msgid "Bỏ qua"
+msgstr ""
+
+#: Template/Addresses/add.ctp:27
+#: Template/Addresses/edit.ctp:29
+msgid "Chỉnh sửa địa chỉ {0} mặc định"
+msgstr ""
+
+#: Template/Addresses/add.ctp:56
+#: Template/Addresses/edit.ctp:47
+msgid "Tên:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:60
+#: Template/Addresses/edit.ctp:52
+msgid "Email:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:92
+#: Template/Addresses/edit.ctp:87
+msgid "Địa chỉ {0}:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:103
+#: Template/Addresses/edit.ctp:99
+msgid "Số phòng:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:108
+#: Template/Addresses/edit.ctp:105
+msgid "Chọn khách sạn"
+msgstr ""
+
+#: Template/Addresses/add.ctp:112
+#: Template/Addresses/edit.ctp:109
+msgid "Chọn khách sạn:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:120
+#: Template/Addresses/edit.ctp:119
+msgid "Địa chỉ:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:133
+#: Template/Addresses/edit.ctp:133
+msgid "Vui lòng chọn thời gian giao hàng:"
+msgstr ""
+
+#: Template/Addresses/add.ctp:142
+#: Template/Addresses/edit.ctp:143
+msgid "Nhập ghi chú nếu cần"
+msgstr ""
+
+#: Template/Addresses/add.ctp:146
+#: Template/Addresses/edit.ctp:148
+#: Template/Users/change_password.ctp:50
+#: Template/Users/edit.ctp:47
+msgid "Lưu lại"
+msgstr ""
+
+#: Template/Admin/Categories/add.ctp:21
+#: Template/Admin/Categories/edit.ctp:21
+#: Template/Admin/Categories/view.ctp:24
+#: Template/Admin/MailTemplates/add.ctp:20
+#: Template/Admin/MailTemplates/edit.ctp:19
+#: Template/Admin/NewCategories/add.ctp:21
+#: Template/Admin/NewCategories/edit.ctp:21
+#: Template/Admin/NewCategories/view.ctp:24
+#: Template/Admin/News/add.ctp:31
+#: Template/Admin/News/edit.ctp:30
+#: Template/Admin/News/view.ctp:33
+#: Template/Admin/OurServices/add.ctp:26
+#: Template/Admin/OurServices/edit.ctp:29
+#: Template/Admin/OurServices/view.ctp:32
+#: Template/Admin/Pages/add.ctp:21
+#: Template/Admin/Pages/edit.ctp:21
+#: Template/Admin/Pages/view.ctp:32
+#: Template/Admin/ProductCategories/add.ctp:21
+#: Template/Admin/ProductCategories/edit.ctp:21
+#: Template/Admin/ProductCategories/view.ctp:24
+#: Template/Admin/Products/add.ctp:26
+#: Template/Admin/Products/edit.ctp:28
+#: Template/Admin/Products/view.ctp:31
+#: Template/Admin/Services/add.ctp:27
+#: Template/Admin/Services/edit.ctp:29
+#: Template/Admin/Services/view.ctp:32
+#: Template/Admin/Sliders/add.ctp:28
+#: Template/Admin/Sliders/edit.ctp:29
+#: Template/Admin/Sliders/view.ctp:32
+#: Template/Admin/Stores/add.ctp:26
+#: Template/Admin/Stores/edit.ctp:27
+#: Template/Admin/Stores/view.ctp:29
+#: Template/Admin/Supports/add.ctp:21
+#: Template/Admin/Supports/edit.ctp:21
+#: Template/Admin/Supports/view.ctp:24
+#: Template/Admin/Tags/add.ctp:21
+#: Template/Admin/Tags/edit.ctp:21
+#: Template/Admin/Tags/view.ctp:24
+msgid "Translate"
+msgstr ""
+
+#: Template/Admin/Categories/index.ctp:28
+#: Template/Admin/Countries/index.ctp:29
+#: Template/Admin/Menus/index.ctp:32
+#: Template/Admin/NewCategories/index.ctp:27
+#: Template/Admin/News/index.ctp:26
+#: Template/Admin/Orders/index.ctp:28
+#: Template/Admin/OurServices/index.ctp:27
+#: Template/Admin/Pages/index.ctp:31
+#: Template/Admin/ProductCategories/index.ctp:25
+#: Template/Admin/Products/index.ctp:32
+#: Template/Admin/Services/index.ctp:25
+#: Template/Admin/Shippers/index.ctp:106
+#: Template/Admin/ShippingZones/index.ctp:23
+#: Template/Admin/Sliders/index.ctp:26
+#: Template/Admin/Stores/index.ctp:32
+#: Template/Admin/Supports/index.ctp:28
+#: Template/Admin/Tags/index.ctp:25
+#: Template/Admin/UserGroups/index.ctp:30
+#: Template/Admin/Users/index.ctp:111
+msgid "Actions"
+msgstr ""
+
+#: Template/Admin/Menus/add.ctp:31
+#: Template/Admin/Pages/add.ctp:51
+#: Template/Admin/Pages/edit.ctp:57
+msgid "type"
+msgstr ""
+
+#: Template/Admin/News/add.ctp:68
+msgid "Publish date:"
+msgstr ""
+
+#: Template/Admin/News/edit.ctp:177
+#: Template/Admin/News/view.ctp:161
+msgid "title"
+msgstr ""
+
+#: Template/Admin/News/edit.ctp:184
+#: Template/Admin/News/view.ctp:168
+msgid "description"
+msgstr ""
+
+#: Template/Admin/News/edit.ctp:194
+#: Template/Admin/News/view.ctp:178
+msgid "content"
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:27
+#: Template/Admin/Orders/view.ctp:14
+msgid "Shipping"
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:32
+#: Template/Admin/Orders/view.ctp:19
+msgid "Billing"
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:46
+#: Template/Admin/Orders/view.ctp:41
+msgid "Price: "
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:51
+#: Template/Admin/Orders/view.ctp:46
+msgid "Mã: "
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:59
+#: Template/Admin/Orders/view.ctp:54
+msgid "Store: "
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:60
+#: Template/Admin/Orders/view.ctp:55
+msgid "Phone: "
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:61
+#: Template/Admin/Orders/view.ctp:56
+msgid "Address: "
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:96
+#: Template/Admin/Orders/view.ctp:92
+msgid "Product"
+msgstr ""
+
+#: Template/Admin/Orders/edit.ctp:100
+#: Template/Admin/Orders/view.ctp:96
+msgid "Shipping - Billing Addresses"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:64
+#: Template/Admin/Orders/invoice_print.ctp:55
+msgid "From:"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:71
+#: Template/Admin/Orders/invoice_print.ctp:62
+msgid "Invoice No."
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:73
+#: Template/Admin/Orders/invoice_print.ctp:64
+msgid "To:"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:78
+#: Template/Admin/Orders/invoice_print.ctp:69
+msgid "Invoice Date: "
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:86
+#: Template/Admin/Orders/invoice_print.ctp:77
+msgid "Item List"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:87
+#: Template/Admin/Orders/invoice_print.ctp:78
+msgid "Quantity"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:88
+#: Template/Admin/Orders/invoice_print.ctp:79
+msgid "Unit Price"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:89
+#: Template/Admin/Orders/invoice_print.ctp:80
+msgid "Discount"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:90
+#: Template/Admin/Orders/invoice_print.ctp:81
+msgid "Total Price"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:101
+#: Template/Admin/Orders/invoice_print.ctp:92
+msgid "Sub Total :"
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:105
+#: Template/Admin/Orders/invoice_print.ctp:96
+msgid "Discount: "
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:109
+#: Template/Admin/Orders/invoice_print.ctp:100
+msgid "Fee shipping: "
+msgstr ""
+
+#: Template/Admin/Orders/invoice.ctp:113
+#: Template/Admin/Orders/invoice_print.ctp:104
+msgid "TOTAL :"
+msgstr ""
+
+#: Template/Admin/Orders/view.ctp:30
+msgid "Print Invoice"
+msgstr ""
+
+#: Template/Element/Admin/breadcrumb.ctp:24
+msgid "Print"
+msgstr ""
+
+#: Template/Element/Admin/paginator.ctp:13
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr ""
+
+#: Template/Element/Front/footer.ctp:94
+msgid "Liên kết"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:11
+#: Template/Orders/view.ctp:25
+msgid "Hủy"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:15
+#: Template/Orders/view.ctp:6
+msgid "Đang xử lý"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:19
+#: Template/Orders/view.ctp:7
+msgid "Xác nhận"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:23
+#: Template/Orders/view.ctp:8
+msgid "Đã chuyển đến"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:27
+#: Template/Orders/view.ctp:9
+msgid "Đã nhận hàng"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:39
+msgid "THEO DÕI"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:92
+msgid "Từ ngày"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:95
+msgid "Đến ngày"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:124
+msgid "Mã đơn hàng"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:125
+msgid "Ngày đặt hàng"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:126
+msgid "Tiền mua hàng"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:127
+msgid "Phí ship"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:128
+msgid "Tình trạng"
+msgstr ""
+
+#: Template/Element/Front/Order/table.ctp:129
+msgid "Xem chi tiết"
+msgstr ""
+
+#: Template/Element/Front/Users/menuAccount.ctp:12
+msgid "Quản lý tài khoản"
+msgstr ""
+
+#: Template/Element/Front/Users/menuAccount.ctp:16
+msgid "Đơn đặt hàng"
+msgstr ""
+
+#: Template/Element/Front/Users/menuAccount.ctp:20
+msgid "Đổi mặt khẩu"
+msgstr ""
+
+#: Template/Element/Front/Users/menuAccount.ctp:24
+msgid "Đăng xuất"
+msgstr ""
+
+#: Template/Element/Front/Users/menuAccount.ctp:37
+msgid "Xin chào! "
+msgstr ""
+
+#: Template/Orders/check_out.ctp:16
+#: Template/Stores/view.ctp:97
+msgid "Cart"
+msgstr ""
+
+#: Template/Orders/check_out.ctp:178
+msgid "Nhập ghi chú nếu cần!"
+msgstr ""
+
+#: Template/Orders/check_out.ctp:398
+#: Template/Stores/view.ctp:248
+#: Template/Stores/viewcart.ctp:61
+msgid "Add notes"
+msgstr ""
+
+#: Template/Orders/index.ctp:6
+msgid "Danh sách đơn đặt hàng"
+msgstr ""
+
+#: Template/Orders/view.ctp:13
+#: Template/Users/account.ctp:14
+msgid "Địa chỉ nhận hàng"
+msgstr ""
+
+#: Template/Orders/view.ctp:17
+msgid "Địa chỉ thanh toán"
+msgstr ""
+
+#: Template/Orders/view.ctp:22
+msgid "Tình trạng đơn hàng"
+msgstr ""
+
+#: Template/Orders/view.ctp:44
+msgid "Gói hàng đã đặt"
+msgstr ""
+
+#: Template/Orders/view.ctp:64
+msgid "Cảm ơn quý khách đã tin tưởng và mua sản phẩm qua dịch vụ Phu Quoc Delivery!"
+msgstr ""
+
+#: Template/Orders/view.ctp:84
+msgid "Chi tiết đơn hàng"
+msgstr ""
+
+#: Template/Orders/view.ctp:87
+msgid "Mã đơn hàng:"
+msgstr ""
+
+#: Template/Orders/view.ctp:91
+msgid "Ngày đặt: {0}"
+msgstr ""
+
+#: Template/Orders/view.ctp:95
+msgid "Tổng tiền: {0}"
+msgstr ""
+
+#: Template/Orders/view.ctp:106
+#: Template/Users/account.ctp:19
+msgid "Thanh toán"
+msgstr ""
+
+#: Template/Orders/view.ctp:110
+msgid "Tạm tính:"
+msgstr ""
+
+#: Template/Orders/view.ctp:111
+msgid "Phí vận chuyển:"
+msgstr ""
+
+#: Template/Orders/view.ctp:112
+msgid "Khuyến mại:"
+msgstr ""
+
+#: Template/Orders/view.ctp:113
+msgid "Tổng (Đã có VAT):"
+msgstr ""
+
+#: Template/OurServices/index.ctp:17
+#: Template/Services/index.ctp:22
+#: Template/Users/home.ctp:33
+msgid "View detail"
+msgstr ""
+
+#: Template/OurServices/index.ctp:29
+msgid "Cách sử dụng dịch vụ của\n                        chúng tôi?"
+msgstr ""
+
+#: Template/Services/view.ctp:26
+msgid "Xem nhiều hơn"
+msgstr ""
+
+#: Template/Services/view.ctp:59;78;88
+#: Template/Services/viewajax.ctp:20;39;49
+#: Template/Services/viewajaxod.ctp:32;51;61
+msgid "Giờ mở cửa"
+msgstr ""
+
+#: Template/Services/view.ctp:61;80;90
+#: Template/Services/viewajax.ctp:22;41;51
+#: Template/Services/viewajaxod.ctp:34;53;63
+msgid "Hàng ngày"
+msgstr ""
+
+#: Template/Services/view.ctp:74
+#: Template/Services/viewajax.ctp:35
+#: Template/Services/viewajaxod.ctp:47
+msgid "Nhà hàng"
+msgstr ""
+
+#: Template/Services/view.ctp:115
+msgid "Danh mục"
+msgstr ""
+
+#: Template/Services/view.ctp:147
+msgid "Thể loại"
+msgstr ""
+
+#: Template/Services/view.ctp:156
+msgid "Mới nhất"
+msgstr ""
+
+#: Template/Services/view.ctp:159
+msgid "Mua nhiều nhất"
+msgstr ""
+
+#: Template/Services/view.ctp:190
+msgid "Discounts and rebates"
+msgstr ""
+
+#: Template/Services/view.ctp:198
+msgid "Discounts"
+msgstr ""
+
+#: Template/Stores/view.ctp:64
+msgid "Categories"
+msgstr ""
+
+#: Template/Stores/view.ctp:88
+msgid "Enter keywords to Search..."
+msgstr ""
+
+#: Template/Stores/view.ctp:142
+msgid "Menu"
+msgstr ""
+
+#: Template/Stores/view.ctp:145
+msgid "Info"
+msgstr ""
+
+#: Template/Stores/view.ctp:153
+msgid "Món được yêu thích nhất"
+msgstr ""
+
+#: Template/Stores/view.ctp:163
+msgid "Time open"
+msgstr ""
+
+#: Template/Stores/view.ctp:168
+msgid "Time close"
+msgstr ""
+
+#: Template/Stores/view.ctp:271
+#: Template/Stores/viewcart.ctp:84
+msgid "Total"
+msgstr ""
+
+#: Template/Stores/view.ctp:284
+#: Template/Stores/viewcart.ctp:97
+msgid "Checkout"
+msgstr ""
+
+#: Template/Users/account.ctp:3;35
+msgid "Chỉnh sửa"
+msgstr ""
+
+#: Template/Users/account.ctp:8
+msgid "Tên: "
+msgstr ""
+
+#: Template/Users/account.ctp:10
+msgid "SĐT: "
+msgstr ""
+
+#: Template/Users/account.ctp:47
+msgid "Thông tin tài khoản"
+msgstr ""
+
+#: Template/Users/account.ctp:57
+msgid "Thông tin cá nhân"
+msgstr ""
+
+#: Template/Users/account.ctp:78
+msgid "Đơn hàng gần đây"
+msgstr ""
+
+#: Template/Users/change_password.ctp:18
+#: Template/Users/edit.ctp:18
+msgid "Chỉnh sửa thông tin tài khoản"
+msgstr ""
+
+#: Template/Users/change_password.ctp:34
+msgid "Vui lòng nhập mật khẩu hiện tại"
+msgstr ""
+
+#: Template/Users/change_password.ctp:35
+msgid "Mật khẩu cũ"
+msgstr ""
+
+#: Template/Users/change_password.ctp:40;41
+msgid "Mật khẩu mới"
+msgstr ""
+
+#: Template/Users/change_password.ctp:46;47
+msgid "Nhập lại mật khẩu mới"
+msgstr ""
+
+#: Template/Users/contact.ctp:50
+msgid "Liên hệ hợp tác"
+msgstr ""
+
+#: Template/Users/contact.ctp:76
+msgid "Hoặc liên hệ qua:"
+msgstr ""
+
+#: Template/Users/edit.ctp:33;34
+msgid "Tên hiển thị"
+msgstr ""
+
+#: Template/Users/pages.ctp:13
+msgid "Điều khoản sử dụng"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:248
+msgid "An error occured while getting the status of your account."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:301;350
+msgid "There was an error while connecting to Paypal"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:305
+msgid "There was a problem initiating the transaction, please try again."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:353
+msgid "There was a problem getting your details, please try again."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:407
+msgid "There was an error completing the payment"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:410
+msgid "There was a problem processing the transaction, please try again."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:444
+msgid "There was an error processing the card payment"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:447
+msgid "There was a problem processing your card, please try again."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:484
+msgid "There was an error processing the payment"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:487
+msgid "There was a problem processing the payment, please try again."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:500;580;924
+msgid "You must pass a valid order array"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:503;583
+msgid "authorization_id must be passed."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:506
+msgid "You must pass an amount must be passed."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:509;930
+msgid "You must provide a currency code"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:564
+msgid "There was an error voiding the payment"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:567
+msgid "There was a problem voiding the payment, please try again."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:636
+msgid "There was an error processing the the refund"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:639
+msgid "A problem occurred during the refund process, please try again."
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:682;726;761
+msgid "There was an problem communicating with the payment gateway"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:745
+msgid "Missing client id/secret"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:788;877
+msgid "Must specify an expiry date"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:793;882
+msgid "Must include a M and Y in expiry date"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:801
+msgid "Invalid expiry date"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:807
+msgid "Invalid card number"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:811
+msgid "Invalid CVV2 number"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:817
+msgid "Invalid card type"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:859
+msgid "Could not detect client IP address"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:863
+msgid "Not a valid credit card number"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:868
+msgid "You must include the 3 digit security number"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:873
+msgid "Must specify an \"amount\" to charge"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:927
+msgid "Valid \"return\" and \"cancel\" urls must be provided"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:1007
+msgid "Original PayPal Transaction ID is required"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:1012
+msgid "Must specify an \"amount\" to refund"
+msgstr ""
+
+#: Controller/Component/PaypalCheckoutComponent.php:1016
+msgid "You must specify a refund type, such as Full or Partial"
+msgstr ""
+

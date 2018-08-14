@@ -12,6 +12,8 @@ use Cake\ORM\Behavior\Translate\TranslateTrait;
  */
 class MenuItem extends Entity
 {
+    use TranslateTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -26,6 +28,4 @@ class MenuItem extends Entity
             '*'  => true,
             'id' => false,
         ];
-
-    use TranslateTrait;
 }

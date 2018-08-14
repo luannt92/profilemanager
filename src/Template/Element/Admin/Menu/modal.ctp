@@ -18,7 +18,7 @@
                 <h4 class="modal-title">Edit Menu</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
+                <div class="form-group form-input-name">
                     <label for="title"
                            class="col-lg-2 control-label">Name</label>
                     <div class="col-lg-10">
@@ -35,13 +35,29 @@
                                class="form-control"/>
                     </div>
                 </div>
+                <div class="form-group form-input-icon hidden">
+                    <label for="icon"
+                           class="col-lg-2 control-label">Icon</label>
+                    <div class="col-lg-10">
+                        <?php echo $this->Form->control('icon', [
+                                'label' => false,
+                                'class' => 'form-control',
+                                'options' => ! empty($icons) ? $icons : [],
+                                'empty'   => '---Select icon---',
+                                'templates' => [
+                                    'inputContainer' => '{{content}}'
+                                ],
+                            ]
+                        ); ?>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                     <span class="prompt-msg text-danger"
                           style="display:none;"></span>
                 <input type="hidden" name="id" value=""/>
                 <button type="button" class="btn btn-default"
-                        data-dismiss="modal">Cancle
+                        data-dismiss="modal">Cancel
                 </button>
                 <button id="editButton" type="button" class="btn btn-primary">
                     Save
@@ -51,3 +67,6 @@
         </div>
     </div>
 </div>
+<?php
+echo $this->element('Admin/Editor/popup');
+?>

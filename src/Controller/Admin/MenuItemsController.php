@@ -3,11 +3,11 @@
 namespace App\Controller\Admin;
 
 use Cake\Cache\Cache;
-use Cake\I18n\I18n;
 
 /**
  * Class MenuItemsController
  *
+ * @property \App\Model\Table\MenuItemsTable $MenuItems
  * @package App\Controller\Admin
  */
 class MenuItemsController extends CommonController
@@ -15,7 +15,6 @@ class MenuItemsController extends CommonController
     public function initialize()
     {
         parent::initialize();
-        I18n::setLocale('vi');
     }
 
     /**
@@ -35,14 +34,19 @@ class MenuItemsController extends CommonController
             if ($this->MenuItems->save($dataSave)) {
                 $this->Flash->success(__(COMMON_MSG_0001));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->getBackLink());
             }
             $this->Flash->error(__(COMMON_MSG_0002));
         }
     }
 
     /**
-     * @param null $id
+     * Edit method
+     *
+     * @param string|null $id $modelAlias id.
+     *
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {

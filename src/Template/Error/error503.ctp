@@ -1,17 +1,25 @@
-<?php
-$this->layout = 'error';
-?>
-<div class="error5">
-    <div class="text-center">
-        <div class="err5img">
-            <?php echo $this->Html->image('err500.png',
-                ['alt' => '503 : Service Unavailable.']); ?>
-        </div>
-        <div class="err5text">
-            <h2>Xin lỗi bạn, đây là lỗi của chúng tôi!</h2>
-            <p>Máy chủ của LUCKY STAR TRAVEL đang gặp sự cố. <br>
-                Phiền bạn khởi động lại trang nhé!!!
-            </p>
+<div class="content">
+    <div class="blockmenu-content-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="block-title text-center">Service Unavailable</h2>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- blockmenu-content -->
+    <div class="block-content p-d-t">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-xs-6 block-col block-404">
+                    <div class="block-item">
+                        <h1>503</h1>
+                        <p>Trang không tồn tại</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- block-content -->
 </div>

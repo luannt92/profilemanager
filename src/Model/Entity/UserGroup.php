@@ -3,7 +3,6 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\ORM\Behavior\Translate\TranslateTrait;
 
 /**
  * Class User
@@ -26,6 +25,4 @@ class UserGroup extends Entity
             '*'  => true,
             'id' => false,
         ];
-
-    use TranslateTrait;
 }

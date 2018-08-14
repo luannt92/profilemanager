@@ -1,22 +1,4 @@
 <?php
-$form  = $this->Form->create(
-    null, [
-        'type'  => 'get',
-        'url'   => [
-            'controller' => 'Users',
-            'action'     => 'searchResult',
-        ],
-        'class' => 'navbar-form-custom',
-    ]
-);
-$input = $this->Form->text(
-    'top-search',
-    [
-        'placeholder' => 'Search for something...',
-        'class'       => 'form-control',
-    ]
-);
-
 $logoutLink = $this->Html->link(
     '<i class="fa fa-sign-out"></i> Log out',
     ['controller' => 'Users', 'action' => 'logout'],
@@ -34,11 +16,6 @@ $homepage   = $this->Html->link(
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
                href="#"><i class="fa fa-bars"></i> </a>
-            <?php echo $form; ?>
-            <div class="form-group">
-                <?php echo $input; ?>
-            </div>
-            <?php echo $this->Form->end(); ?>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>

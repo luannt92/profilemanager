@@ -3,7 +3,6 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\ORM\Behavior\Translate\TranslateTrait;
 
 /**
  * Class Menu
@@ -26,6 +25,4 @@ class Menu extends Entity
             '*'  => true,
             'id' => false,
         ];
-
-    use TranslateTrait;
 }

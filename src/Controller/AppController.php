@@ -45,8 +45,6 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
-        $this->_setLanguage();
-
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -71,26 +69,5 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
-    }
-
-    private function _setLanguage()
-    {
-        if (isset($this->request->params['language'])
-            && ($this->request->params['language'])
-        ) {
-            switch ($this->request->params['language']) {
-                case 'en':
-                    $lang = 'en';
-                    break;
-                case 'vn':
-                default:
-                    $lang = 'vi';
-                    break;
-            }
-        } else {
-            $lang = 'vi';
-        }
-
-        I18n::setLocale($lang);
     }
 }

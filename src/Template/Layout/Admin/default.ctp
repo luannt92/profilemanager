@@ -14,6 +14,9 @@ use Cake\Routing\Router;
             'admin/plugins/toastr/toastr.min.css',
             'admin/bootstrap-datepicker3.min.css',
             'admin/plugins/footable/footable.core.css',
+            'admin/plugins/validate/bootstrapValidator.min.css',
+            'admin/plugins/select2/select2.min.css',
+            'admin/jquery.fancybox.min.css',
             'admin/plugins/iCheck/custom.css',
             'admin/animate.css',
             'admin/style.css',
@@ -54,10 +57,15 @@ if($this->request->controller === 'MailTemplates' && $this->request->action === 
 <script>
     var appConfig = {
         baseUrl: "<?php echo Router::url('/', true); ?>",
-        template:[]
+        template:[],
+        sec: "<?php echo FILE_ACCESS_KEY; ?>"
     };
 </script>
 <?php
+echo $this->element('Admin/loading', [], [
+//    "cache"     => "long_view",
+//    "callbacks" => true,
+]);
 echo $this->Html->script(
     [
         'admin/jquery-3.1.1.min.js',
@@ -67,6 +75,9 @@ echo $this->Html->script(
         'admin/plugins/metisMenu/jquery.metisMenu.js',
         'admin/plugins/slimscroll/jquery.slimscroll.min.js',
         'admin/plugins/footable/footable.all.min.js',
+        'admin/plugins/validate/bootstrapValidator.min.js',
+        'admin/plugins/select2/select2.full.min.js',
+        'admin/jquery.fancybox.min.js',
     ]
 );
 echo $this->fetch('scriptBottom');

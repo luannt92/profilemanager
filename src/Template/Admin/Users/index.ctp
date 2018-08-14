@@ -29,24 +29,24 @@
                     ]
                 ); ?>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label for="group-id">Created</label>
                 <div class="input-daterange input-group" id="datepicker">
                     <?php echo $this->Form->control('start_date', [
-                    'class'   => 'form-control datetimepicker6',
-                    'label' => false,
-                    'empty'   => true,
-                    'value'   => isset($search['start_date'])
-                    ? $search['start_date'] : '',
+                        'class'   => 'form-control datetimepicker6',
+                        'label' => false,
+                        'readOnly' => true,
+                        'empty'   => true,
+                        'value'   => isset($search['start_date']) ? $search['start_date'] : '',
                     ]
                     ); ?>
-                    <span class="input-group-addon">to</span>
+                    <span class="input-group-addon">-</span>
                     <?php echo $this->Form->control('end_date', [
                             'class'   => 'form-control datetimepicker7',
                             'label' => false,
+                            'readOnly' => true,
                             'empty'   => true,
-                            'value'   => isset($search['end_date'])
-                                ? $search['end_date'] : '',
+                            'value'   => isset($search['end_date']) ? $search['end_date'] : '',
                         ]
                     ); ?>
                 </div>
@@ -66,7 +66,7 @@
                     ]
                 ); ?>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <label for="group-id">&nbsp</label>
                 <div class="input select block">
                     <?php echo $this->Form->button(
@@ -81,7 +81,7 @@
                         '<i class="fa fa-refresh"></i>', [
                         'controller' => 'Users',
                         'action'     => 'index',
-                    ], ['class' => 'btn btn-white m-b pull-right', 'escapeTitle' => false]
+                    ], ['class' => 'btn btn-white m-b m-l-sm', 'escapeTitle' => false]
                     );
                     ?>
                 </div>
@@ -131,12 +131,12 @@
                                 <td><?php echo ! empty($genders[$user->gender])
                                         ? $genders[$user->gender]
                                         : '' ?></td>
-                                <td><?php echo h(date('d/m/Y',strtotime($user->birthday))) ?></td>
+                                <td><?php echo h($user->birthday) ?></td>
                                 <td><?php echo h($user->user_group->name) ?></td>
                                 <td>
                                     <span class="label <?php echo $statusClass; ?>"><?php echo $statusName; ?></span>
                                 </td>
-                                <td><?php echo h(date('d/m/Y h:i:s',strtotime($user->created_at))) ?></td>
+                                <td><?php echo h($user->created_at) ?></td>
                                 <td class="text-right footable-visible footable-last-column tooltip-demo">
                                     <div class="btn-group">
                                         <?php echo $this->Html->link('<i class="fa fa-eye"></i>',
@@ -191,12 +191,14 @@
 <?php echo $this->Html->scriptStart(['block' => true]); ?>
     $(document).ready(function () {
         $(function () {
-            $('.datetimepicker6').datetimepicker({
-                format: "YYYY-MM-DD"
+            $('.datetimepicker6').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true
             });
-            $('.datetimepicker7').datetimepicker({
+            $('.datetimepicker7').datepicker({
                 useCurrent: false,
-                format: "YYYY-MM-DD"
+                format: "yyyy-mm-dd",
+                autoclose: true
             });
             $(".datetimepicker6").on("dp.change", function (e) {
                 $('.datetimepicker7').data("DateTimePicker").minDate(e.date);

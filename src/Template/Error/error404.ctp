@@ -1,17 +1,25 @@
-<div id="content" role="main" class="container content-area">
-    <section class="">
-        <div class="row error4">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div class="col-sm-9 err4Left">
-                    <h2>Có gì đó không ổn!</h2>
-                    <p>Trang mà bạn vừa truy cập không tồn tại</p>
-                    <a href="/">Quay trở lại trang chủ</a>
-                </div>
-                <div class="col-sm-3 err4Right">
-                    <?php echo $this->Html->image('err404.png',
-                        ['alt' => '404']); ?>
+<div class="content">
+    <div class="blockmenu-content-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="block-title text-center">Sorry Page Was Not Found</h2>
                 </div>
             </div>
-        </div><!-- .section-content -->
-    </section>
+        </div>
+    </div>
+    <!-- blockmenu-content -->
+    <div class="block-content p-d-t">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-xs-6 block-col block-404">
+                    <div class="block-item">
+                        <h1>404</h1>
+                        <p>Trang không tồn tại</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- block-content -->
 </div>

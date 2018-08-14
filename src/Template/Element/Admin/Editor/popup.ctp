@@ -30,12 +30,23 @@ echo $this->Html->script(
 
     function responsive_filemanager_callback(field_id) {
         var url = jQuery('#' + field_id).val();
-        $("#previewImg").attr('src', url);
-        var banner = $("#previewImg").attr('data-banner');
-        if(banner == undefined){
-            $("#Image").val(url.replace('source', 'thumbs'));
+        var preview =  $("#previewImg");
+        var banner = preview.attr('data-banner');
+
+        if(field_id == 'Video'){
+            var previewVideo = $("#previewVideo");
+            previewVideo.attr('href', '/source/' + url);
+            previewVideo.parents('.form-group').removeClass('hidden');
         }else {
-            $("#Image").val(url);
+            preview.attr('src', url);
+
+            if(banner == undefined){
+                $("#Image").val(url.replace('source', 'thumbs'));
+            }else {
+                $("#Image").val(url);
+            }
         }
     }
+
+
     <?php echo $this->Html->scriptEnd(); ?>

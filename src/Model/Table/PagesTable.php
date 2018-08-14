@@ -27,19 +27,18 @@ class PagesTable extends CommonTable
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
-            'joinType'   => 'INNER',
-        ]);
+//        $this->belongsTo('Users', [
+//            'foreignKey' => 'user_id',
+//            'joinType'   => 'INNER',
+//        ]);
 
         $this->addBehavior('Translate', [
             'fields' => [
                 'title',
-                'description',
                 'content',
-                'seo_title',
-                'seo_description',
-                'seo_keyword',
+                'meta_title',
+                'meta_description',
+                'meta_keyword',
             ],
         ]);
     }
@@ -65,10 +64,6 @@ class PagesTable extends CommonTable
             ->scalar('title')
             ->requirePresence('title', 'create')
             ->notEmpty('title');
-
-        $validator
-            ->scalar('description')
-            ->allowEmpty('description', 'create');
 
         $validator
             ->scalar('content')
@@ -97,6 +92,12 @@ class PagesTable extends CommonTable
         return $rules;
     }
 
+    /**
+     * @param null $type
+     * @param null $id
+     *
+     * @return bool
+     */
     public function checkType($type = null, $id = null)
     {
         $check = $this->find()

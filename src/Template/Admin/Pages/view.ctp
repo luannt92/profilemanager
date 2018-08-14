@@ -3,12 +3,6 @@
     'subTitle' => __(VIEW, $item->id),
 ]);
 
-$backLink   = $this->Html->link(
-    __(BACK), ['action' => 'index'], [
-        'class' => 'btn btn-white m-b pull-right',
-    ]
-);
-$optionType = \Cake\Core\Configure::read('type_pages');
 $avatar     = empty($item->image) ? NO_IMAGE : $item->image;
 $avatarImg  = $this->Html->image(
     $avatar, [
@@ -17,16 +11,11 @@ $avatarImg  = $this->Html->image(
     ]
 );
 
-$this->Form->setTemplates(
-    [
-        'label'               => '<label class="col-sm-2 control-label">{{text}}</label>',
-        'formGroup'           => '<div class="form-group">{{label}}<div class="col-sm-10">{{input}}{{error}}</div></div>',
-        'submitContainer'     => '<div class="form-group row"><div class="col-sm-2"></div>
-                                <div class="col-sm-10">{{content}} ' . $backLink
-            . '</div></div>',
-        'inputContainerError' => '<div class="input {{type}}{{required}} error">{{content}}</div>',
-    ]
-);
+$this->Form->setTemplates($this->Utility->customFormTemplate());
+echo $this->Form->create($item, [
+    'type' => 'get',
+    'url'  => ['action' => 'edit', $item->id],
+]);
 ?>
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
@@ -48,13 +37,11 @@ $this->Form->setTemplates(
                     <div id="tab-1" class="tab-pane active">
                         <div class="panel-body">
                             <fieldset class="form-horizontal">
-                                <?php echo $this->Form->create($item, [
-                                    'type' => 'get',
-                                    'url'  => ['action' => 'edit', $item->id],
-                                ]);
+                                <?php
                                 echo $this->Form->control('title', [
                                         'class'    => 'form-control',
                                         'disabled' => true,
+                                        'label'    => __(TITLE),
                                     ]
                                 );
                                 echo $this->Form->control('slug', [
@@ -62,20 +49,34 @@ $this->Form->setTemplates(
                                         'disabled' => true,
                                     ]
                                 );
-                                echo $this->Form->control('description', [
+                                echo $this->Form->control('meta_title', [
+                                        'class'    => 'form-control',
+                                        'label'    => __(META_TITLE),
+                                        'disabled' => true,
+                                    ]
+                                );
+                                echo $this->Form->control('meta_keyword', [
                                         'class'    => 'form-control',
                                         'disabled' => true,
+                                        'label'    => __(META_KEYWORD),
+                                    ]
+                                );
+                                echo $this->Form->control('meta_description',
+                                    [
+                                        'class'    => 'form-control',
+                                        'disabled' => true,
+                                        'label'    => __(META_DESCRIPTION),
                                         'type'     => 'textarea',
                                     ]
                                 );
                                 echo $this->Form->control('content', [
-                                        'class'    => 'form-control tinyMceEditor',
+                                        'class'    => 'form-control',
                                         'disabled' => true,
+                                        'label'    => __(CONTENT_TEXT),
                                         'type'     => 'textarea',
                                     ]
                                 );
-                                echo $this->Form->control(
-                                    __('type'), [
+                                echo $this->Form->control('type', [
                                         'options'  => $optionType,
                                         'class'    => 'form-control',
                                         'disabled' => true,
@@ -86,8 +87,7 @@ $this->Form->setTemplates(
                                                 ' . __(IMAGE) .
                                     '</label><div class="col-sm-6">'
                                     . $avatarImg . '</div></div>';
-                                echo $this->Form->control(
-                                    __('status'), [
+                                echo $this->Form->control('status', [
                                         'options'  => [
                                             ACTIVE   => 'Active',
                                             DEACTIVE => 'DeActive',
@@ -96,7 +96,9 @@ $this->Form->setTemplates(
                                         'disabled' => true,
                                     ]
                                 );
-                                echo '<div class="form-group"><label class = "col-sm-2 control-label">Created At</label><div class="col-sm-10">';
+                                echo '<div class="form-group"><label class = "col-sm-2 control-label">'
+                                    . __(CREATED_AT)
+                                    . '</label><div class="col-sm-10">';
                                 echo $this->Form->control('created_at', [
                                         'label'     => false,
                                         'templates' => [
@@ -108,7 +110,9 @@ $this->Form->setTemplates(
                                         ],
                                     ]
                                 );
-                                echo '<div class="form-group"><label class = "col-sm-2 control-label">Updated At</label><div class="col-sm-10">';
+                                echo '<div class="form-group"><label class = "col-sm-2 control-label">'
+                                    . __(UPDATED_AT)
+                                    . '</label><div class="col-sm-10">';
                                 echo $this->Form->control('updated_at', [
                                         'label'     => false,
                                         'templates' => [
@@ -126,7 +130,6 @@ $this->Form->setTemplates(
                                         'type'  => 'submit',
                                     ]
                                 );
-                                echo $this->Form->end();
                                 ?>
                             </fieldset>
                         </div>
@@ -135,27 +138,22 @@ $this->Form->setTemplates(
                         <div class="panel-body">
                             <fieldset class="form-horizontal">
                                 <?php
-                                $listLanguage = LANGUAGE;
                                 $block        = 1;
-                                foreach ($listLanguage as $lang => $value) {
-                                    $result
-                                               = ! empty($item->_translations[$lang])
-                                        ? $item->_translations[$lang] : '';
-                                    $iboxClass = "ibox float-e-margins";
+                                foreach ($languages as $key => $language) {
+                                    $inboxClass = "ibox float-e-margins";
                                     $iClass    = "fa fa-chevron-down";
                                     $boxStyle  = "display: none;";
                                     if ($block === 1) {
-                                        $iboxClass
+                                        $inboxClass
                                                   = "ibox float-e-margins border-bottom";
                                         $iClass   = "fa fa-chevron-up";
                                         $boxStyle = "";
                                     }
-                                    if ( ! empty($result)) {
                                         ?>
-                                        <div class="<?php echo $iboxClass ?>">
+                                        <div class="<?php echo $inboxClass ?>">
                                             <a class="collapse-link">
                                                 <div class="ibox-title navy-bg">
-                                                    <h5><?php echo $value ?></h5>
+                                                    <h5><?php echo $language ?></h5>
                                                     <div class="ibox-tools">
                                                         <i class="<?php echo $iClass ?>"></i>
                                                     </div>
@@ -164,51 +162,21 @@ $this->Form->setTemplates(
                                             <div class="ibox-content"
                                                  style="<?php echo $boxStyle ?>">
                                                 <?php
-                                                echo $this->Form->control(__('title'),
+                                                echo $this->Form->control('_translations.'. $key .'.title',
                                                     [
                                                         'class'    => 'form-control',
-                                                        'value'    => $result->title,
+                                                        'label'    => __(TITLE),
                                                         'disabled' => true,
                                                     ]
                                                 );
-                                                echo $this->Form->control(__('description'),
-                                                    [
-                                                        'class'    => 'form-control',
-                                                        'type'     => 'textarea',
-                                                        'value'    => $result->description,
-                                                        'disabled' => true,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('content'),
+
+                                                echo $this->element('Admin/Meta/frmMetaTranslate', compact('key'));
+
+                                                echo $this->Form->control('_translations.'. $key .'.content',
                                                     [
                                                         'class'    => 'form-control tinyMceEditor',
                                                         'type'     => 'textarea',
-                                                        'value'    => $result->content,
-                                                        'disabled' => true,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('seo_title'),
-                                                    [
-                                                        'label'    => __(SEO_TITLE),
-                                                        'class'    => 'form-control',
-                                                        'value'    => $result->seo_title,
-                                                        'disabled' => true,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('seo_description'),
-                                                    [
-                                                        'label'    => __(SEO_DESCRIPTION),
-                                                        'class'    => 'form-control',
-                                                        'type'     => 'textarea',
-                                                        'value'    => $result->seo_description,
-                                                        'disabled' => true,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('seo_keyword'),
-                                                    [
-                                                        'label'    => __(SEO_KEYWORD),
-                                                        'class'    => 'form-control',
-                                                        'value'    => $result->seo_keyword,
+                                                        'label'    => __(CONTENT_TEXT),
                                                         'disabled' => true,
                                                     ]
                                                 );
@@ -217,7 +185,6 @@ $this->Form->setTemplates(
                                         </div>
                                         <?php
                                         $block++;
-                                    }
                                 }
                                 echo $this->Form->control(
                                     __(GO_TO_EDIT), [
@@ -234,3 +201,4 @@ $this->Form->setTemplates(
         </div>
     </div>
 </div>
+<?php echo $this->Form->end(); ?>

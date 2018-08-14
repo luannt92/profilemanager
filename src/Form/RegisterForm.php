@@ -11,8 +11,9 @@ class RegisterForm extends Form
 
     protected function _buildSchema(Schema $schema)
     {
-        return $schema->addField('name', ['type' => 'string'])
+        return $schema->addField('full_name', ['type' => 'string'])
             ->addField('email', ['type' => 'string'])
+            ->addField('phone_number', ['type' => 'string'])
             ->addField('password', ['type' => 'string'])
             ->addField('confirmPass', ['type' => 'string']);
     }
@@ -25,14 +26,11 @@ class RegisterForm extends Form
     protected function _buildValidator(Validator $validator)
     {
         $validator
-            ->notEmpty('name', __(USER_MSG_0013, 'name'))
-//            ->add(
-//                'name', 'validChars', [
-//                    'rule'    => [$this, 'checkCharacters'],
-//                    'message' => __(USER_MSG_0003),
-//                ]
-//            )
-        ;
+            ->notEmpty('name', __(USER_MSG_0013, 'name'));
+
+        $validator
+            ->notEmpty('phone_number', __(USER_MSG_0013, 'phone number'));
+
         $validator
             ->notEmpty('email', __(USER_MSG_0013, 'email'))
             ->add(

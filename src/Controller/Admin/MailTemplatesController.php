@@ -29,6 +29,8 @@ class MailTemplatesController extends CommonController
      */
     public function index($conditions = [])
     {
+        $this->setReturnUrl();
+
         $mailTemplates = $this->MailTemplates->find()->toArray();
         $this->set(compact('mailTemplates'));
     }
@@ -42,14 +44,16 @@ class MailTemplatesController extends CommonController
      */
     public function view($id = null)
     {
-        $this->viewBuilder()->setLayout('Email/html/default');
-
         $item = $this->MailTemplates->get($id, [
             'contain' => [],
         ]);
 
         $this->set(compact('item'));
 
-        return $this->render('view_job');
+        if ($item->code === MAIL_TEMPLATE_ORDER) {
+            $this->viewBuilder()->setLayout('Email/html/order');
+        } else {
+            $this->viewBuilder()->setLayout('Email/html/default');
+        }
     }
 }

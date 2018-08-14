@@ -10,23 +10,7 @@ $avatarImg = $this->Html->image(
         'style' => ['max-width: 200px; max-height :100px;']
     ]
 );
-$backLink = $this->Html->link(
-    __(BACK), ['action' => 'index'], [
-        'class' => 'btn btn-white m-b pull-right',
-    ]
-);
-
-$this->Form->setTemplates(
-    [
-        'formGroup'           => '<div class="form-group">{{label}}<div class="col-sm-10">{{input}}</div></div>',
-        'label'               => '<label class="col-sm-2 control-label" {{attrs}}>{{text}}</label>',
-        'submitContainer'     => '<div class="form-group row"><div class="col-sm-2"></div>
-                                <div class="col-sm-10">{{content}} ' . $backLink
-            . '</div></div>',
-        'inputContainerError' => '<div class="input {{type}}{{required}} error">{{content}}</div>',
-    ]
-);
-
+$this->Form->setTemplates($this->Utility->customFormTemplate());
 echo $this->Form->create($user)
 ?>
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
@@ -97,7 +81,7 @@ echo $this->Form->create($user)
                                             ); ?>
                                         </div>
                                         <div class="col-sm-3 text-right">
-                                            <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1"
+                                            <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1&akey=<?php echo FILE_ACCESS_KEY; ?>"
                                                class="btn btn-success iframe-btn"
                                                type="button">
                                                 <i class="glyphicon glyphicon-plus"></i>
@@ -106,10 +90,10 @@ echo $this->Form->create($user)
                                         </div>
                                     </div>
                                     <?php
-                                    echo $this->Form->control('about_me', [
+                                    echo $this->Form->control('note', [
                                             'class'       => 'form-control',
                                             'placeholder' => 'About me',
-                                            'typr'        => 'textarea',
+                                            'type'        => 'textarea',
                                             'required'    => false,
                                         ]
                                     );
@@ -191,8 +175,9 @@ echo $this->Form->create($user)
 <?php echo $this->Html->scriptStart(['block' => true]); ?>
 $(document).ready(function () {
 
-$('.datetimepicker4').datetimepicker({
-format: "YYYY-MM-DD"
+$('.datetimepicker4').datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true
 });
 
 $('.clickImg').on('click', function () {

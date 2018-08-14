@@ -3,12 +3,11 @@
 namespace App\Controller\Admin;
 
 use Cake\Core\Configure;
-use Cake\ORM\TableRegistry;
-use Cake\I18n\I18n;
 
 /**
  * Class PagesController
  *
+ * @property \App\Model\Table\PagesTable $Pages
  * @package App\Controller\Admin
  */
 class PagesController extends CommonController
@@ -24,7 +23,6 @@ class PagesController extends CommonController
     public function initialize()
     {
         parent::initialize();
-        I18n::setLocale('vi_VN');
     }
 
     /**
@@ -54,37 +52,30 @@ class PagesController extends CommonController
      */
     protected function _setVarToView()
     {
-        $status = Configure::read('system_status');
-        $types = Configure::read('type_pages');
+        $status     = Configure::read('system_status');
+        $optionType = Configure::read('type_pages');
 
-        $this->set(compact('status','types'));
+        $this->set(compact('status', 'optionType'));
     }
 
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|void
+     * @param array $conditions
      */
     public function index($conditions = [])
     {
+        $this->setReturnUrl();
         $conditions = [
-            'Pages.status IN' => [ACTIVE, DEACTIVE],
+            'Pages.status IN' => [ACTIVE, DEACTIVE, TRASH],
         ];
         $search     = $this->request->getQueryParams();
         $conditions = $this->_searchFiltersCondition($conditions, $search);
 
         $this->paginate = [
-            'contain'    => [
-                'Users' => [
-                    'fields' => [
-                        'Users.id',
-                        'Users.name',
-                    ],
-                ],
-            ],
             'conditions' => $conditions,
             'order'      => [
-                'Pages.id DESC',
+                'Pages.id' => 'DESC',
             ],
         ];
         $items          = $this->paginate($this->Pages);
@@ -100,26 +91,27 @@ class PagesController extends CommonController
      */
     public function add()
     {
-        $languageArr = LANGUAGE;
-        $item        = $this->Pages->newEntity();
+        $item = $this->Pages->newEntity();
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            if ($this->Pages->checkType($data['type']) || $data['status'] == DEACTIVE) {
+            if ($this->Pages->checkType($data['type'])
+                || $data['status'] == DEACTIVE
+            ) {
                 $item          = $this->Pages->patchEntity($item, $data);
                 $item->user_id = $this->Auth->user('id');
-                $item->slug    = $this->convertToSlug($data['title']);
-                foreach ($data as $datKey => $value){
-                    if (array_key_exists($datKey, $languageArr)) {
-                        $item->translation($datKey)->set($data[$datKey], ['guard' => false]);
-                    }
+                if ( ! empty($data['title'])) {
+                    $item->slug = $this->convertToSlug($data['title']);
                 }
+
                 if ($this->Pages->save($item)) {
                     $this->Flash->success(__(COMMON_MSG_0001));
 
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect($this->getBackLink());
+                } else {
+                    $error = $this->_displayErrors($item->getErrors());
+                    $this->Flash->error($error);
                 }
-                $this->Flash->error(__(COMMON_MSG_0002));
             } else {
                 $this->Flash->error(__(COMMON_MSG_0002));
             }
@@ -139,30 +131,30 @@ class PagesController extends CommonController
      */
     public function edit($id = null)
     {
-        $languageArr = LANGUAGE;
-        $item        = $this->Pages->get($id, [
-            'finder' => 'translations',
+        $item = $this->Pages->get($id, [
+            'finder'  => 'translations',
             'contain' => [],
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
 
-            if ($this->Pages->checkType($data['type'], $id) || $data['status'] == DEACTIVE) {
+            if ($this->Pages->checkType($data['type'], $id)
+                || $data['status'] == DEACTIVE
+            ) {
                 $dataSave = $this->Pages->patchEntity($item, $data);
-                foreach ($data as $datKey => $value){
-                    if (array_key_exists($datKey, $languageArr)) {
-                        $dataSave->translation($datKey)->set($data[$datKey], ['guard' => false]);
-                    }
-                }
+
                 if ($this->Pages->save($dataSave)) {
                     $this->Flash->success(__(COMMON_MSG_0001));
 
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect($this->getBackLink());
+                } else {
+                    $error = $this->_displayErrors($dataSave->getErrors());
+                    $this->Flash->error($error);
                 }
+            } else {
                 $this->Flash->error(__(COMMON_MSG_0002));
             }
-            $this->Flash->error(__(COMMON_MSG_0002));
         }
 
         $this->set(compact('item'));

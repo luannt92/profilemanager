@@ -18,6 +18,7 @@ class ErrorController extends CommonController
      */
     public function initialize()
     {
+        parent::initialize();
         $this->loadComponent('RequestHandler');
     }
 

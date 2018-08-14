@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Form\Admin\SettingsForm;
 use Cake\Cache\Cache;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 
 /**
  * Settings Controller
@@ -17,7 +19,7 @@ class SettingsController extends CommonController
      *
      * @var array
      */
-    protected $_allowAction = ['update'];
+    protected $_allowAction = ['update','switchery'];
 
     public function initialize()
     {
@@ -41,7 +43,6 @@ class SettingsController extends CommonController
                     'keyField'   => 'name',
                     'valueField' => 'id',
                 ]);
-
                 foreach ($data as $key => $value) {
                     $arrData[] = empty($settings[$key])
                         ? ['name' => $key, 'value' => $value]
@@ -49,16 +50,18 @@ class SettingsController extends CommonController
                 }
 
                 $entities = $this->Settings->patchEntities($list, $arrData);
+
                 if ($this->Settings->saveMany($entities)) {
                     $this->Flash->success(__(COMMON_MSG_0001));
                     Cache::delete('settingsFooter');
-                    Cache::delete('setting_for_site_lucky');
+                    Cache::delete(KEY_COMMON_CACHE);
 
                     return $this->redirect(['action' => 'update']);
                 }
             }
 
             $errors = $settingForm->errors();
+
             $this->Flash->error(__(COMMON_MSG_0002));
         }
 
@@ -67,7 +70,10 @@ class SettingsController extends CommonController
                 'OR' => [
                     ['name LIKE' => 'site_%'],
                     ['name LIKE' => 'contact_%'],
-                    ['name LIKE' => 'seo_%'],
+                    ['name LIKE' => 'meta_%'],
+                    ['name LIKE' => 'download_%'],
+                    ['name LIKE' => 'time_%'],
+                    ['name LIKE' => 'link_%'],
                 ],
             ];
             $dataSettings = $this->Settings->getListSetting([], $conditions);
@@ -76,7 +82,43 @@ class SettingsController extends CommonController
             }
         }
 
-        $this->set(compact('settingForm', 'errors'));
+        $this->set(compact('settingForm', 'errors', 'news'));
+    }
+
+    /**
+     * switcher field
+     */
+    public function switchery()
+    {
+        $result = [
+            'status' => false,
+            'message' => COMMON_MSG_0002
+        ];
+
+        if($this->request->is('post')){
+            $data = $this->request->getData();
+            $setting = $this->Settings->findByName($data['name'])->first();
+            if(!empty($setting)) {
+                if($data['check'] == 1) {
+                    $result = [
+                        'status' => true,
+                        'data' => $setting->status,
+                    ];
+                }else{
+                    $setting->status = $data['status'];
+                    if($this->Settings->save($setting)) {
+                        $result = [
+                            'status' => true,
+                            'message' => COMMON_MSG_0001,
+                        ];
+                        Cache::delete(KEY_COMMON_CACHE);
+                    }
+                }
+            }
+        }
+
+        echo json_encode($result);
+        die;
     }
 }
 

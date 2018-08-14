@@ -3,7 +3,6 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\ORM\Behavior\Translate\TranslateTrait;
 
 /**
  * Class User
@@ -26,8 +25,6 @@ class User extends Entity
             '*'  => true,
             'id' => false,
         ];
-
-    use TranslateTrait;
 
     /**
      * Fields that are excluded from JSON versions of the entity.

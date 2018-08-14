@@ -7,7 +7,7 @@ use App\Form\Admin\LoginForm;
 use Cake\ORM\TableRegistry;
 
 /**
- * Class UsersController
+ * Class UsersApiController
  *
  * @property \App\Model\Table\UsersTable $Users
  * @package App\Controller\Admin
@@ -22,8 +22,6 @@ class UsersController extends CommonController
     /**
      * Login for admin and supper admin
      * adminLogin method
-     *
-     * @return \Cake\Http\Response|null
      */
     public function login()
     {
@@ -41,10 +39,10 @@ class UsersController extends CommonController
                     __(USER_MSG_0007, $this->Auth->user('email'))
                 );
 
-                return $this->redirect($this->Auth->redirectUrl());
+                $this->redirect($this->Auth->redirectUrl());
+            } else {
+                $this->Flash->error(__(USER_MSG_0001));
             }
-
-            $this->Flash->error(__(USER_MSG_0001));
         }
 
         $this->set(compact('loginForm'));
@@ -69,6 +67,8 @@ class UsersController extends CommonController
      */
     public function index($conditions = [])
     {
+        $this->setReturnUrl();
+
         $defaultStatus = [ENABLED, DISABLED];
         $search        = $this->request->getQueryParams();
         if (isset($search['status']) && is_numeric($search['status'])) {
@@ -104,31 +104,17 @@ class UsersController extends CommonController
      * @param string|null $id User id.
      *
      * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $age  = 0;
-        $user = $this->Users->get($id, [
-            'finder'  => 'translations',
+        $user   = $this->Users->get($id, [
             'contain' => [
                 'UserGroups',
             ],
         ]);
-
         $groups = $this->Users->UserGroups->find('list', ['limit' => 100]);
 
-        if ( ! empty($user->birthday)) {
-            $now = \Cake\I18n\Time::now();
-            $age = date_diff(date_create($user->birthday),
-                date_create($now))->format('%y');
-        }
-        $data = $this->Users->get($id, [
-            'contain' => [
-            ],
-        ])->toArray();
-
-        $this->set(compact('user', 'groups', 'status'));
+        $this->set(compact('user', 'groups'));
     }
 
     /**
@@ -147,7 +133,7 @@ class UsersController extends CommonController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__(COMMON_MSG_0001));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->getBackLink());
             }
             $this->Flash->error(__(COMMON_MSG_0002));
         }
@@ -179,7 +165,7 @@ class UsersController extends CommonController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__(COMMON_MSG_0001));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->getBackLink());
             }
             $this->Flash->error(__(COMMON_MSG_0002));
         }
@@ -218,7 +204,7 @@ class UsersController extends CommonController
             }
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->getBackLink());
     }
 
     /**
@@ -236,7 +222,7 @@ class UsersController extends CommonController
             $conditions[] = [
                 'OR' => [
                     'Users.email LIKE' => '%' . $keyword . '%',
-                    'Users.name LIKE'  => '%' . $keyword . '%',
+                    'Users.full_name LIKE'  => '%' . $keyword . '%',
                     'Users.id LIKE'    => $keyword,
                 ],
             ];
@@ -268,136 +254,5 @@ class UsersController extends CommonController
     public function searchResult()
     {
 
-    }
-
-    /**
-     * get data tree
-     *
-     * @param array $arrData
-     * @param null  $type
-     * @param array $result
-     *
-     * @return array
-     */
-    private function _getDataTree($arrData = [], $type = null, $result = [])
-    {
-        if ( ! empty($arrData)) {
-            foreach ($arrData as $value) {
-                if ( ! empty($value['start_date'])) {
-                    $start                           = strtotime($value['start_date']->format('Y-m-d'));
-                    $year                            = date('Y', $start);
-                    $month                           = date('m', $start);
-                    $value['type']                   = $type;
-                    $value['start']                  = true;
-                    $result[$year][$month][$start][] = $value;
-                }
-                if ( ! empty($value['end_date']) && ! empty($start)) {
-                    $end   = strtotime($value['end_date']->format('Y-m-d'));
-                    $year  = date('Y', $end);
-                    $month = date('m', $end);
-                    if ($end !== $start) {
-                        $value['type']                 = $type;
-                        $value['start']                = false;
-                        $result[$year][$month][$end][] = $value;
-                    }
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * tree info
-     *
-     * @param null $id
-     */
-    public function tree($id = null)
-    {
-        $items = $this->Users->find()
-            ->select(['id', 'name', 'email'])
-            ->where(['status' => ENABLED, 'user_group_id' => MEMBER])
-            ->enableHydration(false)
-            ->toArray();
-        if (empty($id)) {
-            $objFirst = $this->Users->getFirstItems();
-            $id       = $objFirst['id'];
-        }
-
-        $data      = $this->Users->get($id, [
-            'contain' => [
-                'UserJobs',
-                'UserPrizes',
-                'UserSkills',
-                'UserExperiences',
-                'UserSocialActivities',
-            ],
-        ])->toArray();
-        $arrSkill  = $this->_getInfoTree($data['user_skills'], STREE_SKILL);
-        $arrJob    = $this->_getInfoTree($data['user_jobs'], STREE_JOB,
-            $arrSkill);
-        $arrEx     = $this->_getInfoTree($data['user_experiences'],
-            STREE_EXPERIENCE, $arrJob);
-        $arrAc     = $this->_getInfoTree($data['user_social_activities'],
-            STREE_ACTIVITY, $arrEx);
-        $infoTrees = $this->_getInfoTree($data['user_prizes'], STREE_PRIZE,
-            $arrAc);
-        ksort($infoTrees);
-
-        $this->set(compact('items', 'id', 'infoTrees'));
-    }
-
-    /**
-     * get info tree
-     *
-     * @param array $arrData
-     * @param null  $type
-     * @param array $result
-     *
-     * @return array
-     */
-    private function _getInfoTree($arrData = [], $type = null, $result = [])
-    {
-        if ( ! empty($arrData)) {
-            foreach ($arrData as $value) {
-                if ( ! empty($value['start_date'])) {
-                    $start            = strtotime($value['start_date']->format('Y-m-d'));
-                    $value['type']    = $type;
-                    $value['start']   = true;
-                    $result[$start][] = $value;
-                }
-                if ( ! empty($value['end_date']) && ! empty($start)) {
-                    $end = strtotime($value['end_date']->format('Y-m-d'));
-                    if ($end !== $start) {
-                        $value['type']  = $type;
-                        $value['start'] = false;
-                        $result[$end][] = $value;
-                    }
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * My plans management
-     *
-     * @param null $id
-     */
-    public function myPlans($id = null)
-    {
-        if (empty($id)) {
-            $objFirst = $this->Users->getFirstItems();
-            $id       = $objFirst['id'];
-        }
-        $items = $this->Users->find()
-            ->select(['id', 'name', 'email'])
-            ->where(['status' => ENABLED, 'user_group_id' => MEMBER])
-            ->enableHydration(false)
-            ->toArray();
-
-        $this->set(compact('items', 'id'));
-        $this->_setVarToView();
     }
 }

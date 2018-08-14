@@ -1,10 +1,6 @@
 <?php
-
-use Cake\Routing\Router;
-
-$lang = LANGUAGE;
 $nameData = '';
-foreach ($lang as $keyL => $nameL){
+foreach ($languages as $keyL => $nameL){
     $nameData .= 'data-'.$keyL. ' ';
 }
 
@@ -31,18 +27,18 @@ if ( ! empty($categories)) {
     }
 }
 
-$htmlTravelCategory    = null;
-$travelCategoryElement = [];
-if ( ! empty($travelCategories)) {
-    foreach ($travelCategories as $item) {
-        $travelCategoryElement[$item['id']] = [
+$htmlNewsCategory    = null;
+$newCategoryElement = [];
+if ( ! empty($newCategories)) {
+    foreach ($newCategories as $item) {
+        $newCategoryElement[$item['id']] = [
             'name' => $item['name'],
             'url'  => $item['slug'],
             'vi'   => $item['name'],
         ];
 
-        $htmlTravelCategory
-            .= "<li><input type=\"checkbox\" value=\"{$item['id']}\" name=\"element_travel_category\" class=\"i-checks\"/>
+        $htmlNewsCategory
+            .= "<li><input type=\"checkbox\" value=\"{$item['id']}\" name=\"element_new_category\" class=\"i-checks\"/>
             <span class=\"m-l-xs\">{$item['name']}</span></li>";
     }
 }
@@ -79,9 +75,8 @@ if ( ! empty($tags)) {
     }
 }
 
-$htmlMenu = null;
+$htmlMenu = "<ol class=\"dd-list\">";
 if ( ! empty($menuTab)) {
-    $htmlMenu .= "<ol class=\"dd-list\">";
     foreach ($menuTab as $menu) {
         $nameDataT = '';
         if ( ! empty($menu['_i18n'])) {
@@ -93,7 +88,7 @@ if ( ! empty($menuTab)) {
             }
         }
 
-        $check    = $menu['obj_id'] . '-' . $menu['type'];
+        $check    = $menu['obj_id'] . '-' . $menu['position'] . '-' . $menu['type'];
         $htmlMenu .= "<li class=\"dd-item\" data-check=\"{$check}\" data-id=\"{$menu['obj_id']}\" data-name=\"{$menu['name']}\" " . $nameDataT . " data-url=\"{$menu['url']}\" data-type=\"{$menu['type']}\">";
         $name     = $menu['name'];
         $data     = json_encode($menu);
@@ -112,19 +107,21 @@ if ( ! empty($menuTab)) {
                             . ' ';
                     }
                 }
-                $check    = $child['obj_id'] . '-' . $child['type'];
+                $check    = $child['obj_id'] . '-' . $child['position'] . '-' . $child['type'];
                 $name     = $child['name'];
                 $id       = $child['obj_id'];
-                $htmlMenu .= "<li class=\"dd-item\" data-check=\"{$check}\" data-id=\"{$child['obj_id']}\" data-name=\"{$child['name']}\" " .$nameDataC . " data-url=\"{$child['url']}\" data-type=\"{$child['type']}\">";
+                $isHeader = $menuCheck->type == MENU_HEADER ? 1 : 0;
+                $icon     = ! empty($child['icon']) ? $child['icon'] : "";
+                $htmlMenu .= "<li class=\"dd-item\" data-check=\"{$check}\" data-id=\"{$child['obj_id']}\" data-name=\"{$child['name']}\" " .$nameDataC . " data-url=\"{$child['url']}\" data-type=\"{$child['type']}\" data-icon=\"{$icon}\">";
                 $htmlMenu .= $this->element('Admin/Menu/nestedList',
-                    compact('name', 'id', 'check'));
+                    compact('name', 'id', 'check', 'isHeader'));
                 $htmlMenu .= "</li>";
             }
             $htmlMenu .= "</ol>";
         }
     }
-    $htmlMenu .= "</ol>";
 }
+$htmlMenu .= "</ol>";
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -140,7 +137,7 @@ if ( ! empty($menuTab)) {
                                         <div class="ibox-title">
                                             <h5><a data-toggle="collapse"
                                                    data-parent="#accordion"
-                                                   href="#collapseOneT">Travel
+                                                   href="#collapseOneT">News
                                                     Categories</a>
                                             </h5>
                                         </div>
@@ -148,13 +145,13 @@ if ( ! empty($menuTab)) {
                                         <div id="collapseOneT"
                                              class="ibox-content panel-collapse collapse in">
                                             <div class="scroll_content">
-                                                <ul class="todo-list small-list todo-list-travel-category">
-                                                    <?php echo $htmlTravelCategory; ?>
+                                                <ul class="todo-list small-list todo-list-new-category">
+                                                    <?php echo $htmlNewsCategory; ?>
                                                 </ul>
                                             </div>
                                             <div style="height: 40px;">
                                                 <button style="float: right"
-                                                        id="menu-add-travel-category"
+                                                        id="menu-add-news-category"
                                                         class="btn btn-info m-t-sm"
                                                         type="button">Thêm vào
                                                     menu
@@ -277,7 +274,7 @@ if ( ! empty($menuTab)) {
                             <div class="col-md-8">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-title">
-                                        <h5>Tên Menu</h5>
+                                        <h5>Tên Menu: <?php echo $menuCheck->name; ?></h5>
                                     </div>
                                     <div class="ibox-content">
 
@@ -301,6 +298,11 @@ if ( ! empty($menuTab)) {
                                                 'style' => 'display:none',
                                                 'id'    => 'nestable2-output',
                                                 'label' => false,
+                                            ]
+                                        );
+                                        echo $this->Html->link(
+                                            __(BACK), ['action' => 'index'], [
+                                                'class' => 'btn btn-white m-b m-t pull-right',
                                             ]
                                         );
                                         echo $this->Form->control(
@@ -350,13 +352,25 @@ $this->Html->scriptStart(['block' => true]);
 
         var tagsArr = <?php echo json_encode($tagElement); ?>;
         var categoriesArr = <?php echo json_encode($categoryElement); ?>;
-        var travelCategoriesArr = <?php echo json_encode($travelCategoryElement); ?>;
+        var newCategoriesArr = <?php echo json_encode($newCategoryElement); ?>;
         var pagesArr = <?php echo json_encode($pageElement); ?>;
         var nestableList = $("#nestable2 > .dd-list");
         var editButton = $("#editButton");
         var editInputName = $("#editInputName");
+        var editInputIcon = $("#icon");
         var editInputUrl = $("#url");
         var menuEditor = $("#editModal");
+
+        menuEditor.on('show.bs.modal', function (e) {
+           var btn =  $(e.relatedTarget);
+           var isHeader = btn.attr('data-header');
+           if(isHeader == 1) {
+               $('.form-input-icon').removeClass('hidden');
+           }
+        });
+        menuEditor.on('hidden.bs.modal', function (e) {
+            $('.form-input-icon').addClass('hidden');
+        });
 
         var updateOutput = function (e) {
             var list = e.length ? e : $(e.target),
@@ -391,27 +405,29 @@ $this->Html->scriptStart(['block' => true]);
                 $('#url').attr('disabled', false);
             }
             var parentsL = $(this).parents('li.dd-item');
-            var lang = '<?php echo json_encode($lang) ?>';
+            var lang = '<?php echo json_encode($languages) ?>';
             var langAr = $.parseJSON(lang);
             $('.check-modal').remove();
             $.each(langAr, function (index, value) {
                 var valueL = parentsL.data(index);
-                $('.modal-body').append('<div class="form-group check-modal">' +
+                $('<div class="form-group check-modal">' +
                     '<label for="title" class="col-lg-2 control-label">' + value + '</label>' +
                     '<div class="col-lg-10">' +
                     '<input type="text" id="' + index + 'EditName" name="' + index + '" value="'+valueL+'" class="form-control">' +
                     '</div>' +
-                    '</div>');
+                    '</div>').insertAfter('.modal-body .form-input-name');
             });
             var menu = {
                 'id': target.data("id"),
                 'name': $(this).parents('li.dd-item').attr('data-name'),
+                'icon': $(this).parents('li.dd-item').attr('data-icon'),
                 'url': $(this).parents('li.dd-item').attr('data-url'),
                 'type': type
             };
 
             $.each(menu, function (key, value) {
                 $('#editModal').find('input[type!=checkbox][name=' + key + ']').val(value);
+                $('#editModal').find('select[name=' + key + ']').val(value);
             });
         });
 
@@ -449,12 +465,14 @@ $this->Html->scriptStart(['block' => true]);
             var targetId = $(this).data('owner-id');
             var target = $('[data-check="' + targetId + '"]');
             var newName = editInputName.val();
+            var newIcon = editInputIcon.val();
             var newSlug = editInputUrl.val();
 
             target.data("name", newName);
+            target.data("icon", newIcon);
             target.data("url", newSlug);
 
-            var lang = '<?php echo json_encode($lang) ?>';
+            var lang = '<?php echo json_encode($languages) ?>';
             var langAr = $.parseJSON(lang);
             $.each(langAr, function (index, value) {
                 target.data(index, $("#" + index + "EditName").val());
@@ -462,6 +480,7 @@ $this->Html->scriptStart(['block' => true]);
             });
 
             target.attr("data-name", newName);
+            target.attr("data-icon", newIcon);
             target.attr("data-url", newSlug);
             target.find("> .nested-list-content .content").html(newName);
 
@@ -474,7 +493,7 @@ $this->Html->scriptStart(['block' => true]);
         var newIdCount = 1;
         $("#menu-add-link").click(function (e) {
             e.preventDefault();
-            var newId = newIdCount;
+            var newId = new Date().getTime();
             var newUrl = $('#urlText').val();
             var newName = $('#nameText').val();
             var type = <?php echo TYPE_LINK; ?>;
@@ -529,14 +548,14 @@ $this->Html->scriptStart(['block' => true]);
             }
         });
 
-        $("#menu-add-travel-category").click(function (e) {
+        $("#menu-add-news-category").click(function (e) {
             e.preventDefault();
-            var checkedValues = $('.todo-list-travel-category .i-checks:checked').map(function () {
+            var checkedValues = $('.todo-list-new-category .i-checks:checked').map(function () {
                 if (this.value != '') {
                     var newId = this.value;
-                    var newUrl = travelCategoriesArr[this.value].url;
-                    var newName = travelCategoriesArr[this.value].name;
-                    var type = <?php echo TYPE_TOUR; ?>;
+                    var newUrl = newCategoriesArr[this.value].url;
+                    var newName = newCategoriesArr[this.value].name;
+                    var type = <?php echo TYPE_NEW_CATEGORY; ?>;
                     addToMenu(newId, newName, newUrl, type);
                 }
 
@@ -574,7 +593,7 @@ $this->Html->scriptStart(['block' => true]);
         var addToMenu = function (newId, newName, newUrl, type) {
             var check = newId + '-' + type;
             nestableList.append(
-                '<li class="dd-item" data-id="' + newId + '" data-check="' + check + '" data-name="' + newName + '" <?php echo $nameData; ?> data-url="' + newUrl + '" data-type="' + type + '">' +
+                '<li class="dd-item" data-id="' + newId + '" data-check="' + check + '" data-name="' + newName + '" <?php echo $nameData; ?> data-url="' + newUrl + '" data-type="' + type + '" data-icon="">' +
                 '<div class="fa dd-handle nested-list-handle"></div>' +
                 '<div class="nested-list-content">' +
                 '<span class="content">' + newName + '</span>' +

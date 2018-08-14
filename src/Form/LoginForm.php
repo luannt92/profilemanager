@@ -71,6 +71,12 @@ class LoginForm extends Form
         return false;
     }
 
+    /**
+     * @param       $email
+     * @param array $context
+     *
+     * @return bool
+     */
     public function checkEmail($email, array $context)
     {
         preg_match(

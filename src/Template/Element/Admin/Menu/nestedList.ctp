@@ -1,3 +1,6 @@
+<?php
+$isHeader = ! empty($isHeader) ? 1 : 0;
+?>
 <div class="fa dd-handle nested-list-handle">
 </div>
 <div class='nested-list-content'>
@@ -5,7 +8,7 @@
     <span class='tip-msg'></span>
     <div class='pull-right'><span class='tip-hide'></span>
         <a href='#editModal' class='button-edit edit_toggle' data-owner-id="<?php echo $check; ?>"
-        data-toggle='modal'>Edit</a> |
+        data-toggle='modal' data-header="<?php echo $isHeader; ?>" >Edit</a> |
         <a href='#deleteModal' data-owner-id="<?php echo $check; ?>" class='button-delete delete_toggle'>Delete</a>
     </div>
 </div>

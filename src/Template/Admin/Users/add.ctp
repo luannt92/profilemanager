@@ -3,30 +3,15 @@
     'subTitle' => __(ADD),
 ]);
 
-$avatar    = empty($user->avatar) ? NO_IMAGE : $user->avatar;
 $avatarImg = $this->Html->image(
-    $avatar, [
+    NO_IMAGE, [
         'id'    => 'previewImg',
         'style' => ['max-width: 200px; max-height :100px;']
     ]
 );
-$backLink = $this->Html->link(
-    __(BACK), ['action' => 'index'], [
-        'class' => 'btn btn-white m-b pull-right',
-    ]
-);
-$this->Form->setTemplates(
-    [
-        'formGroup'           => '<div class="form-group">{{label}}<div class="col-sm-10">{{input}}</div></div>',
-        'label'               => '<label class="col-sm-2 control-label" {{attrs}}>{{text}}</label>',
-        'submitContainer'     => '<div class="form-group row"><div class="col-sm-2"></div>
-                                <div class="col-sm-10">{{content}} ' . $backLink
-            . '</div></div>',
-        'inputContainerError' => '<div class="input {{type}}{{required}} error">{{content}}</div>',
-    ]
-);
+$this->Form->setTemplates($this->Utility->customFormTemplate());
 $time = time();
-echo $this->Form->create($user)
+echo $this->Form->create()
 ?>
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
@@ -46,7 +31,7 @@ echo $this->Form->create($user)
                                     <?php
                                     echo $this->Form->control('email', [
                                             'class'       => 'form-control',
-                                            'placeholder' => 'sport@gmail.com',
+                                            'placeholder' => 'phuquocdelivery@gmail.com',
                                             'type'        => 'email',
                                             'autofocus'   => true,
                                         ]
@@ -89,7 +74,7 @@ echo $this->Form->create($user)
                                             ); ?>
                                         </div>
                                         <div class="col-sm-3 text-right">
-                                            <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1"
+                                            <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1&akey=<?php echo FILE_ACCESS_KEY; ?>"
                                                class="btn btn-success iframe-btn"
                                                type="button">
                                                 <i class="glyphicon glyphicon-plus"></i>
@@ -98,7 +83,7 @@ echo $this->Form->create($user)
                                         </div>
                                     </div>
                                     <?php
-                                    echo $this->Form->control('about_me', [
+                                    echo $this->Form->control('note', [
                                             'class'       => 'form-control',
                                             'placeholder' => 'About me',
                                             'type'        => 'textarea',
@@ -172,8 +157,9 @@ echo $this->Form->create($user)
 
 <?php echo $this->Html->scriptStart(['block' => true]); ?>
 $(document).ready(function () {
-$('.datetimepicker4').datetimepicker({
-format: "YYYY-MM-DD"
+$('.datetimepicker4').datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true
 });
 });
 <?php echo $this->Html->scriptEnd();

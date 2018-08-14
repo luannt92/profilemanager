@@ -140,7 +140,9 @@ class CommonTable extends Table
         $format = 'html',
         $config = 'gmail',
         $attachedFile = null,
-        $template = 'default'
+        $template = 'default',
+        $layout = 'default',
+        $cc = []
     ) {
         $isSendMail = false;
         try {
@@ -155,7 +157,12 @@ class CommonTable extends Table
                 ->setEmailFormat($format)
                 ->setTo($to)
                 ->setSubject($subject)
-                ->setViewVars($viewVarsOption);
+                ->setViewVars($viewVarsOption)
+                ->setLayout($layout);
+            if(!empty($cc))
+            {
+                $email->addCc($cc);
+            }
             if ( ! empty($attachedFile)) {
                 $email->addAttachments($attachedFile);
             }
@@ -190,7 +197,7 @@ class CommonTable extends Table
                             'site_banner_popup',
                         ],
                     ],
-                    ['name LIKE' => 'seo_%'],
+                    ['name LIKE' => 'meta_%'],
                 ],
             ];
             $settingInfo = $settingTbl->getListSetting([], $conditions);

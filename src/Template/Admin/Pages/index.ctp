@@ -3,63 +3,7 @@
 ]);
 ?>
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
-    <div class="ibox-content m-b-sm border-bottom">
-        <?php echo $this->Form->create(null, [
-            'type' => 'get',
-            'url'  => ['controller' => 'Pages', 'action' => 'index'],
-        ]); ?>
-        <div class="row">
-            <div class="col-sm-4">
-                <?php echo $this->Form->control('keyword', [
-                        'class'       => 'form-control',
-                        'placeholder' => __(SEARCH_KEYWORD),
-                        'type'        => 'text',
-                        'value'       => isset($search['keyword'])
-                            ? $search['keyword'] : '',
-                    ]
-                ); ?>
-            </div>
-            <div class="col-sm-2">
-                <?php echo $this->Form->control('status', [
-                        'class'   => 'form-control',
-                        'value'   => isset($search['status'])
-                            ? $search['status'] : '',
-                        'empty'   => true,
-                        'options' => [
-                            ACTIVE   => 'Active',
-                            DEACTIVE => 'Deactive',
-                        ],
-                    ]
-                ); ?>
-            </div>
-            <div class="col-sm-2">
-                <div class="input select">
-                    <label for="group-id">&nbsp</label>
-                    <?php echo $this->Form->button(
-                        __(SEARCH), [
-                            'type'  => 'submit',
-                            'class' => 'btn btn-primary block m-b',
-                        ]
-                    );
-                    ?>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="input select">
-                    <label for="group-id">&nbsp</label>
-                    <?php echo $this->Html->link(
-                        __(RESET), [
-                        'controller' => 'Pages',
-                        'action'     => 'index',
-                    ], ['class' => 'btn btn-white block m-b',]
-                    );
-                    ?>
-                </div>
-            </div>
-        </div>
-        <?php echo $this->Form->end(); ?>
-    </div>
-
+    <?php echo $this->element('Admin/boxSearch'); ?>
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox">
@@ -78,7 +22,6 @@
                         <tr>
                             <th data-hide="all"><?php echo $this->Paginator->sort('id') ?></th>
                             <th data-toggle="true"><?php echo $this->Paginator->sort('title') ?></th>
-                            <th data-hide="all"><?php echo $this->Paginator->sort('Users.name', 'Author') ?></th>
                             <th scope="col"><?php echo $this->Paginator->sort('slug') ?></th>
                             <th scope="col"><?php echo $this->Paginator->sort('type') ?></th>
                             <th scope="col"><?php echo $this->Paginator->sort('status') ?></th>
@@ -99,16 +42,9 @@
                             <tr>
                                 <td><?php echo $this->Number->format($item->id) ?></td>
                                 <td><?php echo h($item->title) ?></td>
-                                <td><?php echo $item->has('user')
-                                        ? $this->Html->link($item->user->name,
-                                            [
-                                                'controller' => 'Users',
-                                                'action'     => 'view',
-                                                $item->user->id,
-                                            ]) : ''
-                                    ?></td>
                                 <td><?php echo h($item->slug) ?></td>
-                                <td><?php echo !empty($types[$item->type]) ? $types[$item->type] : '' ?></td>
+                                <td><?php echo ! empty($types[$item->type])
+                                        ? $types[$item->type] : '' ?></td>
                                 <td>
                                     <span class="label <?php echo $statusClass; ?>"><?php echo $statusName; ?></span>
                                 </td>

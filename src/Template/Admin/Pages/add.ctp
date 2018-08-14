@@ -3,23 +3,7 @@
     'subTitle' => __(ADD),
 ]);
 
-$optionType = \Cake\Core\Configure::read('type_pages');
-$backLink   = $this->Html->link(
-    __(BACK), ['action' => 'index'], [
-        'class' => 'btn btn-white m-b pull-right',
-    ]
-);
-
-$this->Form->setTemplates(
-    [
-        'label'               => '<label class="col-sm-2 control-label">{{text}}</label>',
-        'formGroup'           => '<div class="form-group">{{label}}<div class="col-sm-10">{{input}}{{error}}</div></div>',
-        'submitContainer'     => '<div class="form-group row"><div class="col-sm-2"></div>
-                                <div class="col-sm-10">{{content}} ' . $backLink
-            . '</div></div>',
-        'inputContainerError' => '<div class="input {{type}}{{required}} error">{{content}}</div>',
-    ]
-);
+$this->Form->setTemplates($this->Utility->customFormTemplate());
 echo $this->Form->create();
 ?>
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
@@ -46,26 +30,25 @@ echo $this->Form->create();
                                     echo $this->Form->control('title', [
                                             'class'       => 'form-control',
                                             'placeholder' => __(TITLE),
+                                            'label'       => __(TITLE),
                                             'autofocus'   => true,
+                                            'required'    => true,
                                         ]
                                     );
-                                    echo $this->Form->control('description', [
-                                            'class'       => 'form-control',
-                                            'placeholder' => __(DESCRIPTION),
-                                            'type'        => 'textarea',
-                                        ]
-                                    );
-                                    echo $this->Form->control(
-                                        __('content'), [
+
+                                    echo $this->element('Admin/Meta/frmMeta');
+
+                                    echo $this->Form->control('content', [
                                             'id'          => 'content',
                                             'class'       => 'form-control tinyMceEditor',
                                             'placeholder' => __(CONTENT_TEXT),
+                                            'label'       => __(CONTENT_TEXT),
                                             'type'        => 'textarea',
                                         ]
                                     );
-                                    echo $this->Form->control(
-                                        __('type'), [
+                                    echo $this->Form->control('type', [
                                             'options' => $optionType,
+                                            'label'   => __('type'),
                                             'class'   => 'form-control',
                                         ]
                                     ); ?>
@@ -87,39 +70,20 @@ echo $this->Form->create();
                                             ); ?>
                                         </div>
                                         <div class="col-sm-3">
-                                            <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1"
+                                            <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1&akey=<?php echo FILE_ACCESS_KEY; ?>"
                                                class="btn btn-success iframe-btn"
                                                type="button">
                                                 <i class="glyphicon glyphicon-plus"></i>
-                                                <span>Photo...</span>
+                                                <span>Image...</span>
                                             </a>
                                         </div>
                                     </div>
                                     <?php
-                                    echo $this->Form->control(__('seo_title'), [
-                                            'id'          => 'content',
-                                            'class'       => 'form-control',
-                                            'placeholder' => __(SEO_TITLE),
-                                        ]
-                                    );
-                                    echo $this->Form->control(__('seo_description'), [
-                                            'id'          => 'content',
-                                            'class'       => 'form-control',
-                                            'placeholder' => __(SEO_DESCRIPTION),
-                                            'type'        => 'textarea',
-                                        ]
-                                    );
-                                    echo $this->Form->control(__('seo_keyword'), [
-                                            'id'          => 'content',
-                                            'class'       => 'form-control',
-                                            'placeholder' => __(SEO_KEYWORD),
-                                        ]
-                                    );
                                     echo $this->Form->control(
-                                        __('status'), [
+                                        'status', [
                                             'options' => [
-                                                ACTIVE   => 'Active',
-                                                DEACTIVE => 'DeActive',
+                                                ENABLED  => 'Enabled',
+                                                DISABLED => 'Disabled',
                                             ],
                                             'class'   => 'form-control',
                                         ]
@@ -138,20 +102,19 @@ echo $this->Form->create();
                             <div class="panel-body">
                                 <fieldset class="form-horizontal">
                                     <?php
-                                    $languages = LANGUAGE;
                                     $block     = 1;
                                     foreach ($languages as $key => $language) {
-                                        $iboxClass = "ibox float-e-margins";
+                                        $inboxClass = "ibox float-e-margins";
                                         $iClass    = "fa fa-chevron-down";
                                         $boxStyle  = "display: none;";
                                         if ($block === 1) {
-                                            $iboxClass
+                                            $inboxClass
                                                       = "ibox float-e-margins border-bottom";
                                             $iClass   = "fa fa-chevron-up";
                                             $boxStyle = "";
                                         }
                                         ?>
-                                        <div class="<?php echo $iboxClass ?>">
+                                        <div class="<?php echo $inboxClass ?>">
                                             <a class="collapse-link">
                                                 <div class="ibox-title navy-bg">
                                                     <h5><?php echo $language ?></h5>
@@ -163,63 +126,24 @@ echo $this->Form->create();
                                             <div class="ibox-content"
                                                  style="<?php echo $boxStyle ?>">
                                                 <?php
-                                                echo $this->Form->control(__('title'),
+
+                                                echo $this->Form->control('_translations.'. $key .'.title',
                                                     [
                                                         'class'       => 'form-control',
                                                         'placeholder' => __(TITLE),
-                                                        'name'        => $key
-                                                            . '[title]',
+                                                        'label'       => __(TITLE),
                                                         'required'    => false,
                                                     ]
                                                 );
-                                                echo $this->Form->control(__('description'),
-                                                    [
-                                                        'class'       => 'form-control',
-                                                        'name'        => $key
-                                                            . '[description]',
-                                                        'placeholder' => __(DESCRIPTION),
-                                                        'type'        => 'textarea',
-                                                        'required'    => false,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('content'),
+
+                                                echo $this->element('Admin/Meta/frmMetaTranslate', compact('key'));
+
+                                                echo $this->Form->control('_translations.'. $key .'.content',
                                                     [
                                                         'class'       => 'form-control tinyMceEditor',
-                                                        'name'        => $key
-                                                            . '[content]',
                                                         'placeholder' => __(CONTENT_TEXT),
+                                                        'label'       => __(CONTENT_TEXT),
                                                         'type'        => 'textarea',
-                                                        'required'    => false,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('seo_title'),
-                                                    [
-                                                        'label'       => __(SEO_TITLE),
-                                                        'class'       => 'form-control',
-                                                        'name'        => $key
-                                                            . '[seo_title]',
-                                                        'placeholder' => __(SEO_TITLE),
-                                                        'required'    => false,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('seo_description'),
-                                                    [
-                                                        'label'       => __(SEO_DESCRIPTION),
-                                                        'class'       => 'form-control',
-                                                        'name'        => $key
-                                                            . '[seo_description]',
-                                                        'type'        => 'textarea',
-                                                        'placeholder' => __(SEO_DESCRIPTION),
-                                                        'required'    => false,
-                                                    ]
-                                                );
-                                                echo $this->Form->control(__('seo_keyword'),
-                                                    [
-                                                        'label'       => __(SEO_KEYWORD),
-                                                        'class'       => 'form-control',
-                                                        'name'        => $key
-                                                            . '[seo_keyword]',
-                                                        'placeholder' => __(SEO_KEYWORD),
                                                         'required'    => false,
                                                     ]
                                                 );

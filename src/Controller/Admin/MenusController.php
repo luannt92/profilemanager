@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
-use Cake\I18n\I18n;
 
 /**
  * Class MenusController
@@ -15,12 +14,11 @@ use Cake\I18n\I18n;
 class MenusController extends CommonController
 {
     /* Allow action */
-    protected $_allowAction = ['index', 'edit'];
+    protected $_allowAction = ['index', 'edit', 'add'];
 
     public function initialize()
     {
         parent::initialize();
-        I18n::setLocale('vi');
     }
 
     /**
@@ -66,6 +64,7 @@ class MenusController extends CommonController
         $menuCheck     = $this->Menus->findById($id)->firstOrFail();
         $menuCheckType = ! empty($menuCheck['type']) ? $menuCheck['type']
             : MENU;
+        $icons         = Configure::read('icon_menu_child');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -74,32 +73,34 @@ class MenusController extends CommonController
                 if ( ! empty($menuData) && $this->_saveData($menuData, $id)) {
                     $this->Flash->success(__(COMMON_MSG_0001));
 
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect($this->getBackLink());
                 }
             }
             $this->Flash->error(__(COMMON_MSG_0002));
         }
 
-        $categories       = TableRegistry::get('Categories');
-        $travelCategories = TableRegistry::get('TravelCategories');
-        $pages            = TableRegistry::get('Pages');
-        $tags             = TableRegistry::get('Tags');
-        $menuItemObj      = TableRegistry::get('MenuItems');
+        $categories    = TableRegistry::get('Categories');
+        $newCategories = TableRegistry::get('NewCategories');
+        $pages         = TableRegistry::get('Pages');
+        $tags          = TableRegistry::get('Tags');
+        $menuItemObj   = TableRegistry::get('MenuItems');
 
         /* @var \App\Model\Table\CategoriesTable $categories */
+        /* @var \App\Model\Table\NewCategoriesTable $newCategories */
         /* @var \App\Model\Table\TagsTable $tags */
-        /* @var \App\Model\Table\TravelCategoriesTable $travelCategories */
         /* @var \App\Model\Table\PagesTable $pages */
         /* @var \App\Model\Table\MenuItemsTable $menuItemObj */
-        $travelCategories = $travelCategories->getListCategory();
-        $pages            = $pages->getListPage();
-        $categories       = $categories->getListCategory();
-        $tags             = $tags->getListTag();
+        $pages         = $pages->getListPage();
+        $newCategories = $newCategories->getListCategory();
+        $categories    = $categories->getListCategory();
+        $tags          = $tags->getListTag();
 
-        $menuTab = $menuItemObj->getMenuByType($id);
-        $menuId  = $id;
+        $menuTab   = $menuItemObj->getMenuByType($id);
+        $languages = Configure::read('system_languages');
+        $menuId    = $id;
         $this->set(compact('categories', 'tags', 'menuTab', 'menuId',
-            'menuCheckType', 'travelCategories', 'pages'));
+            'menuCheckType', 'newCategories', 'pages', 'languages',
+            'menuCheck', 'icons'));
     }
 
     /**
@@ -110,16 +111,19 @@ class MenusController extends CommonController
      */
     private function _saveData($menuData = [], $id)
     {
-        $language    = LANGUAGE;
+        $language    = Configure::read('system_languages');
         $flag        = false;
         $menuItemObj = TableRegistry::get('MenuItems');
+        /* @var \App\Model\Table\MenuItemsTable $menuItemObj */
         $languageObj = TableRegistry::get('I18n');
         //delete all data of menu
         $idArr = $menuItemObj->getIdByMenu($id);
         $menuItemObj->deleteAll(['menu_id' => $id]);
-        foreach ($idArr as $idL)
-        {
-            $languageObj->deleteAll(['foreign_key' => $idL->id, 'model' => 'MenuItems']);
+        foreach ($idArr as $idL) {
+            $languageObj->deleteAll([
+                'foreign_key' => $idL->id,
+                'model'       => 'MenuItems',
+            ]);
         }
 
         // insert new data
@@ -171,6 +175,8 @@ class MenusController extends CommonController
                             'position'  => $key,
                             'status'    => ACTIVE,
                             'parent_id' => $afterSave->id,
+                            'icon'      => !empty($value->icon) ? $value->icon
+                                : null,
                         ];
 
                         $menuChildSave
@@ -198,6 +204,11 @@ class MenusController extends CommonController
      */
     private function _deleteCacheData()
     {
-        Cache::delete(CACHE_MENU_TOURS);
+        Cache::delete(KEY_MENU_CACHE . MENU_HEADER . '_vi');
+        Cache::delete(KEY_MENU_CACHE . MENU_HEADER . '_en');
+        Cache::delete(KEY_MENU_CACHE . MENU_FOOTER . '_vi');
+        Cache::delete(KEY_MENU_CACHE . MENU_FOOTER . '_en');
+        Cache::delete(KEY_MENU_CACHE . MENU_LINK . '_vi');
+        Cache::delete(KEY_MENU_CACHE . MENU_LINK . '_en');
     }
 }

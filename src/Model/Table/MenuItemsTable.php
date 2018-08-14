@@ -25,6 +25,7 @@ class MenuItemsTable extends CommonTable
             'target',
             'position',
             'parent_id',
+            'icon',
         ];
 
     /**

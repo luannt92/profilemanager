@@ -73,13 +73,13 @@ class SettingsTable extends CommonTable
      */
     public function getListSetting($fields, $conditions = [])
     {
-        $conditions = array_merge(['status' => ENABLED,], $conditions);
+        $conditions = array_merge(['status IN' => [ENABLED, DEACTIVE],], $conditions);
         $fields     = array_merge([
             'keyField'   => 'name',
             'valueField' => 'value',
         ], $fields);
 
-        return $this->find('list', $fields)->hydrate(false)
+        return $this->find('list', $fields)->enableHydration(false)
             ->where($conditions)->toArray();
     }
 }

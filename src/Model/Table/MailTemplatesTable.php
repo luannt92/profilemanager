@@ -25,6 +25,13 @@ class MailTemplatesTable extends CommonTable
 
         $this->setTable(TABLE_PREFIX . 'mail_templates');
         $this->setDisplayField('subject');
+
+        $this->addBehavior('Translate', [
+            'fields' => [
+                'subject',
+                'content',
+            ],
+        ]);
     }
 
     /**

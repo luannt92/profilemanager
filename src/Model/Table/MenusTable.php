@@ -27,8 +27,6 @@ class MenusTable extends CommonTable
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Translate', ['fields' => ['name']]);
-
         $this->hasMany('MenuItems')
             ->setForeignKey('menu_id')
             ->setDependent(false);
@@ -87,7 +85,7 @@ class MenusTable extends CommonTable
         ];
 
         return $this->find()->select($fields)
-            ->hydrate(false)
+            ->enableHydration(false)
             ->where($conditions)->first();
 
     }
@@ -106,11 +104,7 @@ class MenusTable extends CommonTable
         ];
 
         return $this->find()->select($fields)
-            ->contain([
-                '',
-            ])
-            ->hydrate(false)
+            ->enableHydration(false)
             ->where($conditions)->first();
-
     }
 }
