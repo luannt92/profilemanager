@@ -222,7 +222,7 @@ class UsersController extends CommonController
                         $user = $this->Users->confirmPassword($email,
                             $data['newPassword']);
                         if ($user) {
-                            $this->Flash->greatMessage(__(USER_MSG_0058));
+                            $this->Flash->greatMessage(__(USER_MSG_0047));
                             $arrMsg['success'] = true;
                             $arrMsg['redirect']
                                                = Router::url(['action' => 'home']);
@@ -230,7 +230,7 @@ class UsersController extends CommonController
                             $arrMsg['message'] = __(USER_MSG_0021);
                         }
                     } else {
-                        $arrMsg['message'] = __(USER_MSG_0059);
+                        $arrMsg['message'] = __(USER_MSG_0048);
                     }
                 } else {
                     $arrMsg['message'] = __(USER_MSG_0035);
@@ -497,11 +497,11 @@ class UsersController extends CommonController
                 if ($this->Users->contact($data,
                     $dataSettings['site_mail'])
                 ) {
-                    $this->Flash->success(__(USER_MSG_0047));
+                    $this->Flash->success(__(USER_MSG_0044));
 
                     return $this->redirect('/');
                 } else {
-                    $this->Flash->error(__(USER_MSG_0048));
+                    $this->Flash->error(__(USER_MSG_0045));
                 }
             } else {
                 $error = $this->_displayErrors($contactForm->errors());

@@ -138,7 +138,7 @@ class UsersTable extends CommonTable
             ])
             ->where([
                 'Users.status' => ENABLED,
-                'usg.type IN'  => [ADMIN, SUPER_ADMIN, CENTER],
+                'usg.type IN'  => [ADMIN, SUPER_ADMIN],
             ]);
 
         return $query;

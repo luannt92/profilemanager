@@ -66,7 +66,7 @@ $key     = ! empty($params['key'])
                             'required'            => true,
                             'data-minlength'      => MIN_LENGTH_PASSWORD,
                             'data-match'          => '#newPassword',
-                            'data-error'          => __(USER_MSG_0057),
+                            'data-error'          => __(USER_MSG_0046),
                             'data-required-error' => __(PLACEHOLDER_CONFIRM_PASSWORD),
                         ]
                     );

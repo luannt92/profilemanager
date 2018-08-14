@@ -3,17 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Aura\Intl\Exception;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Http\Client;
+use Cake\Mailer\Email;
 use Cake\Utility\Inflector;
 use Cake\Utility\Text;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\I18n;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class CommonController extends AppController
 {
@@ -34,6 +34,7 @@ class CommonController extends AppController
             'login',
             'summary',
             'logout',
+            'direct',
         ];
 
     public function initialize()
@@ -42,7 +43,6 @@ class CommonController extends AppController
         FrozenTime::setDefaultLocale('en_US');
 
         $this->loadComponent('Paginator');
-        $this->loadComponent('Message');
         $this->loadComponent(
             'Auth', [
                 'authenticate'         => [
@@ -66,16 +66,15 @@ class CommonController extends AppController
                     'action'     => 'login',
                 ],
                 'loginRedirect'        => [
-                    'controller' => 'Dashboards',
-                    'action'     => 'summary',
+                    'controller' => 'Users',
+                    'action'     => 'index',
                 ],
                 'unauthorizedRedirect' => $this->referer(),
             ]
         );
 
-        $settingInfo = $this->_getConfigs();
         $languages = Configure::read('system_languages');
-        $this->set(compact('languages', 'settingInfo'));
+        $this->set(compact('languages'));
 
         $this->viewBuilder()->setLayout('Admin/default');
     }
@@ -94,7 +93,7 @@ class CommonController extends AppController
             && ! in_array($actions, $this->_allowAction)
             || ! $this->_checkPermission()
         ) {
-            $this->Flash->error(__(USER_MSG_0064));
+            $this->Flash->error(__(USER_MSG_0049));
 
             return $this->redirect($this->referer());
         }
@@ -361,17 +360,6 @@ class CommonController extends AppController
         return $this->redirect($this->referer());
     }
 
-    /**
-     * convert to slug
-     *
-     * @param $slug
-     *
-     * @return string
-     */
-    public function convertToSlug($slug)
-    {
-        return Text::slug(mb_strtolower($slug, 'UTF-8'));
-    }
 
     /**
      * Delete Ajax method
@@ -470,7 +458,8 @@ class CommonController extends AppController
         $controller = $this->request->getParam('controller');
         $action     = $this->request->getParam('action');
 
-        $userGroupType = $this->Auth->user('usg.type');
+        $userGroupType = $this->Auth->user('user_group_id');
+//        $this->log($userGroupType);
         if ( ! empty($userGroupType)
             && in_array($userGroupType, [SUPER_ADMIN, ADMIN])
         ) {
@@ -507,7 +496,8 @@ class CommonController extends AppController
         $key = 'permission_users_' . $this->Auth->user('usg.id');
 
         if (($userInfo = Cache::read($key)) === false) {
-            $groupsPermissionTbl = TableRegistry::get('UserGroupPermissions');
+            $groupsPermissionTbl = TableRegistry::getTableLocator()
+                ->get('UserGroupPermissions');
             $userGroupId         = $this->Auth->user('user_group_id');
 
             /* @var \App\Model\Table\UserGroupPermissionsTable $groupsPermissionTbl */
@@ -519,63 +509,9 @@ class CommonController extends AppController
         return $userInfo;
     }
 
-    /**
-     * export file excel
-     *
-     * @param       $nameFile
-     * @param array $data
-     * @param array $merges
-     * @param       $coordinateTitle
-     * @param array $styleTitle
-     * @param array $rangeAutoSize
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
-    public function exportExcel(
-        $nameFile,
-        $data = [],
-        $merges = [],
-        $coordinateTitle,
-        $styleTitle = [],
-        $rangeAutoSize = []
-    ) {
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->getProperties()->setCreator(CREATOR_EXPORT_EXCEL);
-        $spreadsheet->getActiveSheet()->setTitle(__('Report'));
-        $spreadsheet->getActiveSheet()->fromArray($data, null);
-
-        //merges coordinate
-        if ( ! empty($merges)) {
-            $spreadsheet->getActiveSheet()->setMergeCells($merges);
-        }
-
-        // set style for head
-        if ( ! empty($coordinateTitle)) {
-            $spreadsheet->getActiveSheet()->getStyle($coordinateTitle)
-                ->applyFromArray($styleTitle);
-        }
-
-        //set width auto
-        if ( ! empty($rangeAutoSize)) {
-            foreach ($rangeAutoSize as $col) {
-                $spreadsheet->getActiveSheet()->getColumnDimension($col)
-                    ->setAutoSize(true);
-            }
-        }
-
-        $writer = new Xlsx($spreadsheet);
-
-        header('Content-type: application/vnd.ms-excel;charset=utf-8');
-        header('Content-Disposition: attachment; filename="' . $nameFile
-            . '.xlsx"');
-
-        return $writer->save("php://output");
-    }
-
     protected function getEmailAdmin()
     {
-        $userTbl = TableRegistry::get('Users');
+        $userTbl = TableRegistry::getTableLocator()->get('Users');
         $users   = $userTbl->find('all', [
             'fields'     => ['email', 'full_name'],
             'conditions' => ['UserGroups.type' => 1],
@@ -646,18 +582,17 @@ class CommonController extends AppController
     /**
      * Get config from setting
      */
-    private function _getConfigs()
+    protected function _getConfigs()
     {
         $key = KEY_COMMON_ADMIN_CACHE;
 
         if (($settingInfo = Cache::read($key)) === false) {
-            $settingTbl = TableRegistry::get('Settings');
+            $settingTbl = TableRegistry::getTableLocator()->get('Settings');
             $conditions = [
                 'OR' => [
                     [
                         'name IN' => [
-                            'time_open',
-                            'time_close',
+                            'site_mail',
                         ],
                     ],
                 ],
@@ -670,5 +605,56 @@ class CommonController extends AppController
         }
 
         return $settingInfo;
+    }
+
+    /**
+     * this is function send email with options
+     * sendMail method
+     *
+     * @param        $subject
+     * @param        $body
+     * @param        $to
+     * @param array  $viewVarsOption
+     * @param string $config
+     * @param null   $attachedFile
+     * @param string $format
+     *
+     * @return bool
+     */
+    public function sendMail(
+        $subject,
+        $body,
+        $to,
+        $viewVarsOption = [],
+        $format = 'html',
+        $config = 'gmail',
+        $attachedFile = null
+    ) {
+        $isSendMail = false;
+        try {
+            $viewVarsArr = array_merge(array(
+                'user'        => $to,
+                'title'       => $subject,
+                'settingInfo' => $this->_getConfigs(),
+            ), $viewVarsOption);
+            $email       = new Email($config);
+            $email->setTemplate('default')
+                ->setTransport('gmail')
+                ->setEmailFormat($format)
+                ->setTo($to)
+                ->setSubject($subject)
+                ->setViewVars($viewVarsArr);
+            if ( ! empty($attachedFile)) {
+                $email->addAttachments($attachedFile);
+            }
+
+            if ($email->send($body)) {
+                $isSendMail = true;
+            }
+        } catch (Exception $ex) {
+            $isSendMail = false;
+        }
+
+        return $isSendMail;
     }
 }

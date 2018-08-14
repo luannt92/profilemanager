@@ -267,40 +267,6 @@ class UtilityHelper extends Helper
     }
 
     /**
-     *
-     * array time from start to end by distance
-     *
-     * @param null   $distance
-     * @param string $start
-     * @param string $end
-     *
-     * @return array
-     */
-    public function convertMinutesToHours(
-        $distance = null,
-        $start = TIME_START_TEXT,
-        $end = TIME_END_TEXT
-    ) {
-        $arrTime            = [];
-        $arrTime[SOON_TIME] = SOON_TIME;
-        $distance           = empty($distance) ? TIME_DISTANCE : $distance;
-        $start              = explode(":", $start);
-        $end                = explode(":", $end);
-        $start              = ($start[0] * 60) + $start[1];
-        $end                = ($end[0] * 60) + $end[1];
-
-        for ($mins = $start; $mins <= $end; ($mins += $distance)) {
-            $hours         = floor($mins / 60);
-            $minutes       = $mins - ($hours * 60);
-            $H_i           = str_pad($hours, '2', '0', STR_PAD_LEFT);
-            $H_i           .= ':' . str_pad($minutes, '2', '0', STR_PAD_LEFT);
-            $arrTime[$H_i] = $H_i;
-        }
-
-        return $arrTime;
-    }
-
-    /**
      * generate html address
      *
      * @param        $arrayAddress
@@ -391,78 +357,6 @@ class UtilityHelper extends Helper
         }
 
         return $html;
-    }
-
-
-    /**
-     * format and calculate price
-     *
-     * @param        $prices
-     * @param bool   $calculate
-     * @param bool   $calDiscount
-     * @param string $unit
-     *
-     * @return array|int|string
-     */
-    public function formatAndCalcPrice(
-        $prices,
-        $calculate = false,
-        $calDiscount = false,
-        $unit = CURRENCY_UNIT
-    ) {
-        //calculate total order
-        if ($calculate) {
-            $arrays = [
-                'subTotal'    => empty($prices['subTotal']) ? 0
-                    : $prices['subTotal'],
-                'feeShipping' => empty($prices['feeShipping']) ? 0
-                    : $prices['feeShipping'],
-                'discount'    => 0,
-            ];
-
-            if ( ! empty($prices['discount'])) {
-                $discount           = ($arrays['subTotal']
-                        * $prices['discount']) / 100;
-                $arrays['discount'] = $discount;
-            }
-            $total           = ($arrays['subTotal'] - $arrays['discount'])
-                + $arrays['feeShipping'];
-            $arrays['total'] = $total;
-            $prices          = $arrays;
-        }
-        //calculate discount price each item
-        if ($calDiscount) {
-            $arrays             = [
-                'price'    => empty($prices['price']) ? 0
-                    : $prices['price'],
-                'quantity' => empty($prices['quantity']) ? 0
-                    : $prices['quantity'],
-                'total'    => empty($prices['total']) ? 0
-                    : $prices['total'],
-            ];
-            $discount           = ($arrays['price'] * $arrays['quantity'])
-                - $arrays['total'];
-            $arrays['discount'] = $discount;
-            unset($arrays['quantity']);
-            $prices = $arrays;
-        }
-
-        if (is_array($prices)) {
-            if ($unit != false) {
-                $arr = [];
-                foreach ($prices as $key => $price) {
-                    $arr[$key] = Number::format($price, ['after' => $unit]);
-                }
-
-                return $arr;
-            }
-
-            return $prices;
-        }
-
-        $prices = empty($prices) ? 0 : $prices;
-
-        return Number::format($prices, ['after' => $unit]);
     }
 
     public function checkPercent($number)

@@ -6,79 +6,6 @@ $arrMenus = [
         'url'   => ['controller' => 'Dashboards', 'action' => 'summary'],
     ],
     [
-        'icon'  => 'fa fa-shopping-cart',
-        'title' => 'Store',
-        'child' => [
-            [
-                'title' => 'Services',
-                'url'   => [
-                    'controller' => 'Services',
-                    'action'     => 'index',
-                ],
-            ],
-            [
-                'title' => 'Category',
-                'url'   => [
-                    'controller' => 'Categories',
-                    'action'     => 'index',
-                ],
-            ],
-            [
-                'title' => 'Stores',
-                'url'   => [
-                    'controller' => 'Stores',
-                    'action'     => 'index',
-                ],
-            ],
-            [
-                'title' => 'Product',
-                'url'   => [
-                    'controller' => 'Products',
-                    'action'     => 'index',
-                ],
-            ],
-            [
-                'icon'  => 'fa fa-th',
-                'title' => 'Orders',
-                'url'   => ['controller' => 'Orders', 'action' => 'index'],
-            ],
-            [
-                'icon'  => 'fa fa-th',
-                'title' => 'Vouchers',
-                'url'   => ['controller' => 'Discounts', 'action' => 'index'],
-            ],
-            [
-                'icon'  => 'fa fa-th',
-                'title' => 'Promotions',
-                'url'   => ['controller' => 'Promotions', 'action' => 'index'],
-            ],
-        ],
-    ],
-    [
-        'icon'  => 'fa fa-bicycle',
-        'title' => 'Shipping',
-        'child' => [
-            [
-                'icon'  => 'fa fa-tags',
-                'title' => 'Shipping zones',
-                'url'   => [
-                    'controller' => 'ShippingZones',
-                    'action'     => 'index',
-                ],
-            ],
-            [
-                'icon'  => 'fa fa-tags',
-                'title' => 'Shipper',
-                'url'   => ['controller' => 'Shippers', 'action' => 'index'],
-            ],
-            [
-                'icon'  => 'fa fa-tags',
-                'title' => 'Hotels',
-                'url'   => ['controller' => 'Hotels', 'action' => 'index'],
-            ],
-        ],
-    ],
-    [
         'icon'  => 'fa fa-bar-chart-o',
         'title' => ' Reports',
         'child' => [
@@ -89,41 +16,11 @@ $arrMenus = [
             ],
             [
                 'icon'  => 'fa fa-newspaper-o',
-                'title' => 'Profit',
-                'url'   => ['controller' => 'Dashboards', 'action' => 'reportShipping'],
-            ],
-            [
-                'icon'  => 'fa fa-newspaper-o',
                 'title' => 'Customer',
                 'url'   => [
                     'controller' => 'Dashboards',
                     'action'     => 'customer',
                 ],
-            ],
-            [
-                'icon'  => 'fa fa-newspaper-o',
-                'title' => 'Zone',
-                'url'   => ['controller' => 'Dashboards', 'action' => 'zone'],
-            ],
-            [
-                'icon'  => 'fa fa-newspaper-o',
-                'title' => 'Shipper',
-                'url'   => ['controller' => 'Dashboards', 'action' => 'shipper'],
-            ],
-            [
-                'icon'  => 'fa fa-newspaper-o',
-                'title' => 'User Logs',
-                'url'   => ['controller' => 'UserLogs', 'action' => 'index'],
-            ],
-             [
-                'icon'  => 'fa fa-newspaper-o',
-                'title' => 'Order History',
-                'url'   => ['controller' => 'OrderHistories', 'action' => 'index'],
-            ],
-            [
-                'icon'  => 'fa fa-newspaper-o',
-                'title' => 'User Trackings',
-                'url'   => ['controller' => 'UserTrackings', 'action' => 'index'],
             ],
         ],
     ],
@@ -140,12 +37,24 @@ $arrMenus = [
                 'url'   => ['controller' => 'Menus', 'action' => 'index'],
             ],
             [
-                'title' => 'Our Services',
-                'url'   => ['controller' => 'OurServices', 'action' => 'index'],
-            ],
-            [
                 'title' => 'Slider',
                 'url'   => ['controller' => 'Sliders', 'action' => 'index'],
+            ],
+            [
+                'title' => 'Skills',
+                'url'   => ['controller' => 'Skills', 'action' => 'index'],
+            ],
+            [
+                'title' => 'Portfolios',
+                'url'   => ['controller' => 'Portfolios', 'action' => 'index'],
+            ],
+            [
+                'title' => 'Experiences',
+                'url'   => ['controller' => 'Experiences', 'action' => 'index'],
+            ],
+            [
+                'title' => 'Educations',
+                'url'   => ['controller' => 'Educations', 'action' => 'index'],
             ],
             [
                 'title' => 'Mail template',
@@ -154,21 +63,6 @@ $arrMenus = [
                     'action'     => 'index',
                 ],
             ],
-            [
-                'title' => 'Countries',
-                'url'   => [
-                    'controller' => 'Countries',
-                    'action'     => 'index',
-                ],
-            ],
-            [
-                'title' => 'Support',
-                'url'   => ['controller' => 'Supports', 'action' => 'index'],
-            ],
-            [
-                'title' => 'Payment Method',
-                'url' => ['controller' => 'PaymentMethods', 'action' => 'index']
-            ]
         ],
     ],
     [
