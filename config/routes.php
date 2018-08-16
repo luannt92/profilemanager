@@ -59,6 +59,13 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
+    $routes->connect('/:language',
+        ['controller' => 'Users', 'action' => 'home'])
+        ->setPatterns([
+            'language' => 'vi|en',
+        ])
+        ->setPersist(['language']);
+    $routes->connect('/', ['controller' => 'Users', 'action' => 'home']);
 
 //    $routes->connect(
 //        '/:language/pages/:slug',

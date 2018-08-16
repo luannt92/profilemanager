@@ -41,6 +41,14 @@ echo $this->Form->create($item);
                                         'label' => __(PERCENT),
                                     ]
                                 );
+                                echo $this->Form->control('status', [
+                                        'options' => [
+                                            ENABLED  => 'Enabled',
+                                            DISABLED => 'Disabled',
+                                        ],
+                                        'class'   => 'form-control',
+                                    ]
+                                );
                                 echo $this->Form->control(
                                     __(SAVE_CHANGE), [
                                         'class' => 'btn btn-primary m-b',
@@ -55,11 +63,11 @@ echo $this->Form->create($item);
                         <div class="panel-body">
                             <fieldset class="form-horizontal">
                                 <?php
-                                $block     = 1;
+                                $block = 1;
                                 foreach ($languages as $key => $language) {
                                     $inboxClass = "ibox float-e-margins";
-                                    $iClass    = "fa fa-chevron-down";
-                                    $boxStyle  = "display: none;";
+                                    $iClass     = "fa fa-chevron-down";
+                                    $boxStyle   = "display: none;";
                                     if ($block === 1) {
                                         $inboxClass
                                                   = "ibox float-e-margins border-bottom";

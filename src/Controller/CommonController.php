@@ -61,21 +61,13 @@ class CommonController extends AppController
         $this->changeLanguage();
 
         $settingInfo = $this->_getConfigs();
-        $currentTime = date('H:i');
-        if ($settingInfo['time_open'] > $currentTime
-            || $currentTime > $settingInfo['time_close']
-        ) {
-            $this->deleteCart();
-        }
-        $zoneInfo = $this->_getZones();
-        $wardInfo = $this->_getWards();
 
-        $menuHeaders = $this->_getMenus(MENU_HEADER);
-        $menuFooters = $this->_getMenus(MENU_FOOTER);
-        $menuLinks   = $this->_getMenus(MENU_LINK);
+//        $menuHeaders = $this->_getMenus(MENU_HEADER);
+//        $menuFooters = $this->_getMenus(MENU_FOOTER);
+//        $menuLinks   = $this->_getMenus(MENU_LINK);
 
         $this->set(compact('menuHeaders', 'settingInfo', 'menuFooters',
-            'menuLinks', 'zoneInfo', 'wardInfo'));
+            'menuLinks'));
     }
 
     public function beforeFilter(Event $event)

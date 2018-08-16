@@ -334,24 +334,7 @@ class UsersController extends CommonController
      */
     public function home()
     {
-        $this->set('title', 'PhuQuocDelivery - Trang chủ');
 
-        /**@var \App\Model\Table\OurServicesTable $ourServicesTable */
-        $ourServicesTable = TableRegistry::get('OurServices');
-        /**@var \App\Model\Table\SlidersTable $slidersTable */
-        $slidersTable = TableRegistry::get('Sliders');
-        /**@var \App\Model\Table\ServicesTable $servicesTable */
-        $servicesTable = TableRegistry::get('Services');
-        $language      = I18n::getLocale();
-        $conditions    = [
-            'Sliders.language' => $language,
-        ];
-
-        $sliders     = $slidersTable->getAllSliders($conditions, []);
-        $ourServices = $ourServicesTable->getAllOurServices([], [], 6);
-        $services    = $servicesTable->getAllServices([], []);
-
-        $this->set(compact('sliders', 'ourServices', 'services'));
     }
 
     /**
@@ -397,7 +380,8 @@ class UsersController extends CommonController
                     ->enableHydration(false)->first();
             } else if ($addressRec['typeAddress'] == HOUSE) {
                 $shippingZoneTbl = TableRegistry::get('ShippingZones');
-                $shippingZone    = $shippingZoneTbl->findById($addressRec['areaOrder'])
+                $shippingZone
+                                 = $shippingZoneTbl->findById($addressRec['areaOrder'])
                     ->enableHydration(false)->first();
             }
         }
@@ -414,7 +398,8 @@ class UsersController extends CommonController
         $orders     = $orderTbl->getOrdersByUserId($userId, $conditions,
             false, [], $order, ORDER_LIMIT);
 
-        $this->set(compact('user', 'addressRec', 'orders', 'hotel', 'shippingZone'));
+        $this->set(compact('user', 'addressRec', 'orders', 'hotel',
+            'shippingZone'));
     }
 
     /**

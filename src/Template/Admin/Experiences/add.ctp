@@ -4,6 +4,7 @@
 ]);
 
 $this->Form->setTemplates($this->Utility->customFormTemplate());
+$time = time();
 echo $this->Form->create();
 ?>
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
@@ -27,65 +28,55 @@ echo $this->Form->create();
                             <div class="panel-body">
                                 <fieldset class="form-horizontal">
                                     <?php
-                                    echo $this->Form->control('title', [
+                                    echo $this->Form->control('name', [
                                             'class'       => 'form-control',
-                                            'placeholder' => __(TITLE),
-                                            'label'       => __(TITLE),
+                                            'placeholder' => __(NAME),
+                                            'label'       => __(NAME),
                                             'autofocus'   => true,
                                             'required'    => true,
                                         ]
                                     );
-
-                                    echo $this->element('Admin/Meta/frmMeta');
-
-                                    echo $this->Form->control('content', [
-                                            'id'          => 'content',
-                                            'class'       => 'form-control tinyMceEditor',
-                                            'placeholder' => __(CONTENT_TEXT),
-                                            'label'       => __(CONTENT_TEXT),
+                                    echo $this->Form->control('description', [
+                                            'class'       => 'form-control',
+                                            'placeholder' => __(DESCRIPTION),
+                                            'label'       => __(DESCRIPTION),
                                             'type'        => 'textarea',
                                         ]
                                     );
-                                    echo $this->Form->control('type', [
-                                            'options' => $optionType,
-                                            'label'   => __('type'),
-                                            'class'   => 'form-control',
+                                    echo $this->Form->control('content', [
+                                            'class'       => 'form-control',
+                                            'placeholder' => __(CONTENT_TEXT),
+                                            'label'       => __(CONTENT_TEXT),
                                         ]
-                                    ); ?>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label"><?php echo __(IMAGE) ?></label>
-                                        <div class="col-sm-7">
-                                            <?php echo $this->Form->control(
-                                                'image',
-                                                [
-                                                    'class'       => 'form-control',
-                                                    'type'        => 'text',
-                                                    'id'          => 'Image',
-                                                    'label'       => false,
-                                                    'placeholder' => __(IMAGE),
-                                                    'templates'   => [
-                                                        'formGroup' => '{{input}}',
-                                                    ],
-                                                ]
-                                            ); ?>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1&akey=<?php echo FILE_ACCESS_KEY; ?>"
-                                               class="btn btn-success iframe-btn"
-                                               type="button">
-                                                <i class="glyphicon glyphicon-plus"></i>
-                                                <span>Image...</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <?php
-                                    echo $this->Form->control(
-                                        'status', [
-                                            'options' => [
-                                                ENABLED  => 'Enabled',
-                                                DISABLED => 'Disabled',
+                                    );
+                                    echo '<div class="form-group"><label class = "col-sm-2 control-label">'
+                                        . __('Start date')
+                                        . '</label><div class="col-sm-10">';
+                                    echo $this->Form->control('date_start', [
+                                            'label'     => __('Start date:'),
+                                            'class'     => 'form-control',
+                                            'templates' => [
+                                                'inputContainer' => '<div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input name="date_start" class = "form-control datepicker" type="text" value="'
+                                                    . date('Y-m-d', $time) . '">
+                                                </div></div></div>',
                                             ],
-                                            'class'   => 'form-control',
+                                        ]
+                                    );
+                                    echo '<div class="form-group"><label class = "col-sm-2 control-label">'
+                                        . __('End date')
+                                        . '</label><div class="col-sm-10">';
+                                    echo $this->Form->control('date_end', [
+                                            'label'     => __('End date:'),
+                                            'class'     => 'form-control',
+                                            'templates' => [
+                                                'inputContainer' => '<div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input name="date_end" class = "form-control datepicker" type="text" value="'
+                                                    . date('Y-m-d', $time) . '">
+                                                </div></div></div>',
+                                            ],
                                         ]
                                     );
                                     echo $this->Form->control(
@@ -126,19 +117,28 @@ echo $this->Form->create();
                                             <div class="ibox-content"
                                                  style="<?php echo $boxStyle ?>">
                                                 <?php
-
-                                                echo $this->Form->control('_translations.'. $key .'.title',
+                                                echo $this->Form->control('_translations.'
+                                                    . $key . '.name',
                                                     [
                                                         'class'       => 'form-control',
-                                                        'placeholder' => __(TITLE),
-                                                        'label'       => __(TITLE),
+                                                        'placeholder' => __(NAME),
+                                                        'label'       => __(NAME),
                                                         'required'    => false,
                                                     ]
                                                 );
 
-                                                echo $this->element('Admin/Meta/frmMetaTranslate', compact('key'));
+                                                echo $this->Form->control('_translations.'
+                                                    . $key . '.description',
+                                                    [
+                                                        'class'       => 'form-control',
+                                                        'placeholder' => __(DESCRIPTION),
+                                                        'label'       => __(DESCRIPTION),
+                                                        'required'    => false,
+                                                    ]
+                                                );
 
-                                                echo $this->Form->control('_translations.'. $key .'.content',
+                                                echo $this->Form->control('_translations.'
+                                                    . $key . '.content',
                                                     [
                                                         'class'       => 'form-control tinyMceEditor',
                                                         'placeholder' => __(CONTENT_TEXT),
@@ -170,5 +170,27 @@ echo $this->Form->create();
     </div>
 <?php
 echo $this->Form->end();
+echo $this->Html->css(
+    [
+        'admin/plugins/clockpicker/clockpicker.css',
+    ],
+    ['block' => true]
+);
+echo $this->Html->script(
+    [
+        'admin/plugins/clockpicker/clockpicker.js',
+    ],
+    ['block' => 'scriptBottom']
+);
+?>
+<?php echo $this->Html->scriptStart(['block' => true]); ?>
+    <!--    <script>-->
+    $(document).ready(function () {
+    $('.datepicker').datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true
+    });
+    });
+<?php echo $this->Html->scriptEnd();
 echo $this->element('Admin/Editor/tinymce');
 echo $this->element('Admin/Editor/popup'); ?>

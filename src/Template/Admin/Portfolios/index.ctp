@@ -21,9 +21,7 @@
                         <thead>
                         <tr>
                             <th data-hide="all"><?php echo $this->Paginator->sort('id') ?></th>
-                            <th data-toggle="true"><?php echo $this->Paginator->sort('title') ?></th>
-                            <th scope="col"><?php echo $this->Paginator->sort('slug') ?></th>
-                            <th scope="col"><?php echo $this->Paginator->sort('type') ?></th>
+                            <th data-toggle="true"><?php echo $this->Paginator->sort('name') ?></th>
                             <th scope="col"><?php echo $this->Paginator->sort('status') ?></th>
                             <th data-hide="all"><?php echo $this->Paginator->sort('created_at') ?></th>
                             <th data-hide="all"><?php echo $this->Paginator->sort('updated_at') ?></th>
@@ -41,10 +39,7 @@
                             } ?>
                             <tr>
                                 <td><?php echo $this->Number->format($item->id) ?></td>
-                                <td><?php echo h($item->title) ?></td>
-                                <td><?php echo h($item->slug) ?></td>
-                                <td><?php echo ! empty($types[$item->type])
-                                        ? $types[$item->type] : '' ?></td>
+                                <td><?php echo h($item->name) ?></td>
                                 <td>
                                     <span class="label <?php echo $statusClass; ?>"><?php echo $statusName; ?></span>
                                 </td>

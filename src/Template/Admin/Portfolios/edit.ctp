@@ -27,66 +27,28 @@ echo $this->Form->create($item);
                         <div class="panel-body">
                             <fieldset class="form-horizontal">
                                 <?php
-                                echo $this->Form->control('title', [
+                                echo $this->Form->control('name', [
                                         'class'       => 'form-control',
-                                        'placeholder' => __(TITLE),
-                                        'label'       => __(TITLE),
+                                        'placeholder' => __(NAME),
+                                        'label'       => __(NAME),
                                         'autofocus'   => true,
                                         'required'    => true,
                                     ]
                                 );
-                                echo $this->Form->control('slug', [
+                                echo $this->Form->control('description', [
                                         'class'       => 'form-control',
-                                        'placeholder' => __(SLUG),
-                                        'label'       => __(SLUG),
-                                    ]
-                                );
-
-                                echo $this->element('Admin/Meta/frmMeta');
-
-                                echo $this->Form->control('content', [
-                                        'id'          => 'content',
-                                        'class'       => 'form-control tinyMceEditor',
-                                        'placeholder' => __(CONTENT_TEXT),
-                                        'label'       => __(CONTENT_TEXT),
+                                        'placeholder' => __(DESCRIPTION),
+                                        'label'       => __(DESCRIPTION),
                                         'type'        => 'textarea',
                                     ]
                                 );
-                                echo $this->Form->control('type', [
-                                        'options' => $optionType,
-                                        'label'   => __('type'),
-                                        'class'   => 'form-control',
+                                echo $this->Form->control('link', [
+                                        'class'       => 'form-control',
+                                        'placeholder' => __(LINK),
+                                        'label'       => __(LINK),
                                     ]
-                                ); ?>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label"><?php echo __(IMAGE) ?></label>
-                                    <div class="col-sm-7">
-                                        <?php echo $this->Form->control(
-                                            'image',
-                                            [
-                                                'class'       => 'form-control',
-                                                'type'        => 'text',
-                                                'id'          => 'Image',
-                                                'label'       => false,
-                                                'placeholder' => __(IMAGE),
-                                                'templates'   => [
-                                                    'formGroup' => '{{input}}',
-                                                ],
-                                            ]
-                                        ); ?>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <a href="/filemanager/dialog.php?type=0&field_id=Image&relative_url=1&akey=<?php echo FILE_ACCESS_KEY; ?>"
-                                           class="btn btn-success iframe-btn"
-                                           type="button">
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                            <span>Image...</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <?php
-                                echo $this->Form->control(
-                                    'status', [
+                                );
+                                echo $this->Form->control('status', [
                                         'options' => [
                                             ENABLED  => 'Enabled',
                                             DISABLED => 'Disabled',
@@ -108,11 +70,11 @@ echo $this->Form->create($item);
                         <div class="panel-body">
                             <fieldset class="form-horizontal">
                                 <?php
-                                $block     = 1;
+                                $block = 1;
                                 foreach ($languages as $key => $language) {
                                     $inboxClass = "ibox float-e-margins";
-                                    $iClass    = "fa fa-chevron-down";
-                                    $boxStyle  = "display: none;";
+                                    $iClass     = "fa fa-chevron-down";
+                                    $boxStyle   = "display: none;";
                                     if ($block === 1) {
                                         $inboxClass
                                                   = "ibox float-e-margins border-bottom";
@@ -132,22 +94,22 @@ echo $this->Form->create($item);
                                         <div class="ibox-content"
                                              style="<?php echo $boxStyle ?>">
                                             <?php
-                                            echo $this->Form->control('_translations.'. $key .'.title',
+                                            echo $this->Form->control('_translations.'
+                                                . $key . '.name',
                                                 [
                                                     'class'       => 'form-control',
-                                                    'placeholder' => __(TITLE),
-                                                    'label'       => __(TITLE),
+                                                    'placeholder' => __(NAME),
+                                                    'label'       => __(NAME),
                                                     'required'    => false,
                                                 ]
                                             );
 
-                                            echo $this->element('Admin/Meta/frmMetaTranslate', compact('key'));
-
-                                            echo $this->Form->control('_translations.'. $key .'.content',
+                                            echo $this->Form->control('_translations.'
+                                                . $key . '.description',
                                                 [
-                                                    'class'       => 'form-control tinyMceEditor',
-                                                    'placeholder' => __(CONTENT_TEXT),
-                                                    'label'       => __(CONTENT_TEXT),
+                                                    'class'       => 'form-control',
+                                                    'placeholder' => __(DESCRIPTION),
+                                                    'label'       => __(DESCRIPTION),
                                                     'type'        => 'textarea',
                                                     'required'    => false,
                                                 ]

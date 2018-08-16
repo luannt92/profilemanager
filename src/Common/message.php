@@ -185,8 +185,8 @@ define('CAPTCHA_MSG',
     'This question is for testing whether or not you are a human visitor and to prevent automated spam submissions.');
 
 define('DOWNLOAD_APP', 'Download app');
-define('DOWNLOAD', ' Download');
-define('LINK', ' Link');
+define('DOWNLOAD', 'Download');
+define('LINK', 'Link');
 
 define('VALIDATE_INPUT_1', 'Please enter {0}. ');
 define('VALIDATE_INPUT_2', 'Invalid {0}. ');

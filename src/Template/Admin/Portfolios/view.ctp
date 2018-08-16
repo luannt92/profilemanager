@@ -3,14 +3,6 @@
     'subTitle' => __(VIEW, $item->id),
 ]);
 
-$avatar     = empty($item->image) ? NO_IMAGE : $item->image;
-$avatarImg  = $this->Html->image(
-    $avatar, [
-        'id'    => 'previewImg',
-        'style' => ['max-width: 200px; max-height :100px;'],
-    ]
-);
-
 $this->Form->setTemplates($this->Utility->customFormTemplate());
 echo $this->Form->create($item, [
     'type' => 'get',
@@ -39,89 +31,28 @@ echo $this->Form->create($item, [
                             <fieldset class="form-horizontal">
                                 <?php
                                 echo $this->Form->control('title', [
-                                        'class'    => 'form-control',
-                                        'disabled' => true,
-                                        'label'    => __(TITLE),
-                                    ]
-                                );
-                                echo $this->Form->control('slug', [
-                                        'class'    => 'form-control',
+                                        'class'       => 'form-control',
+                                        'placeholder' => __(NAME),
+                                        'label'       => __(NAME),
+                                        'autofocus'   => true,
+                                        'required'    => true,
                                         'disabled' => true,
                                     ]
                                 );
-                                echo $this->Form->control('meta_title', [
-                                        'class'    => 'form-control',
-                                        'label'    => __(META_TITLE),
+                                echo $this->Form->control('percent', [
+                                        'class' => 'form-control',
+                                        'type'  => 'number',
+                                        'label' => __(PERCENT),
                                         'disabled' => true,
                                     ]
                                 );
-                                echo $this->Form->control('meta_keyword', [
-                                        'class'    => 'form-control',
-                                        'disabled' => true,
-                                        'label'    => __(META_KEYWORD),
-                                    ]
-                                );
-                                echo $this->Form->control('meta_description',
-                                    [
-                                        'class'    => 'form-control',
-                                        'disabled' => true,
-                                        'label'    => __(META_DESCRIPTION),
-                                        'type'     => 'textarea',
-                                    ]
-                                );
-                                echo $this->Form->control('content', [
-                                        'class'    => 'form-control',
-                                        'disabled' => true,
-                                        'label'    => __(CONTENT_TEXT),
-                                        'type'     => 'textarea',
-                                    ]
-                                );
-                                echo $this->Form->control('type', [
-                                        'options'  => $optionType,
-                                        'class'    => 'form-control',
-                                        'disabled' => true,
-                                    ]
-                                );
-                                echo '<div class="form-group">
-                                            <label class="col-sm-2 control-label">
-                                                ' . __(IMAGE) .
-                                    '</label><div class="col-sm-6">'
-                                    . $avatarImg . '</div></div>';
                                 echo $this->Form->control('status', [
-                                        'options'  => [
-                                            ACTIVE   => 'Active',
-                                            DEACTIVE => 'DeActive',
+                                        'options' => [
+                                            ENABLED  => 'Enabled',
+                                            DISABLED => 'Disabled',
                                         ],
-                                        'class'    => 'form-control',
+                                        'class'   => 'form-control',
                                         'disabled' => true,
-                                    ]
-                                );
-                                echo '<div class="form-group"><label class = "col-sm-2 control-label">'
-                                    . __(CREATED_AT)
-                                    . '</label><div class="col-sm-10">';
-                                echo $this->Form->control('created_at', [
-                                        'label'     => false,
-                                        'templates' => [
-                                            'inputContainer' => '<div class="input-group date">
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                <input name="start_date" class = "form-control datetimepicker4" type="text" value="'
-                                                . $item->created_at . '" disabled>
-                                                </div></div></div>',
-                                        ],
-                                    ]
-                                );
-                                echo '<div class="form-group"><label class = "col-sm-2 control-label">'
-                                    . __(UPDATED_AT)
-                                    . '</label><div class="col-sm-10">';
-                                echo $this->Form->control('updated_at', [
-                                        'label'     => false,
-                                        'templates' => [
-                                            'inputContainer' => '<div class="input-group date">
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                <input name="start_date" class = "form-control datetimepicker4" type="text" value="'
-                                                . $item->updated_at . '" disabled>
-                                                </div></div></div>',
-                                        ],
                                     ]
                                 );
                                 echo $this->Form->control(
@@ -162,21 +93,25 @@ echo $this->Form->create($item, [
                                             <div class="ibox-content"
                                                  style="<?php echo $boxStyle ?>">
                                                 <?php
-                                                echo $this->Form->control('_translations.'. $key .'.title',
+                                                echo $this->Form->control('_translations.'
+                                                    . $key . '.name',
                                                     [
-                                                        'class'    => 'form-control',
-                                                        'label'    => __(TITLE),
+                                                        'class'       => 'form-control',
+                                                        'placeholder' => __(NAME),
+                                                        'label'       => __(NAME),
+                                                        'required'    => false,
                                                         'disabled' => true,
                                                     ]
                                                 );
 
-                                                echo $this->element('Admin/Meta/frmMetaTranslate', compact('key'));
-
-                                                echo $this->Form->control('_translations.'. $key .'.content',
+                                                echo $this->Form->control('_translations.'
+                                                    . $key . '.description',
                                                     [
-                                                        'class'    => 'form-control tinyMceEditor',
-                                                        'type'     => 'textarea',
-                                                        'label'    => __(CONTENT_TEXT),
+                                                        'class'       => 'form-control',
+                                                        'placeholder' => __(DESCRIPTION),
+                                                        'label'       => __(DESCRIPTION),
+                                                        'type'        => 'textarea',
+                                                        'required'    => false,
                                                         'disabled' => true,
                                                     ]
                                                 );
