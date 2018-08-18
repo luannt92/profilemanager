@@ -27,9 +27,7 @@ class UsersController extends CommonController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow([
-            'updateCheckOut',
-        ]);
+//        $this->Auth->allow([]);
     }
 
     /**
@@ -352,80 +350,6 @@ class UsersController extends CommonController
     }
 
     /**
-     * account page
-     */
-    public function account()
-    {
-        $userId     = $this->Auth->user('id');
-        $addressRec = [];
-        $hotel      = $ward = null;
-        $user       = $this->Users->get($userId);
-        /**@var  \App\Model\Table\AddressesTable $addressTbl */
-        $addressTbl      = TableRegistry::get('Addresses');
-        $conditions      = [
-            'type'         => DEFAULT_ADDRESS,
-            'type_address' => RECIPIENT_ADDRESS,
-        ];
-        $addressShipping = $addressTbl->getAddressesByUserId($userId,
-            $conditions, false, [], [], 1);
-        if ( ! empty($addressShipping['address'])) {
-            $addressArr = json_decode($addressShipping['address'], true);
-            $addressRec = array_merge(['id' => $addressShipping['id']],
-                (array)$addressArr);
-
-            /**@var \App\Model\Table\HotelsTable $hotelTbl */
-            if ($addressRec['typeAddress'] == HOTEL) {
-                $hotelTbl = TableRegistry::get('Hotels');
-                $hotel    = $hotelTbl->findById($addressRec['hotel'])
-                    ->enableHydration(false)->first();
-            } else if ($addressRec['typeAddress'] == HOUSE) {
-                $shippingZoneTbl = TableRegistry::get('ShippingZones');
-                $shippingZone
-                                 = $shippingZoneTbl->findById($addressRec['areaOrder'])
-                    ->enableHydration(false)->first();
-            }
-        }
-        /* $conditions = [
-             'type'         => DEFAULT_ADDRESS,
-             'type_address' => PAYMENT_ADDRESS,
-         ];
-         $addressPay = $addressTbl->getAddressesByUserId($userId, $conditions);*/
-
-        /**@var \App\Model\Table\OrdersTable $orderTbl */
-        $orderTbl   = TableRegistry::get('Orders');
-        $conditions = ['status !=' => CANCEL];
-        $order      = ['status' => 'ASC', 'time' => 'DESC'];
-        $orders     = $orderTbl->getOrdersByUserId($userId, $conditions,
-            false, [], $order, ORDER_LIMIT);
-
-        $this->set(compact('user', 'addressRec', 'orders', 'hotel',
-            'shippingZone'));
-    }
-
-    /**
-     * edit info user
-     */
-    public function edit()
-    {
-        $userId = $this->Auth->user('id');
-        $user   = $this->Users->get($userId);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $data     = $this->request->getData();
-            $user     = $this->Users->patchEntity($user, $data);
-            $response = $this->Users->save($user);
-            if ($response) {
-                $user = $response;
-                $this->Flash->success(__(COMMON_MSG_0001));
-            } else {
-                $this->Flash->error(__(COMMON_MSG_0002));
-            }
-        }
-
-        $this->set(compact('user'));
-    }
-
-    /**
      * change password account
      */
     public function changePassword()
@@ -507,23 +431,6 @@ class UsersController extends CommonController
         $this->autoRender = false;
         $this->viewBuilder()->setLayout('ajax');
         $this->Captcha->create($captchaId);
-    }
-
-    /**
-     * Request ajax to check cart
-     */
-    public function updateCheckOut()
-    {
-        if ($this->request->data('key')) {
-            $data = $this->request->data();
-            if ($data['key'] == 'updateCart') {
-                $this->updateCart($data['type'], $data['id']);
-            } elseif ($data['key'] == 'removeCart') {
-                $this->removeProduct($data['id']);
-            } elseif ($data['key'] == 'noteCart') {
-                $this->noteProduct($data['id'], $data['note']);
-            }
-        }
     }
 
     public function updateLanguage()

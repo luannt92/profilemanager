@@ -7,7 +7,6 @@ echo $this->Html->css(
         'admin/plugins/select2/select2.min.css',
         'admin/plugins/clockpicker/clockpicker.css',
         'admin/jquery.fancybox.min.css',
-        'admin/plugins/switchery/switchery.css',
     ],
     ['block' => true]
 );
@@ -15,7 +14,6 @@ echo $this->Html->css(
 echo $this->Html->script(
     [
         'admin/plugins/select2/select2.full.min.js',
-        'admin/plugins/switchery/switchery.js',
         'admin/plugins/clockpicker/clockpicker.js',
     ],
     ['block' => true]
@@ -99,21 +97,6 @@ $siteName    = $this->Form->control('site_name', [
             : '',
     ]
 );
-$email       = $this->Form->control('site_mail', [
-        'class'       => 'form-control',
-        'placeholder' => 'email@gmail.com',
-        'type'        => 'email',
-        'error'       => isset($errors['site_mail']) ? $errors['site_mail']
-            : '',
-    ]
-);
-$slogan      = $this->Form->control('site_slogan', [
-        'class'       => 'form-control',
-        'placeholder' => 'Site slogan',
-        'error'       => isset($errors['site_slogan']) ? $errors['site_slogan']
-            : '',
-    ]
-);
 $description = $this->Form->control('site_description', [
         'class'       => 'form-control',
         'placeholder' => 'Site description',
@@ -122,23 +105,62 @@ $description = $this->Form->control('site_description', [
             ? $errors['site_description'] : '',
     ]
 );
-$about       = $this->Form->control('site_about', [
+$email       = $this->Form->control('me_mail', [
         'class'       => 'form-control',
-        'placeholder' => 'Site about',
-        'type'        => 'textarea',
-        'error'       => isset($errors['site_about'])
-            ? $errors['site_about'] : '',
+        'placeholder' => 'email@gmail.com',
+        'type'        => 'email',
+        'error'       => isset($errors['me_mail']) ? $errors['me_mail']
+            : '',
     ]
 );
-$tag         = $this->Form->control('site_tag', [
+$aboutVi     = $this->Form->control('me_about_vi', [
         'class'       => 'form-control',
-        'placeholder' => 'Google analytic,...',
+        'placeholder' => 'About',
         'type'        => 'textarea',
-        'error'       => isset($errors['site_tag'])
-            ? $errors['site_tag'] : '',
+        'error'       => isset($errors['me_about_vi']) ? $errors['me_about_vi']
+            : '',
     ]
 );
-$language    = $this->Form->control('site_language', [
+$aboutEn     = $this->Form->control('me_about_en', [
+        'class'       => 'form-control',
+        'placeholder' => 'About',
+        'type'        => 'textarea',
+        'error'       => isset($errors['me_about_en']) ? $errors['me_about_en']
+            : '',
+    ]
+);
+$birthday    = $this->Form->control('me_birthday', [
+        'class'       => 'form-control',
+        'placeholder' => 'Birth day',
+        'error'       => isset($errors['me_birthday'])
+            ? $errors['me_birthday'] : '',
+    ]
+);
+$phone       = $this->Form->control('me_phone', [
+        'class'       => 'form-control',
+        'placeholder' => 'Phone number',
+        'type'        => 'number',
+        'error'       => isset($errors['me_phone'])
+            ? $errors['me_phone'] : '',
+    ]
+);
+$addressVi   = $this->Form->control('me_address_vi', [
+        'class'       => 'form-control',
+        'placeholder' => 'Address vietnamese',
+        'error'       => isset($errors['me_address_vi'])
+            ? $errors['me_address_vi'] : '',
+    ]
+);
+
+$addressEn = $this->Form->control('me_address_en', [
+        'class'       => 'form-control',
+        'placeholder' => 'Address english',
+        'error'       => isset($errors['site_address_en'])
+            ? $errors['site_address_en'] : '',
+    ]
+);
+
+$language = $this->Form->control('site_language', [
         'class'   => 'form-control',
         'options' => [
             VI_VN => 'Tiếng việt',
@@ -148,7 +170,7 @@ $language    = $this->Form->control('site_language', [
     ]
 );
 
-$logoFooter         = $this->Form->control('site_logo_footer', [
+$logoFooter       = $this->Form->control('site_logo_footer', [
         'class'        => 'form-control',
         'type'         => 'text',
         'id'           => 'logo_footer',
@@ -161,37 +183,15 @@ $logoFooter         = $this->Form->control('site_logo_footer', [
         ],
     ]
 );
-$facebook           = $this->Form->control('site_facebook', [
-        'class'       => 'form-control',
-        'type'        => 'text',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => 'Link facebook',
-        'error'       => isset($errors['site_facebook'])
-            ? $errors['site_facebook'] : '',
-    ]
-);
-$phoneNumber        = $this->Form->control('site_phone', [
-        'class'       => 'form-control',
-        'placeholder' => '0123 814 6189',
-        'error'       => isset($errors['site_phone'])
-            ? $errors['site_phone'] : '',
-    ]
-);
-$owner              = $this->Form->control('contact_owner', [
-        'class'       => 'form-control',
-        'placeholder' => 'Contact owner',
-        'error'       => isset($errors['contact_owner'])
-            ? $errors['contact_owner'] : '',
-    ]
-);
-$seoTitleEn           = $this->Form->control('meta_title_en', [
+$seoTitleEn       = $this->Form->control('meta_title_en', [
         'class'       => 'form-control',
         'placeholder' => 'Meta title english',
-        'error'       => isset($errors['meta_title_en']) ? $errors['meta_title_en']
+        'error'       => isset($errors['meta_title_en'])
+            ? $errors['meta_title_en']
             : '',
     ]
 );
-$seoKeywordEn         = $this->Form->control('meta_keyword_en', [
+$seoKeywordEn     = $this->Form->control('meta_keyword_en', [
         'class'       => 'form-control',
         'placeholder' => 'Meta keyword english',
         'type'        => 'textarea',
@@ -200,7 +200,7 @@ $seoKeywordEn         = $this->Form->control('meta_keyword_en', [
             ? $errors['meta_keyword_en'] : '',
     ]
 );
-$seoDescriptionEn     = $this->Form->control('meta_description_en', [
+$seoDescriptionEn = $this->Form->control('meta_description_en', [
         'class'       => 'form-control',
         'placeholder' => 'Meta description english',
         'type'        => 'textarea',
@@ -209,14 +209,15 @@ $seoDescriptionEn     = $this->Form->control('meta_description_en', [
             ? $errors['meta_description_en'] : '',
     ]
 );
-$seoTitleVi           = $this->Form->control('meta_title_vi', [
+$seoTitleVi       = $this->Form->control('meta_title_vi', [
         'class'       => 'form-control',
         'placeholder' => 'Meta title vietnamese',
-        'error'       => isset($errors['meta_title_vi']) ? $errors['meta_title_vi']
+        'error'       => isset($errors['meta_title_vi'])
+            ? $errors['meta_title_vi']
             : '',
     ]
 );
-$seoKeywordVi         = $this->Form->control('meta_keyword_vi', [
+$seoKeywordVi     = $this->Form->control('meta_keyword_vi', [
         'class'       => 'form-control',
         'placeholder' => 'Meta keyword vietnamese',
         'type'        => 'textarea',
@@ -225,7 +226,7 @@ $seoKeywordVi         = $this->Form->control('meta_keyword_vi', [
             ? $errors['meta_keyword_vi'] : '',
     ]
 );
-$seoDescriptionVi     = $this->Form->control('meta_description_vi', [
+$seoDescriptionVi = $this->Form->control('meta_description_vi', [
         'class'       => 'form-control',
         'placeholder' => 'Meta description vietnamese',
         'type'        => 'textarea',
@@ -234,172 +235,13 @@ $seoDescriptionVi     = $this->Form->control('meta_description_vi', [
             ? $errors['meta_description_vi'] : '',
     ]
 );
-$submit             = $this->Form->button(
+$submit           = $this->Form->button(
     __(SAVE_CHANGE), [
         'type'  => 'submit',
         'class' => 'btn btn-primary block m-b',
     ]
 );
-$zalo               = $this->Form->control('contact_zalo', [
-        'class'       => 'form-control',
-        'type'        => 'text',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => 'Zalo',
-        'error'       => isset($errors['contact_zalo'])
-            ? $errors['contact_zalo'] : '',
-    ]
-);
-$viber              = $this->Form->control('contact_viber', [
-        'class'       => 'form-control',
-        'type'        => 'text',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => 'Viber',
-        'error'       => isset($errors['contact_viber'])
-            ? $errors['contact_viber'] : '',
-    ]
-);
-$whatsapp           = $this->Form->control('contact_whatsapp', [
-        'class'       => 'form-control',
-        'type'        => 'text',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => 'Whatsapp',
-        'error'       => isset($errors['contact_whatsapp'])
-            ? $errors['contact_whatsapp'] : '',
-    ]
-);
-$appAndroid         = $this->Form->control('download_android', [
-        'class'        => 'form-control',
-        'type'         => 'text',
-        'label'        => ['class' => 'control-label'],
-        'placeholder'  => 'Link app Android',
-        'error'        => isset($errors['download_android'])
-            ? $errors['download_android'] : '',
-        'templateVars' => [
-            'switch' => '<div class="input-switcher"><input type="checkbox" class="js-switch"/></div>',
-        ],
-    ]
-);
-$appIOS             = $this->Form->control('download_ios', [
-        'class'        => 'form-control',
-        'type'         => 'text',
-        'label'        => ['class' => 'control-label'],
-        'placeholder'  => 'Link app IOS',
-        'error'        => isset($errors['download_ios'])
-            ? $errors['download_ios'] : '',
-        'templateVars' => [
-            'switch' => '<div class="input-switcher"><input type="checkbox" class="js-switch"/></div>',
-        ],
-    ]
-);
-$addressVi            = $this->Form->control('site_address_vi', [
-        'class'       => 'form-control',
-        'placeholder' => 'Site address vietnamese',
-        'type'        => 'textarea',
-        'error'       => isset($errors['site_address_vi'])
-            ? $errors['site_address_vi'] : '',
-    ]
-);
-
-$addressEn            = $this->Form->control('site_address_en', [
-        'class'       => 'form-control',
-        'placeholder' => 'Site address english',
-        'type'        => 'textarea',
-        'error'       => isset($errors['site_address_en'])
-            ? $errors['site_address_en'] : '',
-    ]
-);
-
-$typeLayout         = $this->Form->control('site_layout_product', [
-        'class'   => 'form-control',
-        'options' => \Cake\Core\Configure::read('type_layout'),
-        'label'   => 'Layout',
-        'error'   => isset($errors['site_layout_product'])
-            ? $errors['site_layout_product'] : '',
-    ]
-);
-$minPrice           = $this->Form->control('site_min_price', [
-        'class'       => 'form-control',
-        'placeholder' => '150000',
-        'label'       => 'Minimum price',
-        'error'       => isset($errors['site_min_price'])
-            ? $errors['site_min_price'] : '',
-    ]
-);
-$zaloOAID           = $this->Form->control('site_zalo_id', [
-        'class'       => 'form-control',
-        'type'        => 'text',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => 'OA ID',
-        'error'       => isset($errors['site_zalo_id'])
-            ? $errors['site_zalo_id'] : '',
-    ]
-);
-$zaloOAKey          = $this->Form->control('site_zalo_key', [
-        'class'       => 'form-control',
-        'type'        => 'text',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => 'OA Secret',
-        'error'       => isset($errors['site_zalo_key'])
-            ? $errors['site_zalo_key'] : '',
-    ]
-);
-$zaloPhones         = $this->Form->control('site_zalo_phones', [
-        'class'       => 'form-control',
-        'type'        => 'text',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => '84xxxxxxxx,84yyyyyyyyyy',
-        'error'       => isset($errors['site_zalo_phones'])
-            ? $errors['site_zalo_phones'] : '',
-        'templates'   => [
-            'inputContainer' => '<div class="form-group">
-                <div class="form-group {{type}} ">{{content}}
-                <span class="help-block m-b-none">' . NOTE_SETTING_ZALO_OA . '
-                </span></div></div>',
-        ],
-    ]
-);
-$zaloMessage        = $this->Form->control('site_zalo_message', [
-        'class'       => 'form-control',
-        'type'        => 'textarea',
-        'label'       => ['class' => 'control-label'],
-        'placeholder' => 'Message',
-        'error'       => isset($errors['site_zalo_message'])
-            ? $errors['site_zalo_message'] : '',
-    ]
-);
-$saleOffVi           = $this->Form->control('site_sale_off_vi', [
-        'class'       => 'form-control',
-        'placeholder' => 'Order 500k được tặng 1 mũ bảo hiểm',
-        'label'       => 'Sale off Vietnamese',
-        'error'       => isset($errors['site_sale_off_vi'])
-            ? $errors['site_sale_off_vi'] : '',
-    ]
-);
-$saleOffEn           = $this->Form->control('site_sale_off_en', [
-        'class'       => 'form-control',
-        'placeholder' => 'Order 500k donated 1 helmet',
-        'label'       => 'Sale off English',
-        'error'       => isset($errors['site_sale_off_en'])
-            ? $errors['site_sale_off_en'] : '',
-    ]
-);
-$linkSaleOffVi       = $this->Form->control('site_sale_off_link_vi', [
-        'class'       => 'form-control',
-        'placeholder' => 'http://',
-        'label'       => 'Link to sale off Vietnamese',
-        'error'       => isset($errors['site_sale_off_link_vi'])
-            ? $errors['site_sale_off_link_vi'] : '',
-    ]
-);
-$linkSaleOffEn           = $this->Form->control('site_sale_off_link_en', [
-        'class'       => 'form-control',
-        'placeholder' => 'http://',
-        'label'       => 'Link to sale off English',
-        'error'       => isset($errors['site_sale_off_link_en'])
-            ? $errors['site_sale_off_link_en'] : '',
-    ]
-);
-$banner              = $this->Form->control('site_banner_popup', [
+$banner           = $this->Form->control('site_banner_popup', [
         'class'       => 'form-control',
         'type'        => 'text',
         'id'          => 'site_banner_popup',
@@ -407,42 +249,8 @@ $banner              = $this->Form->control('site_banner_popup', [
         'placeholder' => __('Banner popup in homepage'),
         'error'       => isset($errors['site_banner_popup'])
             ? $errors['site_banner_popup'] : '',
-        'templateVars' => [
-            'switch' => '<div class="input-switcher"><input type="checkbox" class="js-switch"/></div>',
-        ],
     ]
 );
-$linkBanner          = $this->Form->control('site_banner_popup_link', [
-        'class'       => 'form-control',
-        'placeholder' => 'http://',
-        'label'       => 'Link to banner',
-        'error'       => isset($errors['site_banner_popup_link'])
-            ? $errors['site_banner_popup_link'] : '',
-    ]
-);
-$linkZone          = $this->Form->control('link_zone', [
-        'class'       => 'form-control',
-        'placeholder' => 'Link Zone',
-        'label'       => 'Link to Zone',
-        'error'       => isset($errors['link_zone'])
-            ? $errors['link_zone'] : '',
-    ]
-);
-$tagTrackingPopup    = $this->Form->control('site_tracking_popup', [
-        'class'       => 'form-control',
-        'placeholder' => "ga('send','event','Click popup homepage', 'click');",
-        'type'        => 'textarea',
-        'error'       => isset($errors['site_tracking_popup'])
-            ? $errors['site_tracking_popup'] : '',
-    ]
-);
-$mailReceipt = $this->Form->control('site_mail_order_receipt', [
-    'class'       => 'form-control',
-    'type'        => 'text',
-    'error'       => isset($errors['site_mail_order_receipt'])
-        ? $errors['site_mail_order_receipt'] : '',
-    'label' => __('Mail nhận order (cách nhau bằng dấu ,)')
-]);
 ?>
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
@@ -456,10 +264,6 @@ $mailReceipt = $this->Form->control('site_mail_order_receipt', [
                     <li class=""><a data-toggle="tab" href="#tab-3">
                             Liên Hệ</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4">
-                            Product</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-5">
-                            Message Configuration</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-6">
                             Translate</a></li>
                 </ul>
                 <div class="tab-content">
@@ -470,34 +274,19 @@ $mailReceipt = $this->Form->control('site_mail_order_receipt', [
                                     <?php
                                     echo $siteName;
                                     echo $description;
-                                    echo $about;
-                                    echo $tag;
-                                    echo $tagTrackingPopup;
                                     ?>
                                 </div>
                                 <div class="col-md-6">
                                     <?php
-                                    echo $slogan;
-                                    echo $facebook;
                                     echo $language;
-                                    echo $appAndroid;
-                                    echo $appIOS;
-                                    echo $logoFooter;
-                                    echo '<a href="/filemanager/dialog.php?type=0&field_id=logo_footer&relative_url=1&akey='. FILE_ACCESS_KEY .'"
-                                           class="btn btn-success iframe-btn m-b-md"
-                                           type="button">
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                            <span>Image...</span>
-                                        </a>';
                                     echo $banner;
-                                    echo '<a href="/filemanager/dialog.php?type=0&field_id=site_banner_popup&relative_url=1&akey='. FILE_ACCESS_KEY.'"
+                                    echo '<a href="/filemanager/dialog.php?type=0&field_id=site_banner_popup&relative_url=1&akey='
+                                        . FILE_ACCESS_KEY . '"
                                            class="btn btn-success iframe-btn m-b-md"
                                            type="button">
                                             <i class="glyphicon glyphicon-plus"></i>
                                             <span>Image...</span>
                                         </a>';
-                                    echo $linkBanner;
-                                    echo $linkZone;
                                     ?>
                                 </div>
                             </div>
@@ -507,18 +296,14 @@ $mailReceipt = $this->Form->control('site_mail_order_receipt', [
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <?php
-                                    echo $hostName;
+                                    <?php echo $hostName;
                                     echo $userName;
-                                    echo $password;
-                                    ?>
+                                    echo $password; ?>
                                 </div>
                                 <div class="col-md-6">
-                                    <?php
-                                    echo $port;
+                                    <?php echo $port;
                                     echo $timeout;
-                                    echo $number;
-                                    ?>
+                                    echo $number; ?>
                                 </div>
                             </div>
                         </div>
@@ -528,155 +313,52 @@ $mailReceipt = $this->Form->control('site_mail_order_receipt', [
                             <div class="row">
                                 <div class="col-md-6">
                                     <?php
-                                    echo $email;
-                                    echo $phoneNumber;
-                                    echo $owner;
+                                    echo $aboutVi;
+                                    echo $aboutEn;
                                     ?>
                                 </div>
                                 <div class="col-md-6">
                                     <?php
-                                    echo $viber;
-                                    echo $zalo;
-                                    echo $whatsapp;
-                                    ?>
+                                    echo $email;
+                                    echo $birthday;
+                                    echo $phone;
+                                    echo $addressVi;
+                                    echo $addressEn; ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="tab-4" class="tab-pane">
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <?php
-                                    echo $minPrice;
-                                    echo $typeLayout;
-                                    echo $mailReceipt;
-                                    ?>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
-                                            <?php echo __(OPEN_HOUR) ?>
-                                        </label>
-                                        <?php echo $this->Form->control('time_open',
-                                            [
-                                                'class'     => 'form-control clockpicker',
-                                                'required'  => false,
-                                                'templates' => [
-                                                    'formGroup' => '
-                                                <div class="input-group clockpicker" data-autoclose="true">
-                                                    {{input}}
-                                                    <span class="input-group-addon">
-                                                        <span class="fa fa-clock-o"></span>
-                                                    </span>
-                                                </div>',
-                                                ],
-                                            ]
-                                        ); ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
-                                            <?php echo __(CLOSE_HOUR) ?>
-                                        </label>
-                                        <?php echo $this->Form->control('time_close',
-                                            [
-                                                'class'     => 'form-control clockpicker',
-                                                'required'  => false,
-                                                'templates' => [
-                                                    'formGroup' => '
-                                                <div class="input-group clockpicker" data-autoclose="true">
-                                                    {{input}}
-                                                    <span class="input-group-addon">
-                                                        <span class="fa fa-clock-o"></span>
-                                                    </span>
-                                                </div>',
-                                                ],
-                                            ]
-                                        ); ?>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-5" class="tab-pane">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <?php
-                                    echo $zaloOAID;
-                                    echo $zaloOAKey;
-                                    echo $zaloPhones;
-                                    ?>
-                                </div>
-                                <div class="col-md-6">
-                                    <?php
-                                    echo $zaloMessage;
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-6" class="tab-pane">
-                        <div class="panel-body">
                             <div class="col-md-12">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#tab-100">
+                                    <li class="active"><a data-toggle="tab"
+                                                          href="#tab-100">
                                             English</a></li>
-                                    <li class=""><a data-toggle="tab" href="#tab-101">
+                                    <li class=""><a data-toggle="tab"
+                                                    href="#tab-101">
                                             Vietnamese</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-100" class="tab-pane active">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <?php
-                                                echo $seoTitleEn;
-                                                echo $seoKeywordEn;
-                                                ?>
+                                                <?php echo $seoTitleEn;
+                                                echo $seoKeywordEn; ?>
                                             </div>
                                             <div class="col-md-6">
-                                                <?php
-                                                echo $seoDescriptionEn;
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <?php
-                                                echo $saleOffEn;
-                                                echo $linkSaleOffEn;
-                                                ?>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <?php echo $addressEn; ?>
+                                                <?php echo $seoDescriptionEn; ?>
                                             </div>
                                         </div>
                                     </div>
                                     <div id="tab-101" class="tab-pane">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <?php
-                                                echo $seoTitleVi;
-                                                echo $seoKeywordVi;
-                                                ?>
+                                                <?php echo $seoTitleVi;
+                                                echo $seoKeywordVi; ?>
                                             </div>
                                             <div class="col-md-6">
-                                                <?php
-                                                echo $seoDescriptionVi;
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <?php
-                                                echo $saleOffVi;
-                                                echo $linkSaleOffVi;
-                                                ?>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <?php echo $addressVi; ?>
+                                                <?php echo $seoDescriptionVi; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -697,14 +379,9 @@ echo $this->element('Admin/Editor/popup');
 ?>
 
 <?php echo $this->Html->scriptStart(['block' => true]); ?>
-//<script>
+//
+<script>
     $('.iframe-btn').fancybox({
-        'width': 900,
-        'height': 600,
-        'type': 'iframe',
-        'autoScale': false
-    });
-    $('.iframe-btnf').fancybox({
         'width': 900,
         'height': 600,
         'type': 'iframe',
@@ -729,50 +406,6 @@ echo $this->element('Admin/Editor/popup');
     }
 
     $(document).ready(function () {
-        var defaults = {
-            disabled: true,
-            disabledOpacity: 0.75,
-            size: 'small'
-        };
-        var url = '<?php echo $this->Url->build(['action' => 'switchery']); ?>';
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-        elems.forEach(function (html, i) {
-            var switchery = new Switchery(html, defaults);
-            var divParent = $(elems[i]).parent();
-            var input = divParent.parents('.form-group').children('.form-control');
-            var data = {check: 1, name: input.attr('name')};
-            $.ajax({
-                type: 'post',
-                url: url,
-                data: data,
-                success: function (result) {
-                    var rlt = JSON.parse(result);
-                    if (rlt.status && rlt.data == 1) {
-                        divParent.children('.js-switch').click().prop('checked', true);
-                    }
-                }
-            });
-            divParent.children('.switchery').on("click", function () {
-                var input = $(this).parents('.group-input-child').children('.form-control');
-                var checkbox = $(this).parent().children('.js-switch');
-                var check = checkbox.prop('checked');
-                check = (check === false) ? 0 : 1;
-                data = {check: 0, name: input.attr('name'), status: check};
-                $.ajax({
-                    type: 'post',
-                    url: url,
-                    data: data,
-                    success: function (result) {
-                        var rlt = JSON.parse(result);
-                        alertMsg(rlt);
-                        if(rlt.status === false) {
-                            checkbox.click().removeProp('checked');
-                        }
-                    }
-                });
-            });
-        });
-
         $('.clockpicker').clockpicker();
     });
     <?php echo $this->Html->scriptEnd(); ?>

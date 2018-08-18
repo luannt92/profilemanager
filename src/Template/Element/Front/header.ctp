@@ -67,115 +67,40 @@ if ( ! empty($settingInfo['site_sale_off_' . $language])) {
     . $language], $link, ['class' => 'text']);
 }
 ?>
-<nav id="menu-mobi"></nav>
-<div class="header">
-    <div class="header-top container">
-        <div class="row">
-            <div class="col-sm-6 header-top-left">
-                    <?php
-                    if (!empty($time_open)) { ?>
-                    <span><?php echo $this->Html->image('wallclock.png', ['alt' => 'Time', "class" => "open-time"]) . $time_open. ' - ' .$time_close; ?></span>
-                    <?php }
-                    ?>
-                <?php echo $this->Html->link('<i class="fa fa-facebook-f"></i>',
-                    $facebook, [
-                        'class'  => 'fb-like',
-                        'target' => '_blank',
-                        'escape' => false,
-                    ]); ?>
-                <?php echo $eventTopHeader; ?>
-            </div>
-            <div class="col-sm-6 header-top-right">
-                <div class="right-top">
-                        <span class="dropdown" id="locale">
-                           <a href="javascript:void(0)"
-                              class="btn-icon caret-icon <?php echo $countrySelected; ?>"
-                              id="change-language">
-                              <?php echo $languageSelected; ?><span
-                                       class="caret-span"></span></a>
-                           <ul class="dropdown-menu language" id="language">
-                              <li><a id="lang-vn"
-                                     href="/vi<?php echo $currentUrl; ?>"><span
-                                              class="lang lang-vn"></span>Vietnamese</a></li>
-                              <li><a id="lang-en"
-                                     href="/en<?php echo $currentUrl; ?>"><span
-                                              class="lang lang-en"></span>English</a></li>
-                           </ul>
-                        </span>
-                    <?php if ( ! empty($userInfo)) { ?>
-                        <div class="img-user" id="img-user">
-                            <a href="javascript:void(0)">
-                                <?php echo $this->Html->image('user.png'); ?>
-                                <?php echo __(HELLO); ?></a>
-                            <span class="title-hiden"><?php echo $userInfo['full_name']; ?></span>
-                            <ul class="profile">
-                                <li><?php
-                                    echo $this->Html->link(
-                                        __(MY_ACCOUNT),
-                                        [
-                                            'controller' => 'Users',
-                                            'action'     => 'account',
-                                            'language'   => $language,
-                                        ]
-                                    ); ?>
-                                </li>
-                                <li>
-                                    <?php
-                                    echo $this->Html->link(
-                                        __(LOGOUT),
-                                        [
-                                            'controller' => 'Users',
-                                            'action'     => 'logout',
-                                            'language'   => $language,
-                                        ]
-                                    );
-                                    ?>
-                                </li>
-                            </ul>
-                        </div>
-                    <?php } else { ?>
-                        <div class="img-user">
-                            <a data-target="#myLogin"
-                               href="<?php echo $urlLogin; ?>"
-                               data-toggle="modal">
-                                <?php echo $this->Html->image('user.png',
-                                    ['alt' => __(LOGIN)]); ?><?php echo __(LOGIN); ?>
-                            </a>
-                        </div>
-                    <?php } ?>
-                    <?php
-                    $action = $this->request->getParam('action');
-                    $controller = $this->request->getParam('controller');
-                    if (in_array($controller, ['Stores']) || in_array($action, ['checkOut'])) {
-                        // do nothing
-                    } else {
-                        echo $this->element('Front/Order/modalCart');
-                    }
-                    ?>
+
+<header>
+    <div class="profile-page sidebar-collapse">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary"
+             color-on-scroll="400">
+            <div class="container">
+                <div class="navbar-translate"><a class="navbar-brand" href="#"
+                                                 rel="tooltip">Creative CV</a>
+                    <button class="navbar-toggler navbar-toggler" type="button"
+                            data-toggle="collapse" data-target="#navigation"
+                            aria-controls="navigation" aria-expanded="false"
+                            aria-label="Toggle navigation"><span
+                                class="navbar-toggler-bar bar1"></span><span
+                                class="navbar-toggler-bar bar2"></span><span
+                                class="navbar-toggler-bar bar3"></span></button>
                 </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="header-menu">
-        <div class="container">
-            <div class="header-mobi">
-                <a href="#menu-mobi" class="display-menu"><i
-                            class="fa fa-bars"></i></a>
-            </div>
-            <nav class="navbar">
-                <div class="logo" id="logo">
-                    <?php echo $this->Html->image('logo.png', [
-                        'alt' => 'Phu Quoc Delivery',
-                        'url' => '/' . $language,
-                    ]); ?>
-                </div>
-                <div class="collapse navbar-collapse" id="menu">
-                    <ul class="nav navbar-nav navbar-right">
-                        <?php echo $menuHeaderHtml; ?>
+                <div class="collapse navbar-collapse justify-content-end"
+                     id="navigation">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link smooth-scroll"
+                                                href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll"
+                                                href="#skill">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll"
+                                                href="#portfolio">Portfolio</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll"
+                                                href="#experience">Experience</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll"
+                                                href="#contact">Contact</a></li>
                     </ul>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </div>
-</div>
+</header>

@@ -19,7 +19,7 @@ class SettingsController extends CommonController
      *
      * @var array
      */
-    protected $_allowAction = ['update','switchery'];
+    protected $_allowAction = ['update', 'switchery'];
 
     public function initialize()
     {
@@ -69,11 +69,8 @@ class SettingsController extends CommonController
             $conditions   = [
                 'OR' => [
                     ['name LIKE' => 'site_%'],
-                    ['name LIKE' => 'contact_%'],
                     ['name LIKE' => 'meta_%'],
-                    ['name LIKE' => 'download_%'],
-                    ['name LIKE' => 'time_%'],
-                    ['name LIKE' => 'link_%'],
+                    ['name LIKE' => 'me_%'],
                 ],
             ];
             $dataSettings = $this->Settings->getListSetting([], $conditions);
@@ -91,24 +88,24 @@ class SettingsController extends CommonController
     public function switchery()
     {
         $result = [
-            'status' => false,
-            'message' => COMMON_MSG_0002
+            'status'  => false,
+            'message' => COMMON_MSG_0002,
         ];
 
-        if($this->request->is('post')){
-            $data = $this->request->getData();
+        if ($this->request->is('post')) {
+            $data    = $this->request->getData();
             $setting = $this->Settings->findByName($data['name'])->first();
-            if(!empty($setting)) {
-                if($data['check'] == 1) {
+            if ( ! empty($setting)) {
+                if ($data['check'] == 1) {
                     $result = [
                         'status' => true,
-                        'data' => $setting->status,
+                        'data'   => $setting->status,
                     ];
-                }else{
+                } else {
                     $setting->status = $data['status'];
-                    if($this->Settings->save($setting)) {
+                    if ($this->Settings->save($setting)) {
                         $result = [
-                            'status' => true,
+                            'status'  => true,
                             'message' => COMMON_MSG_0001,
                         ];
                         Cache::delete(KEY_COMMON_CACHE);

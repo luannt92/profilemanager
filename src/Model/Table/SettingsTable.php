@@ -73,7 +73,7 @@ class SettingsTable extends CommonTable
      */
     public function getListSetting($fields, $conditions = [])
     {
-        $conditions = array_merge(['status IN' => [ENABLED, DEACTIVE],], $conditions);
+        $conditions = array_merge(['status IN' => [ENABLED, DEACTIVE]], $conditions);
         $fields     = array_merge([
             'keyField'   => 'name',
             'valueField' => 'value',
