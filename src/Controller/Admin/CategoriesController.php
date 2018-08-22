@@ -49,7 +49,7 @@ class CategoriesController extends CommonController
         ];
         $items          = $this->paginate($this->Categories);
 
-        $this->set(compact('items','search'));
+        $this->set(compact('items', 'search'));
         $this->_setVarToView();
     }
 
@@ -178,11 +178,14 @@ class CategoriesController extends CommonController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $item          = $this->Categories->get($id);
-        $productCategories = TableRegistry::get('ProductCategories');
+        $item              = $this->Categories->get($id);
+        $productCategories = TableRegistry::getTableLocator()
+            ->get('ProductCategories');
 
         /* @var \App\Model\Table\CategoriesTable $productCategories */
-        if ($productCategories->valueExistInTable($id, 'category_id') === false) {
+        if ($productCategories->valueExistInTable($id, 'category_id')
+            === false
+        ) {
             if ($this->Categories->delete($item)) {
 //                $this->_afterDeleteSuccess($id);
                 $this->Flash->success(__(COMMON_MSG_0003, h($id)));
@@ -209,7 +212,8 @@ class CategoriesController extends CommonController
                 $listId = explode(",", $listId);
                 foreach ($listId as $id) {
                     $item          = $this->Categories->get($id);
-                    $newCategories = TableRegistry::get('NewCategories');
+                    $newCategories = TableRegistry::getTableLocator()
+                        ->get('NewCategories');
 
                     /* @var \App\Model\Table\CategoriesTable $newCategories */
                     if ($newCategories->valueExistInTable($id, 'category_id')
@@ -239,7 +243,7 @@ class CategoriesController extends CommonController
      */
     protected function _afterUpdateSuccess($id = null, $arrParams = [])
     {
-        $menuItemObj = TableRegistry::get('MenuItems');
+        $menuItemObj = TableRegistry::getTableLocator()->get('MenuItems');
         /* @var \App\Model\Table\MenuItemsTable $menuItemObj */
         $menuItemObj->updateDataByType($id, TYPE_CATEGORY, $arrParams);
 //        $this->_deleteCacheData();
@@ -252,7 +256,7 @@ class CategoriesController extends CommonController
      */
     protected function _afterDeleteSuccess($id = null)
     {
-        $menuItemObj = TableRegistry::get('MenuItems');
+        $menuItemObj = TableRegistry::getTableLocator()->get('MenuItems');
         /* @var \App\Model\Table\MenuItemsTable $menuItemObj */
         $menuItemObj->updateDataByType($id, TYPE_CATEGORY, [], true);
 //        $this->_deleteCacheData();

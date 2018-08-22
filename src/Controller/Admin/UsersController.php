@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use \Cake\Core\Configure;
 use App\Form\Admin\LoginForm;
-use Cake\ORM\TableRegistry;
 
 /**
  * Class UsersApiController

@@ -102,7 +102,7 @@ class NewsController extends CommonController
     public function view($id = null)
     {
         /* @var \App\Model\Table\TagsTable $tagsObj */
-        $tagsObj = TableRegistry::get('Tags');
+        $tagsObj = TableRegistry::getTableLocator()->get('Tags');
         $new  = $this->_getNewsInfo($id);
 
         $tags = $tagsObj->getTagByNewID($id, true);
@@ -167,7 +167,7 @@ class NewsController extends CommonController
             ->where(['status' => ACTIVE]);
 
         /* @var \App\Model\Table\TagsTable $tagsObj */
-        $tagsObj = TableRegistry::get('Tags');
+        $tagsObj = TableRegistry::getTableLocator()->get('Tags');
         $tags    = $tagsObj->getTagByNewID($id, true);
 
         $this->set(compact('new', 'tags', 'listCategories', 'listTags'));
@@ -180,7 +180,7 @@ class NewsController extends CommonController
      */
     private function _saveEntityRelated($data)
     {
-        $tagsTable = TableRegistry::get('Tags');
+        $tagsTable = TableRegistry::getTableLocator()->get('Tags');
 
         if ( ! empty($data['tags']['_ids'])) {
             /* @var \App\Model\Table\TagsTable $tagsTable */

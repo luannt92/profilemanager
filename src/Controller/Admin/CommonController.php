@@ -496,7 +496,7 @@ class CommonController extends AppController
         $key = 'permission_users_' . $this->Auth->user('usg.id');
 
         if (($userInfo = Cache::read($key)) === false) {
-            $groupsPermissionTbl = TableRegistry::getTableLocator()
+            $groupsPermissionTbl = TableRegistry::getTableLocator()->getTableLocator()
                 ->get('UserGroupPermissions');
             $userGroupId         = $this->Auth->user('user_group_id');
 
@@ -511,7 +511,7 @@ class CommonController extends AppController
 
     protected function getEmailAdmin()
     {
-        $userTbl = TableRegistry::getTableLocator()->get('Users');
+        $userTbl = TableRegistry::getTableLocator()->getTableLocator()->get('Users');
         $users   = $userTbl->find('all', [
             'fields'     => ['email', 'full_name'],
             'conditions' => ['UserGroups.type' => 1],
@@ -587,7 +587,7 @@ class CommonController extends AppController
         $key = KEY_COMMON_ADMIN_CACHE;
 
         if (($settingInfo = Cache::read($key)) === false) {
-            $settingTbl = TableRegistry::getTableLocator()->get('Settings');
+            $settingTbl = TableRegistry::getTableLocator()->getTableLocator()->get('Settings');
             $conditions = [
                 'OR' => [
                     [

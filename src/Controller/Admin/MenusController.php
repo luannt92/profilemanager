@@ -79,11 +79,11 @@ class MenusController extends CommonController
             $this->Flash->error(__(COMMON_MSG_0002));
         }
 
-        $categories    = TableRegistry::get('Categories');
-        $newCategories = TableRegistry::get('NewCategories');
-        $pages         = TableRegistry::get('Pages');
-        $tags          = TableRegistry::get('Tags');
-        $menuItemObj   = TableRegistry::get('MenuItems');
+        $categories    = TableRegistry::getTableLocator()->get('Categories');
+        $newCategories = TableRegistry::getTableLocator()->get('NewCategories');
+        $pages         = TableRegistry::getTableLocator()->get('Pages');
+        $tags          = TableRegistry::getTableLocator()->get('Tags');
+        $menuItemObj   = TableRegistry::getTableLocator()->get('MenuItems');
 
         /* @var \App\Model\Table\CategoriesTable $categories */
         /* @var \App\Model\Table\NewCategoriesTable $newCategories */
@@ -113,9 +113,9 @@ class MenusController extends CommonController
     {
         $language    = Configure::read('system_languages');
         $flag        = false;
-        $menuItemObj = TableRegistry::get('MenuItems');
+        $menuItemObj = TableRegistry::getTableLocator()->get('MenuItems');
         /* @var \App\Model\Table\MenuItemsTable $menuItemObj */
-        $languageObj = TableRegistry::get('I18n');
+        $languageObj = TableRegistry::getTableLocator()->get('I18n');
         //delete all data of menu
         $idArr = $menuItemObj->getIdByMenu($id);
         $menuItemObj->deleteAll(['menu_id' => $id]);
@@ -175,7 +175,7 @@ class MenusController extends CommonController
                             'position'  => $key,
                             'status'    => ACTIVE,
                             'parent_id' => $afterSave->id,
-                            'icon'      => !empty($value->icon) ? $value->icon
+                            'icon'      => ! empty($value->icon) ? $value->icon
                                 : null,
                         ];
 

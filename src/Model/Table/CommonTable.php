@@ -159,8 +159,7 @@ class CommonTable extends Table
                 ->setSubject($subject)
                 ->setViewVars($viewVarsOption)
                 ->setLayout($layout);
-            if(!empty($cc))
-            {
+            if ( ! empty($cc)) {
                 $email->addCc($cc);
             }
             if ( ! empty($attachedFile)) {
@@ -181,11 +180,11 @@ class CommonTable extends Table
      */
     private function _getConfigs()
     {
-        $key = 'setting_for_site_lucky';
+        $key = KEY_COMMON_CACHE;
 
         if (($settingInfo = Cache::read($key)) === false) {
             /* @var \App\Model\Table\SettingsTable $settingTbl */
-            $settingTbl  = TableRegistry::get('Settings');
+            $settingTbl  = TableRegistry::getTableLocator()->get('Settings');
             $conditions  = [
                 'OR' => [
                     [

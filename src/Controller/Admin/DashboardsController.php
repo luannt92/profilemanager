@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use Cake\I18n\Time;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+
 /**
  * Class DashboardsController
  *
@@ -109,7 +110,7 @@ class DashboardsController extends CommonController
     public function customer()
     {
         /**@var \App\Model\Table\UsersTable $userTbl */
-        $userTbl = TableRegistry::get('Users');
+        $userTbl = TableRegistry::getTableLocator()->get('Users');
         $users   = $userTbl->getAllUsers(['user_group_id' => MEMBER], true,
             [
                 'keyField'   => 'id',

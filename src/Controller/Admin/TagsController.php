@@ -92,7 +92,7 @@ class TagsController extends CommonController
     {
         $this->request->allowMethod(['post', 'delete']);
         $item    = $this->Tags->get($id);
-        $newTags = TableRegistry::get('NewTags');
+        $newTags = TableRegistry::getTableLocator()->get('NewTags');
 
         /* @var \App\Model\Table\TagsTable $newTags */
         if ($newTags->valueExistInTable($id, 'tag_id') === false) {
@@ -122,7 +122,7 @@ class TagsController extends CommonController
                 $listId = explode(",", $listId);
                 foreach ($listId as $id) {
                     $item    = $this->Tags->get($id);
-                    $newTags = TableRegistry::get('NewTags');
+                    $newTags = TableRegistry::getTableLocator()->get('NewTags');
 
                     /* @var \App\Model\Table\TagsTable $newTags */
                     if ($newTags->valueExistInTable($id, 'tag_id')
@@ -152,7 +152,7 @@ class TagsController extends CommonController
     protected function _afterUpdateSuccess($id = null, $arrParams = [])
     {
         /* @var \App\Model\Table\MenuItemsTable $menuItemObj */
-        $menuItemObj = TableRegistry::get('MenuItems');
+        $menuItemObj = TableRegistry::getTableLocator()->get('MenuItems');
         $menuItemObj->updateDataByType($id, TYPE_TAG, $arrParams);
 //        $this->_deleteCacheData();
     }
@@ -165,7 +165,7 @@ class TagsController extends CommonController
     protected function _afterDeleteSuccess($id = null)
     {
         /* @var \App\Model\Table\MenuItemsTable $menuItemObj */
-        $menuItemObj = TableRegistry::get('MenuItems');
+        $menuItemObj = TableRegistry::getTableLocator()->get('MenuItems');
         $menuItemObj->updateDataByType($id, TYPE_TAG, [], true);
 //        $this->_deleteCacheData();
     }

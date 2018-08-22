@@ -197,7 +197,7 @@ class UsersTable extends CommonTable
             ], true);
 
             /* @var \App\Model\Table\MailTemplatesTable $mailObj */
-            $mailObj = TableRegistry::get('MailTemplates');
+            $mailObj = TableRegistry::getTableLocator()->get('MailTemplates');
             $mail    = $mailObj->getMailTemplate(MAIL_TEMPLATE_REGISTER);
             $pattern = ['/\%user\%/', '/\%link\%/'];
             $replace = [$arrParam['full_name'], $confirmLink];
@@ -233,7 +233,7 @@ class UsersTable extends CommonTable
 
         if ($this->save($user)) {
             /* @var \App\Model\Table\MailTemplatesTable $mailObj */
-            $mailObj = TableRegistry::get('MailTemplates');
+            $mailObj = TableRegistry::getTableLocator()->get('MailTemplates');
             $mail    = $mailObj->getMailTemplate(MAIL_TEMPLATE_REGISTER_API);
             $pattern = ['/\%user\%/', '/\%link\%/'];
             $replace = [$arrParam['full_name'], $confirmKey];
@@ -277,7 +277,8 @@ class UsersTable extends CommonTable
                 $link = Router::url('/', true);
 
                 /* @var \App\Model\Table\MailTemplatesTable $mailObj */
-                $mailObj = TableRegistry::get('MailTemplates');
+                $mailObj = TableRegistry::getTableLocator()
+                    ->get('MailTemplates');
                 $mail
                          = $mailObj->getMailTemplate(MAIL_TEMPLATE_REGISTER_SUCCESS);
                 $pattern = ['/\%user\%/', '/\%link\%/'];
@@ -329,7 +330,7 @@ class UsersTable extends CommonTable
                 ],
             ], true);
             /* @var \App\Model\Table\MailTemplatesTable $mailObj */
-            $mailObj = TableRegistry::get('MailTemplates');
+            $mailObj = TableRegistry::getTableLocator()->get('MailTemplates');
             $mail
                      = $mailObj->getMailTemplate(MAIL_TEMPLATE_FORGOT_PASSWORD);
             $pattern = ['/\%user\%/', '/\%link\%/'];
@@ -361,7 +362,7 @@ class UsersTable extends CommonTable
             $this->updateAll(['confirm_key' => $confirmKey],
                 ['id' => $userInfo->id]);
             /* @var \App\Model\Table\MailTemplatesTable $mailObj */
-            $mailObj = TableRegistry::get('MailTemplates');
+            $mailObj = TableRegistry::getTableLocator()->get('MailTemplates');
             $mail
                      = $mailObj->getMailTemplate(MAIL_TEMPLATE_FORGOT_PASSWORD_API);
             $pattern = ['/\%user\%/', '/\%key\%/'];
@@ -397,7 +398,7 @@ class UsersTable extends CommonTable
 
         if ( ! empty($userInfo)) {
             /* @var \App\Model\Table\MailTemplatesTable $mailObj */
-            $mailObj = TableRegistry::get('MailTemplates');
+            $mailObj = TableRegistry::getTableLocator()->get('MailTemplates');
             $mail
                      = $mailObj->getMailTemplate(MAIL_TEMPLATE_RESET_FORGOT_PASSWORD);
             $pattern = ['/\%user\%/'];
@@ -454,7 +455,7 @@ class UsersTable extends CommonTable
         if ($this->save($user)) {
 
             /** @var \App\Model\Table\UserLogsTable $userLog */
-            $userLog = TableRegistry::get('UserLogs');
+            $userLog = TableRegistry::getTableLocator()->get('UserLogs');
             $userLog->updateLoginNumber($user->id);
 
             return $user;
@@ -474,7 +475,7 @@ class UsersTable extends CommonTable
         $result = false;
         if ( ! empty($arrParams)) {
             /* @var \App\Model\Table\MailTemplatesTable $mailObj */
-            $mailObj = TableRegistry::get('MailTemplates');
+            $mailObj = TableRegistry::getTableLocator()->get('MailTemplates');
             $mail
                      = $mailObj->getMailTemplate(MAIL_TEMPLATE_CONTACT);
             $pattern = [
@@ -607,7 +608,8 @@ class UsersTable extends CommonTable
                 $user->last_access = date('Y-m-d H:i:s');
                 if ($this->save($user)) {
                     /** @var \App\Model\Table\UserLogsTable $userLog */
-                    $userLog = TableRegistry::get('UserLogs');
+                    $userLog = TableRegistry::getTableLocator()
+                        ->get('UserLogs');
                     $userLog->updateLoginNumber($user->id, $mode);
                 }
 

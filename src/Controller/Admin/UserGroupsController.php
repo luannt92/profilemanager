@@ -66,10 +66,10 @@ class UserGroupsController extends CommonController
         $item = $this->UserGroups->newEntity();
 
         if ($this->request->is('post')) {
-            $data = $this->request->getData();
+            $data           = $this->request->getData();
             $data['status'] = ! empty($data['status']) ? $data['status']
                 : ENABLED;
-            $dataSave = $this->UserGroups->patchEntity($item, $data);
+            $dataSave       = $this->UserGroups->patchEntity($item, $data);
             if ($groupInfo = $this->UserGroups->save($dataSave)) {
 
                 if ( ! empty($data['access']) && $data['type'] != ADMIN) {
@@ -87,8 +87,10 @@ class UserGroupsController extends CommonController
                         }
                     }
 
-                    $userGroupPermissions = TableRegistry::get('UserGroupPermissions');
-                    $entities = $userGroupPermissions->newEntities($permission);
+                    $userGroupPermissions = TableRegistry::getTableLocator()
+                        ->get('UserGroupPermissions');
+                    $entities
+                                          = $userGroupPermissions->newEntities($permission);
                     $userGroupPermissions->saveMany($entities);
                 }
 
@@ -120,9 +122,10 @@ class UserGroupsController extends CommonController
             'contain' => [],
         ]);
 
-        $userGroupPermissions = TableRegistry::get('UserGroupPermissions');
-        $listPermissions = $userGroupPermissions->getListPermission($id);
-        $accessArr = [];
+        $userGroupPermissions = TableRegistry::getTableLocator()
+            ->get('UserGroupPermissions');
+        $listPermissions      = $userGroupPermissions->getListPermission($id);
+        $accessArr            = [];
         foreach ($listPermissions as $code) {
             $accessArr[$code] = ENABLED;
         }
@@ -135,7 +138,8 @@ class UserGroupsController extends CommonController
             if ($this->UserGroups->save($dataSave)) {
 
                 if ( ! empty($data['access']) && $data['type'] != ADMIN) {
-                    $userGroupPermissions = TableRegistry::get('UserGroupPermissions');
+                    $userGroupPermissions = TableRegistry::getTableLocator()
+                        ->get('UserGroupPermissions');
                     $userGroupPermissions->deleteAll(['user_group_id' => $id]);
 
                     $permission = [];
@@ -181,13 +185,14 @@ class UserGroupsController extends CommonController
      */
     public function view($id = null)
     {
-        $userGroupPermissions = TableRegistry::get('UserGroupPermissions');
-        $item       = $this->UserGroups->get($id, [
+        $userGroupPermissions = TableRegistry::getTableLocator()
+            ->get('UserGroupPermissions');
+        $item                 = $this->UserGroups->get($id, [
             'finder'  => 'translations',
             'contain' => [],
         ]);
-        $listPermissions = $userGroupPermissions->getListPermission($id);
-        $accessArr = [];
+        $listPermissions      = $userGroupPermissions->getListPermission($id);
+        $accessArr            = [];
         foreach ($listPermissions as $code) {
             $accessArr[$code] = ENABLED;
         }

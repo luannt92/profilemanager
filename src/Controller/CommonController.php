@@ -211,7 +211,7 @@ class CommonController extends AppController
         $key = KEY_COMMON_CACHE;
 
         if (($settingInfo = Cache::read($key)) === false) {
-            $settingTbl = TableRegistry::get('Settings');
+            $settingTbl = TableRegistry::getTableLocator()->get('Settings');
             $conditions = [
                 'OR' => [
                     [
@@ -230,7 +230,8 @@ class CommonController extends AppController
             $settingInfo = $settingTbl->getListSetting([], $conditions);
             Cache::write($key, $settingInfo);
         }
-        pr($settingInfo);exit;
+        pr($settingInfo);
+        exit;
 
         return $settingInfo;
     }
@@ -256,10 +257,11 @@ class CommonController extends AppController
         $key    = KEY_MENU_CACHE . $typeMenu . '_' . $locale;
 
         if (($result = Cache::read($key)) === false) {
-            $tableMenus = TableRegistry::get('Menus');
+            $tableMenus = TableRegistry::getTableLocator()->get('Menus');
             $menus      = $tableMenus->findByType($typeMenu)->first();
             if ( ! empty($menus)) {
-                $tableMenuItems = TableRegistry::get('MenuItems');
+                $tableMenuItems = TableRegistry::getTableLocator()
+                    ->get('MenuItems');
 
                 $fields     = [
                     'id',

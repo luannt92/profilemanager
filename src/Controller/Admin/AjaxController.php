@@ -26,7 +26,7 @@ class AjaxController extends CommonController
     public function getCategoryByService($serviceId = null)
     {
         /* @var \App\Model\Table\CategoriesTable $categoryObj */
-        $categoryObj = TableRegistry::get('Categories');
+        $categoryObj = TableRegistry::getTableLocator()->get('Categories');
         $conditions  = [
             'OR' => [
                 'service_id' => $serviceId,
@@ -57,7 +57,7 @@ class AjaxController extends CommonController
     public function getCategoryByStore($storeId = null)
     {
         /* @var \App\Model\Table\CategoriesTable $categoryObj */
-        $categoryObj = TableRegistry::get('Categories');
+        $categoryObj = TableRegistry::getTableLocator()->get('Categories');
         $result      = $categoryObj->getCategoryByStore($storeId, true);
         $html        = null;
         if ( ! empty($result)) {
@@ -67,7 +67,7 @@ class AjaxController extends CommonController
         }
 
         /* @var \App\Model\Table\StoresTable $storeObj */
-        $storeObj = TableRegistry::get('Stores');
+        $storeObj = TableRegistry::getTableLocator()->get('Stores');
         $sku      = $storeObj->getSkuByStore($storeId);
 
         echo json_encode([
@@ -82,12 +82,12 @@ class AjaxController extends CommonController
     {
         if ($this->request->is('post')) {
             $data     = $this->request->getData();
-            $storeObj = TableRegistry::get('Stores');
+            $storeObj = TableRegistry::getTableLocator()->get('Stores');
             $store    = $storeObj->findById($data['data'])->first();
 
             echo json_encode([
                 'commission' => $store->commission,
-                'discount' => $store->discount,
+                'discount'   => $store->discount,
             ]);
             die;
         }
@@ -97,7 +97,7 @@ class AjaxController extends CommonController
     {
         if ($this->request->is('post')) {
             $data       = $this->request->getData();
-            $productObj = TableRegistry::get('Products');
+            $productObj = TableRegistry::getTableLocator()->get('Products');
             $dataUpdate = [
                 'name'     => $data['ajaxName'],
                 'position' => $data['ajaxPosition'],
@@ -129,9 +129,10 @@ class AjaxController extends CommonController
         if ($this->request->is('post')) {
             $data       = $this->request->getData();
             $dataUpdate = [];
-            $orderObj   = TableRegistry::get('Orders');
+            $orderObj   = TableRegistry::getTableLocator()->get('Orders');
             if ( ! empty($data['ajaxShippingZone'])) {
-                $zoneObj    = TableRegistry::get('ShippingZones');
+                $zoneObj    = TableRegistry::getTableLocator()
+                    ->get('ShippingZones');
                 $zone       = $zoneObj->findByName($data['ajaxShippingZone'])
                     ->first();
                 $order      = $orderObj->findById($data['ajaxId'])->first();
@@ -156,7 +157,8 @@ class AjaxController extends CommonController
                 ];
                 $users  = $this->getEmailAdmin();
                 if ($users['to'] != '') {
-                    $mailTbl = TableRegistry::get('MailTemplates');
+                    $mailTbl = TableRegistry::getTableLocator()
+                        ->get('MailTemplates');
                     $mailTemplate
                              = $mailTbl->getMailTemplate(MAIL_TEMPLATE_ADD_SHIPPER);
                     $title   = str_replace('%shipper%', $data['name'],
@@ -204,7 +206,7 @@ class AjaxController extends CommonController
     {
         if ($this->request->is('post')) {
             $data       = $this->request->getData();
-            $storeObj   = TableRegistry::get('Stores');
+            $storeObj   = TableRegistry::getTableLocator()->get('Stores');
             $dataUpdate = [
                 'position' => $data['ajaxPosition'],
             ];
@@ -233,10 +235,10 @@ class AjaxController extends CommonController
     {
         if ($this->request->is('post')) {
             $data       = $this->request->getData();
-            $hotelObj   = TableRegistry::get('Hotels');
+            $hotelObj   = TableRegistry::getTableLocator()->get('Hotels');
             $dataUpdate = [
                 'shipping_zone_id' => $data['ajaxZoneId'],
-                'status' => $data['ajaxStatus'],
+                'status'           => $data['ajaxStatus'],
             ];
 
             $returnUpdate = $hotelObj->updateAll($dataUpdate,
