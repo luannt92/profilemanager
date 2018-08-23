@@ -82,7 +82,6 @@ class MenusController extends CommonController
         $categories    = TableRegistry::getTableLocator()->get('Categories');
         $newCategories = TableRegistry::getTableLocator()->get('NewCategories');
         $pages         = TableRegistry::getTableLocator()->get('Pages');
-        $tags          = TableRegistry::getTableLocator()->get('Tags');
         $menuItemObj   = TableRegistry::getTableLocator()->get('MenuItems');
 
         /* @var \App\Model\Table\CategoriesTable $categories */
@@ -93,12 +92,11 @@ class MenusController extends CommonController
         $pages         = $pages->getListPage();
         $newCategories = $newCategories->getListCategory();
         $categories    = $categories->getListCategory();
-        $tags          = $tags->getListTag();
 
         $menuTab   = $menuItemObj->getMenuByType($id);
         $languages = Configure::read('system_languages');
         $menuId    = $id;
-        $this->set(compact('categories', 'tags', 'menuTab', 'menuId',
+        $this->set(compact('categories', 'menuTab', 'menuId',
             'menuCheckType', 'newCategories', 'pages', 'languages',
             'menuCheck', 'icons'));
     }

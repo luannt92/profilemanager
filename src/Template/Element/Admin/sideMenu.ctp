@@ -112,7 +112,7 @@ $activeAction = [
     'action'     => $this->request->getParam('action'),
 ];
 
-$userInfo = $this->request->session()->read('Auth.User');
+$userInfo = $this->request->getSession()->read('Auth.User');
 ?>
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">

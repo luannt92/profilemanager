@@ -61,7 +61,8 @@ class UsersController extends CommonController
                         $user->last_access = date('Y-m-d H:i:s');
                         if ($this->Users->save($user)) {
                             /** @var \App\Model\Table\UserLogsTable $userLog */
-                            $userLog = TableRegistry::get('UserLogs');
+                            $userLog = TableRegistry::getTableLocator()
+                                ->get('UserLogs');
                             $userLog->updateLoginNumber($user->id);
 
                             $arrMsg['success']  = true;
@@ -343,7 +344,7 @@ class UsersController extends CommonController
         $menus = $this->_getMenus(TYPE_PAGE);
 
         /**@var \App\Model\Table\PagesTable $pageTbl */
-        $pageTbl = TableRegistry::get('Pages');
+        $pageTbl = TableRegistry::getTableLocator()->get('Pages');
         $page    = $pageTbl->findBySlug($slug)->enableHydration(false)->first();
 
         $this->set(compact('menus', 'page'));
@@ -384,9 +385,9 @@ class UsersController extends CommonController
         $this->set('title', 'Liên hệ');
 
         /** @var \App\Model\Table\SettingsTable $settingTbl */
-        $settingTbl = TableRegistry::get('Settings');
+        $settingTbl = TableRegistry::getTableLocator()->get('Settings');
         /**@var \App\Model\Table\SupportsTable $supportTbl */
-        $supportTbl   = TableRegistry::get('Supports');
+        $supportTbl   = TableRegistry::getTableLocator()->get('Supports');
         $condition    = [
             'OR' => [
                 ['name LIKE' => 'site_%'],
@@ -436,10 +437,10 @@ class UsersController extends CommonController
     public function updateLanguage()
     {
         I18n::setLocale('en');
-        $i18nTable = TableRegistry::get('I18ns');
+        $i18nTable = TableRegistry::getTableLocator()->get('I18ns');
         $i18ns     = $i18nTable->find('all')->toArray();
         foreach ($i18ns as $i18n) {
-            $modelTable = TableRegistry::get($i18n->model);
+            $modelTable = TableRegistry::getTableLocator()->get($i18n->model);
             $model      = $modelTable->find('all')->where([
                 $i18n->model . '.id' => $i18n->foreign_key,
             ])->first()->toArray();

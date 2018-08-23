@@ -613,6 +613,4 @@ $this->Html->scriptStart(['block' => true]);
             updateOutput($('#nestable2').data('output', $('#nestable2-output')));
         };
     });
-
-
     <?php $this->Html->scriptEnd(); ?>

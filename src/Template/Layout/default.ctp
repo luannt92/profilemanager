@@ -10,7 +10,7 @@ $description     = isset($meta_description) ? $meta_description
 $keywordSeo      = ! empty($settingInfo['meta_keyword_' . $language])
     ? $settingInfo['meta_keyword_' . $language] : '';
 $keyword         = isset($meta_keyword) ? $meta_keyword : $keywordSeo;
-$url             = $this->Url->build($this->request->here(), true);
+$url             = $this->Url->build($this->request->getRequestTarget(), true);
 $creator         = $this->Url->build('/', true);
 $orgImage        = $url . 'img/logo.png';
 $googleAnalytics = ! empty($settingInfo['site_tag']) ? $settingInfo['site_tag']

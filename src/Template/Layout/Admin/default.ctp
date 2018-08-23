@@ -29,7 +29,7 @@ use Cake\Routing\Router;
 </head>
 <?php
 $class = null;
-if($this->request->controller === 'MailTemplates' && $this->request->action === 'index') {
+if($this->request->getParam('controller') === 'MailTemplates' && $this->request->getParam('action') === 'index') {
     $class = 'fixed-sidebar no-skin-config full-height-layout';
 }
 ?>

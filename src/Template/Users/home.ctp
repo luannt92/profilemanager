@@ -55,16 +55,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="card-body">
                                 <div class="h4 mt-0 title">About</div>
-                                <p>Hello! I am Anthony Barnett. Web Developer,
-                                    Graphic Designer and Photographer.</p>
-                                <p>Creative CV is a HTML resume template for
-                                    professionals. Built with Bootstrap 4, Now
-                                    UI Kit and FontAwesome, this modern and
-                                    responsive design template is perfect to
-                                    showcase your portfolio, skills and
-                                    experience.
-                                    <a href="https://templateflip.com/templates/creative-cv/"
-                                       target="_blank">Learn More</a>
+                                <?php echo $settingInfo['me_about_en']; ?>
                                 </p>
                             </div>
                         </div>
@@ -74,29 +65,28 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <strong class="text-uppercase">Age:</strong>
+                                        <strong class="text-uppercase">Birthday:</strong>
                                     </div>
-                                    <div class="col-sm-8">24</div>
+                                    <div class="col-sm-8"><?php echo $settingInfo['me_birthday']; ?></div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-sm-4">
                                         <strong class="text-uppercase">Email:</strong>
                                     </div>
-                                    <div class="col-sm-8">anthony@company.com
+                                    <div class="col-sm-8"><?php echo $settingInfo['me_mail']; ?>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-sm-4">
                                         <strong class="text-uppercase">Phone:</strong>
                                     </div>
-                                    <div class="col-sm-8">+1718-111-0011</div>
+                                    <div class="col-sm-8"><?php echo $settingInfo['me_phone']; ?></div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-sm-4">
                                         <strong class="text-uppercase">Address:</strong>
                                     </div>
-                                    <div class="col-sm-8">140, City Center, New
-                                        York, U.S.A
+                                    <div class="col-sm-8"><?php echo $settingInfo['me_address_en']; ?>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -661,98 +651,6 @@
                 </div>
             </div>
         </div>
-        <div class="section" id="reference">
-            <div class="container cc-reference">
-                <div class="h4 mb-4 text-center title">References</div>
-                <div class="card" data-aos="zoom-in">
-                    <div class="carousel slide" id="cc-Indicators"
-                         data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li class="active" data-target="#cc-Indicators"
-                                data-slide-to="0"></li>
-                            <li data-target="#cc-Indicators"
-                                data-slide-to="1"></li>
-                            <li data-target="#cc-Indicators"
-                                data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-3 cc-reference-header">
-                                        <img src="images/reference-image-1.jpg"
-                                             alt="Image"/>
-                                        <div class="h5 pt-2">Aiyana</div>
-                                        <p class="category">CEO / WEBM</p>
-                                    </div>
-                                    <div class="col-lg-10 col-md-9">
-                                        <p> Habitasse venenatis commodo tempor
-                                            eleifend arcu sociis sollicitudin
-                                            ante pulvinar ad, est porta cras
-                                            erat ullamcorper volutpat metus duis
-                                            platea convallis, tortor primis ac
-                                            quisque etiam luctus nisl nullam
-                                            fames. Ligula purus suscipit tempus
-                                            nascetur curabitur donec nam
-                                            ullamcorper, laoreet nullam mauris
-                                            dui aptent facilisis neque elementum
-                                            ac, risus semper felis parturient
-                                            fringilla rhoncus eleifend.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-3 cc-reference-header">
-                                        <img src="images/reference-image-2.jpg"
-                                             alt="Image"/>
-                                        <div class="h5 pt-2">Braiden</div>
-                                        <p class="category">CEO / Creativem</p>
-                                    </div>
-                                    <div class="col-lg-10 col-md-9">
-                                        <p> Habitasse venenatis commodo tempor
-                                            eleifend arcu sociis sollicitudin
-                                            ante pulvinar ad, est porta cras
-                                            erat ullamcorper volutpat metus duis
-                                            platea convallis, tortor primis ac
-                                            quisque etiam luctus nisl nullam
-                                            fames. Ligula purus suscipit tempus
-                                            nascetur curabitur donec nam
-                                            ullamcorper, laoreet nullam mauris
-                                            dui aptent facilisis neque elementum
-                                            ac, risus semper felis parturient
-                                            fringilla rhoncus eleifend.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-3 cc-reference-header">
-                                        <img src="images/reference-image-3.jpg"
-                                             alt="Image"/>
-                                        <div class="h5 pt-2">Alexander</div>
-                                        <p class="category">CEO / Webnote</p>
-                                    </div>
-                                    <div class="col-lg-10 col-md-9">
-                                        <p> Habitasse venenatis commodo tempor
-                                            eleifend arcu sociis sollicitudin
-                                            ante pulvinar ad, est porta cras
-                                            erat ullamcorper volutpat metus duis
-                                            platea convallis, tortor primis ac
-                                            quisque etiam luctus nisl nullam
-                                            fames. Ligula purus suscipit tempus
-                                            nascetur curabitur donec nam
-                                            ullamcorper, laoreet nullam mauris
-                                            dui aptent facilisis neque elementum
-                                            ac, risus semper felis parturient
-                                            fringilla rhoncus eleifend.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="section" id="contact">
             <div class="cc-contact-information"
                  style="background-image: url('images/staticmap.png');">
@@ -838,15 +736,14 @@
                                                 <p class="mb-0">
                                                     <strong>Address </strong>
                                                 </p>
-                                                <p class="pb-2">140, City
-                                                    Center, New York, U.S.A</p>
+                                                <p class="pb-2"><?php echo $settingInfo['me_address_en']; ?></p>
                                                 <p class="mb-0">
                                                     <strong>Phone</strong></p>
                                                 <p class="pb-2">
-                                                    +1718-111-0011</p>
+                                                    <?php echo $settingInfo['me_phone']; ?></p>
                                                 <p class="mb-0">
                                                     <strong>Email</strong></p>
-                                                <p>anthony@company.com</p>
+                                                <p><?php echo $settingInfo['me_mail']; ?></p>
                                             </div>
                                         </div>
                                     </div>

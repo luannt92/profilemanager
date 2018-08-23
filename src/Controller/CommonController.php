@@ -59,12 +59,8 @@ class CommonController extends AppController
         );
 
         $this->changeLanguage();
-
         $settingInfo = $this->_getConfigs();
-        pr($settingInfo);
-        exit;
-
-//        $menuHeaders = $this->_getMenus(MENU_HEADER);
+        $menuHeaders = $this->_getMenus(MENU_HEADER);
 //        $menuFooters = $this->_getMenus(MENU_FOOTER);
 //        $menuLinks   = $this->_getMenus(MENU_LINK);
 
@@ -230,8 +226,6 @@ class CommonController extends AppController
             $settingInfo = $settingTbl->getListSetting([], $conditions);
             Cache::write($key, $settingInfo);
         }
-        pr($settingInfo);
-        exit;
 
         return $settingInfo;
     }
@@ -268,8 +262,7 @@ class CommonController extends AppController
                     'name',
                     'url',
                     'parent_id',
-                    'type',
-                    'icon',
+                    'type'
                 ];
                 $conditions = [
                     'status'  => ACTIVE,
